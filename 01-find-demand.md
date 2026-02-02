@@ -236,7 +236,7 @@
 
 ## 📝 记录模板
 
-**使用 [product-evaluation.md](templates/product-evaluation.md) 模板**
+**使用 [product-evaluation.md](product-evaluation.md) 模板**
 
 每次评估一个产品时，复制模板填写，存档在：
 ```

@@ -104,8 +104,8 @@ Week 4: 看数据 → 决定继续/放弃
 
 ## 🔗 模板
 
-- [产品评估模板](templates/product-evaluation.md)
-- [周复盘模板](templates/weekly-review.md)
+- [产品评估模板](product-evaluation.md)
+- [周复盘模板](weekly-review.md)
 
 ## 📝 使用方法
 
