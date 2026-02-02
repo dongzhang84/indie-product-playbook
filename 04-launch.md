@@ -151,15 +151,24 @@ CTA：
 - [ ] 没有hard-coded secrets
 - [ ] HTTPS自动redirect（Vercel默认）
 
-### 不需要：
+### 不需要（可以以后再做）：
 
 ```
 ❌ 复杂的安全审计
 ❌ Penetration testing
 ❌ 高级的rate limiting
+```
 
-Week 1的产品没人会攻击
-等有用户了再说
+### ⚠️ 重要提醒
+
+```
+基础安全必须做，不能跳过：
+✅ API keys必须在环境变量
+✅ RLS必须启用
+✅ 用户输入必须验证
+
+安全漏洞从Day 1就可能被利用
+不要因为"产品小"就忽略安全
 ```
 
 ## 📝 Launch Checklist

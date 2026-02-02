@@ -129,31 +129,7 @@ Google Analytics 4
 UI保持简单，用Tailwind做基础样式。"
 ```
 
-### Day 5: 支付集成（如果需要）
-
-```
-用Stripe Checkout（最快）：
-
-不要手写支付逻辑
-用Stripe的hosted checkout page
-
-步骤：
-1. 创建Stripe账号
-2. 创建产品和价格
-3. 集成Stripe Checkout
-4. Webhook处理订阅状态
-
-提示词给Claude Code：
-"集成Stripe Checkout。
-产品定价：$X/月
-成功后redirect到dashboard
-webhook更新用户的subscription状态到Supabase"
-
-或者：
-先不做支付，上线后观察，有人愿意付费再加
-```
-
-### Day 6: Polish + Bug修复
+### Day 5-6: Polish + Bug修复
 
 ```
 基础优化：
@@ -370,6 +346,33 @@ Priority 3（完全可以砍）：
 极简MVP：
 一个页面，核心功能能用，能演示
 这就够了
+```
+
+## 💳 支付集成（可选，建议Week 2+再做）
+
+```
+推荐策略：
+Week 1先不做支付
+→ 上线后观察用户反应
+→ 有人问"能付费吗"再加
+→ 这样不浪费时间在没需求的产品上
+
+如果确定要做，用Stripe Checkout（最快）：
+
+不要手写支付逻辑
+用Stripe的hosted checkout page
+
+步骤：
+1. 创建Stripe账号
+2. 创建产品和价格
+3. 集成Stripe Checkout
+4. Webhook处理订阅状态
+
+提示词给Claude Code：
+"集成Stripe Checkout。
+产品定价：$X/月
+成功后redirect到dashboard
+webhook更新用户的subscription状态到Supabase"
 ```
 
 ## 💡 加速技巧

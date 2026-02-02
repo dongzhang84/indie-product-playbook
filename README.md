@@ -50,24 +50,32 @@ Week 4: 看数据 → 决定继续/放弃
 
 ## 📊 成功标准
 
-### 早期信号（Week 1-4）
+### Level 1: 有信号（Week 1-4）
 
 - ✅ 100+ visits/week
-- ✅ 20+ people actually use it
+- ✅ 20+ active users
 - ✅ 5+ return next day
-- ✅ <70% bounce rate
+- ✅ MRR: $0-200
 
-### 值得投入（Month 2-3）
+### Level 2: 初步验证（Month 2-3）
 
 - ✅ 500+ visits/week
-- ✅ 50+ signups
+- ✅ 50+ active users
 - ✅ 有人问"能付费吗"
+- ✅ MRR: $500-1000
 
-### 真正成功（Month 3+）
+### Level 3: 真正成功（Month 3-6）
 
-- ✅ $500+ MRR
+- ✅ 2000+ visits/week
+- ✅ 200+ active users
+- ✅ MRR: $3000-5000
 - ✅ 持续增长（+20%/month）
+
+### Level 4: 爆了（Month 6+）
+
+- ✅ MRR: $10k+
 - ✅ 有机传播
+- ✅ 考虑All In
 
 ## 🚫 常见错误
 
