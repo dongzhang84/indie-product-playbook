@@ -1,19 +1,39 @@
 # Indie Product Development Playbook
 
 > 一人公司的产品开发完整指南
-> 
+>
 > 从0到1，快速验证，以量取胜
 
-## 📋 目录
+## 📁 项目结构
 
-1. [找需求](01-find-demand.md) - 如何发现值得做的产品
-2. [逆向工程](02-reverse-engineer.md) - 如何拆解竞品
-3. [开发](03-development.md) - 如何快速开发MVP
-4. [上线](04-launch.md) - 如何部署和发布
-5. [推广](05-marketing.md) - 如何获取第一批用户
-6. [数据分析](06-metrics.md) - 如何追踪关键指标
-7. [成功后](07-success.md) - 产品有起色后怎么办
-8. [失败后](08-failure.md) - 如何快速复盘和继续
+```
+├── playbook/           # 产品开发方法论
+│   ├── 01-find-demand.md
+│   ├── 02-reverse-engineer.md
+│   ├── 03-development.md
+│   ├── 04-launch.md
+│   ├── 05-marketing.md
+│   ├── 06-metrics.md
+│   ├── 07-success.md
+│   └── 08-failure.md
+├── ideas/              # 产品想法库
+│   ├── INDEX.md
+│   └── *-proposal.md
+├── product-evaluation.md
+├── weekly-review.md
+└── README.md
+```
+
+## 📋 Playbook 目录
+
+1. [找需求](playbook/01-find-demand.md) - 如何发现值得做的产品
+2. [逆向工程](playbook/02-reverse-engineer.md) - 如何拆解竞品
+3. [开发](playbook/03-development.md) - 如何快速开发MVP
+4. [上线](playbook/04-launch.md) - 如何部署和发布
+5. [推广](playbook/05-marketing.md) - 如何获取第一批用户
+6. [数据分析](playbook/06-metrics.md) - 如何追踪关键指标
+7. [成功后](playbook/07-success.md) - 产品有起色后怎么办
+8. [失败后](playbook/08-failure.md) - 如何快速复盘和继续
 
 ## 🎯 核心理念
 
@@ -90,7 +110,7 @@ Week 4: 看数据 → 决定继续/放弃
 
 ### Month 1-2: 做3个产品
 - Week 1-2: Product A
-- Week 3-4: Product B  
+- Week 3-4: Product B
 - Week 5-6: Product C
 - Week 7-8: 复盘
 
@@ -106,13 +126,15 @@ Week 4: 看数据 → 决定继续/放弃
 
 - [产品评估模板](product-evaluation.md)
 - [周复盘模板](weekly-review.md)
+- [产品想法库](ideas/INDEX.md)
 
 ## 📝 使用方法
 
-1. **按顺序阅读** 01-08章节
+1. **按顺序阅读** playbook/ 目录下的01-08章节
 2. **执行时参考** 具体章节的checklist
 3. **定期更新** 根据实际经验修改playbook
 4. **复盘时使用** templates记录learnings
+5. **记录想法** 在 ideas/ 目录下创建proposal
 
 ## ⚠️ 重要提醒
 
@@ -126,5 +148,5 @@ Week 4: 看数据 → 决定继续/放弃
 
 ---
 
-Last Updated: 2026-02-01
-Version: 1.0
+Last Updated: 2026-02-04
+Version: 1.1
