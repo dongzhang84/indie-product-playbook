@@ -9,6 +9,7 @@
 | 2026-02-05   | Shopify AI Analyst          | AI电商分析，30个预设问题秒懂店铺数据 | Proposal    | [link](./shopify-ai-analyst-proposal.md) |
 | 2026-02-06   | AI Video Decision Assistant | Stop wasting credits testing 10 AI video models. Get smart recommendations and side-by-side previews before you generate. | Proposal    | [link](./ai-video-decision-assistant.md) |
 | 2026-02-06   | DevTool Lead Finder         | Find developers who need your tool, get AI-written replies in 30 seconds | Proposal    | [link](./devtool-lead-finder-proposal.md) |
+| 2026-02-09   | TimeLock (Notion Time Blocker) | Auto time-block your Notion tasks in 1 click, AI智能调度到Google Calendar | Proposal    | [link](./notion-time-blocker-proposal.md) |
 
 ## Legend
 - **Proposal**: 初步想法，还没开始
