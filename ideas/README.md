@@ -11,6 +11,9 @@
 | 2026-02-06   | DevTool Lead Finder         | Find developers who need your tool, get AI-written replies in 30 seconds | Proposal    | [link](./devtool-lead-finder-proposal.md) |
 | 2026-02-09   | TimeLock (Notion Time Blocker) | Auto time-block your Notion tasks in 1 click, AI智能调度到Google Calendar | Proposal    | [link](./notion-time-blocker-proposal.md) |
 | 2026-02-12   | LaunchRadar (Customer Finder) | AI finds Reddit/HN discussions where people need your product, 3-5 high-intent leads daily | Proposal    | [link](./customer-finder-product-analysis.md) |
+| 2026-02-15   | PrivateChat                 | 100% private NSFW AI chat desktop app, no servers, no monitoring, no filters | Proposal    | [link](./nsfw-chat-proposal.md) |
+| 2026-02-15   | PromptGenius                | AI generates perfect prompts for your SaaS, save to library, reuse with ⌘P | Proposal    | [link](./prompt-genius-proposal.md) |
+| 2026-02-15   | ThumbnailIQ                 | Generate 5 winning YouTube thumbnails + titles in 30 seconds, $1 per set | Proposal    | [link](./thumbnailIQ-proposal.md) |
 
 ## Legend
 - **Proposal**: 初步想法，还没开始
