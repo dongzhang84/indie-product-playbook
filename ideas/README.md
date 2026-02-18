@@ -28,6 +28,7 @@
 | 2026-02-15   | PrivateChat                 | 100% private NSFW AI chat desktop app, no servers, no monitoring, no filters | Proposal    | [link](./nsfw-chat-proposal.md) |
 | 2026-02-15   | PromptGenius                | AI generates perfect prompts for your SaaS, save to library, reuse with ⌘P | Proposal    | [link](./prompt-genius-proposal.md) |
 | 2026-02-15   | ThumbnailIQ                 | Generate 5 winning YouTube thumbnails + titles in 30 seconds, $1 per set | Proposal    | [link](./thumbnailIQ-proposal.md) |
+| 2026-02-18   | GEO Content Optimizer       | Paste your blog post. Get instant GEO score + specific fixes to make AI love your content. | Proposal    | [link](./GEO-content-optimizer-proposal.md) |
 
 ## Legend
 - **Next Up**: 下一个要做的
