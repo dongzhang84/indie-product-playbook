@@ -30,6 +30,7 @@
 | 2026-02-15   | ThumbnailIQ                 | Generate 5 winning YouTube thumbnails + titles in 30 seconds, $1 per set | Proposal    | [link](./thumbnailIQ-proposal.md) |
 | 2026-02-18   | GEO Content Optimizer       | Paste your blog post. Get instant GEO score + specific fixes to make AI love your content. | Proposal    | [link](./GEO-content-optimizer-proposal.md) |
 | 2026-02-18   | Vibe Coding Brand Templates | Pre-branded, agent-ready templates for vibe coding tools. Launch production-quality apps in hours, not weeks. | Proposal    | [link](./vibe-coding-brand-templates-proposal.md) |
+| 2026-02-20   | Twitter Following Summarizer | 每天自动读完30-50个关注账号的推文，生成一份分类AI日报，Chrome Extension免费实现 | Proposal    | [link](./twitter-summarizer-proposal.md) |
 
 ## Legend
 - **Next Up**: 下一个要做的
