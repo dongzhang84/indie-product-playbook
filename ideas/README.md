@@ -31,6 +31,7 @@
 | 2026-02-18   | GEO Content Optimizer       | Paste your blog post. Get instant GEO score + specific fixes to make AI love your content. | Proposal    | [link](./GEO-content-optimizer-proposal.md) |
 | 2026-02-18   | Vibe Coding Brand Templates | Pre-branded, agent-ready templates for vibe coding tools. Launch production-quality apps in hours, not weeks. | Proposal    | [link](./vibe-coding-brand-templates-proposal.md) |
 | 2026-02-20   | Twitter Following Summarizer | 每天自动读完30-50个关注账号的推文，生成一份分类AI日报，Chrome Extension免费实现 | Proposal    | [link](./twitter-summarizer-proposal.md) |
+| 2026-02-21   | Agent Workflow Templates    | Ready-to-use AI agent workflows for Happycapy/n8n that save 20+ hours of setup time | Proposal    | [link](./agent-workflow-templates-proposal.md) |
 
 ## Legend
 - **Next Up**: 下一个要做的
