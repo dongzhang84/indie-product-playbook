@@ -32,6 +32,7 @@
 | 2026-02-18   | Vibe Coding Brand Templates | Pre-branded, agent-ready templates for vibe coding tools. Launch production-quality apps in hours, not weeks. | Proposal    | [link](./vibe-coding-brand-templates-proposal.md) |
 | 2026-02-20   | Twitter Following Summarizer | 每天自动读完30-50个关注账号的推文，生成一份分类AI日报，Chrome Extension免费实现 | Proposal    | [link](./twitter-summarizer-proposal.md) |
 | 2026-02-21   | Agent Workflow Templates    | Ready-to-use AI agent workflows for Happycapy/n8n that save 20+ hours of setup time | Proposal    | [link](./agent-workflow-templates-proposal.md) |
+| 2026-02-24   | PatentMotion                | 输入专利描述，5分钟得到可在浏览器交互的机械原理动画，专为专利诉讼litigation graphics设计 | Proposal    | [link](./patent-viz-mvp-proposal.md) |
 
 ## Legend
 - **Next Up**: 下一个要做的
