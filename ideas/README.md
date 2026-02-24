@@ -33,6 +33,7 @@
 | 2026-02-20   | Twitter Following Summarizer | 每天自动读完30-50个关注账号的推文，生成一份分类AI日报，Chrome Extension免费实现 | Proposal    | [link](./twitter-summarizer-proposal.md) |
 | 2026-02-21   | Agent Workflow Templates    | Ready-to-use AI agent workflows for Happycapy/n8n that save 20+ hours of setup time | Proposal    | [link](./agent-workflow-templates-proposal.md) |
 | 2026-02-24   | PatentMotion                | 输入专利描述，5分钟得到可在浏览器交互的机械原理动画，专为专利诉讼litigation graphics设计 | Proposal    | [link](./patent-viz-mvp-proposal.md) |
+| 2026-02-24   | Relationship Playbook AI    | 把非结构化的人际复盘记录转化成可执行的沟通规则（Playbook），告诉你下次该怎么说 | Proposal    | [link](./relationship-playbook-proposal.md) |
 
 ## Legend
 - **Next Up**: 下一个要做的
