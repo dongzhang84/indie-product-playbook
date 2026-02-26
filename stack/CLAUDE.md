@@ -80,6 +80,7 @@ if (!user) return new Response('Unauthorized', { status: 401 })
 - [ ] Email (Resend): yes / no
 - [ ] Cron jobs: yes / no — if yes, schedule: ___
 - [ ] OpenAI: yes / no — model: ___
+- [ ] Sprint tracking: yes (default) — copy sprint-report.yml to .github/workflows/
 
 ### External APIs
 _List any third-party APIs this project uses:_

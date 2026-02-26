@@ -605,7 +605,39 @@ export async function POST(request: Request) {
 
 ---
 
-## 10. 新项目 Checklist
+## 10. Sprint Tracking
+
+每个项目标配，用来追踪每周进度。自动生成 SPRINT.md，记录每周 commit 活跃度。
+
+### 设置（3步，新项目建立后立即做）
+
+**Step 1: 复制 workflow 文件**
+```bash
+mkdir -p .github/workflows
+cp ../indie-product-playbook/stack/sprint-report.yml .github/workflows/
+```
+
+**Step 2: 提交**
+```bash
+git add .github/workflows/sprint-report.yml
+git commit -m "feat: add sprint tracking"
+git push
+```
+
+**Step 3: 等待并 pull**
+```bash
+# 等30秒让 GitHub Actions 运行
+git pull
+# SPRINT.md 自动生成在项目根目录
+```
+
+### 常见问题
+- Push 被拒绝 → `git pull --no-rebase` 再 push
+- Workflow 失败 → GitHub → Actions 查看错误日志
+
+----
+
+## 11. 新项目 Checklist
 
 每次开新项目，按顺序操作：
 
@@ -629,4 +661,5 @@ export async function POST(request: Request) {
 □ 修改 Build Command → npx prisma generate && next build
 □ git push → 验证 Vercel 部署成功
 □ 配置 Stripe Webhook（生产 URL）→ 更新 STRIPE_WEBHOOK_SECRET
+□ 复制 sprint-report.yml → .github/workflows/ → push → git pull
 ```
