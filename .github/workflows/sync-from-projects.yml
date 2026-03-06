@@ -1,0 +1,172 @@
+name: Sync from Projects
+
+on:
+  repository_dispatch:
+    types: [project-sprint-update]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update ideas/README.md with Last Active date
+        env:
+          PROJECT_ID: ${{ github.event.client_payload.project_id }}
+          LAST_ACTIVE: ${{ github.event.client_payload.last_active }}
+        run: |
+          python3 - <<'PYEOF'
+          import os
+          import re
+
+          project_id = os.environ["PROJECT_ID"]
+          last_active = os.environ["LAST_ACTIVE"]
+          readme_path = "ideas/README.md"
+
+          with open(readme_path, "r") as f:
+              content = f.read()
+
+          lines = content.split("\n")
+          header_idx = None
+          row_idx = None
+
+          # Find the "All Ideas" table header and the row containing project_id
+          for i, line in enumerate(lines):
+              if re.match(r"\|.*Name.*\|.*Status.*\|", line) and header_idx is None:
+                  # Check if this is the All Ideas table (has a Link column)
+                  if "Link" in line:
+                      header_idx = i
+              if header_idx is not None and project_id in line and row_idx is None:
+                  row_idx = i
+
+          if header_idx is None:
+              print(f"ERROR: Could not find All Ideas table header")
+              exit(1)
+
+          if row_idx is None:
+              print(f"ERROR: Could not find row with project_id '{project_id}'")
+              exit(1)
+
+          # Parse header to check for "Last Active" column
+          header_line = lines[header_idx]
+          separator_line = lines[header_idx + 1]
+          headers = [h.strip() for h in header_line.split("|")]
+          # headers[0] is empty (before first |), headers[-1] is empty (after last |)
+
+          if "Last Active" not in headers:
+              # Add "Last Active" column to header and separator
+              # Insert before the last empty element
+              headers.insert(-1, " Last Active ")
+              new_header = "|".join(headers)
+              lines[header_idx] = new_header
+
+              sep_parts = [s.strip() for s in separator_line.split("|")]
+              sep_parts.insert(-1, "------------|")
+              # Rebuild separator properly
+              seps = [s.strip() for s in separator_line.split("|")]
+              seps.insert(-1, "------------")
+              new_sep = "|".join(seps)
+              lines[header_idx + 1] = new_sep
+
+              # Also add empty "Last Active" cell to all other data rows in this table
+              i = header_idx + 2
+              while i < len(lines):
+                  if not lines[i].startswith("|"):
+                      break
+                  row_parts = lines[i].split("|")
+                  row_parts.insert(-1, " ")
+                  lines[i] = "|".join(row_parts)
+                  i += 1
+
+              # Re-find header positions since we may have shifted things
+              headers = [h.strip() for h in lines[header_idx].split("|")]
+
+          # Find column index of "Last Active"
+          last_active_col = headers.index("Last Active")
+
+          # Update the target row
+          row_parts = lines[row_idx].split("|")
+          # Ensure row has enough columns
+          while len(row_parts) < len(headers):
+              row_parts.insert(-1, " ")
+          row_parts[last_active_col] = f" {last_active} "
+          lines[row_idx] = "|".join(row_parts)
+
+          with open(readme_path, "w") as f:
+              f.write("\n".join(lines))
+
+          print(f"Updated README.md: set Last Active={last_active} for project '{project_id}'")
+          PYEOF
+
+      - name: Update ideas/{project_id}.md with Sprint Summary
+        env:
+          PROJECT_ID: ${{ github.event.client_payload.project_id }}
+          LAST_ACTIVE: ${{ github.event.client_payload.last_active }}
+          SPRINT_SUMMARY: ${{ github.event.client_payload.sprint_summary }}
+          PROJECT_NAME: ${{ github.event.client_payload.project_name }}
+        run: |
+          python3 - <<'PYEOF'
+          import os
+          import re
+
+          project_id = os.environ["PROJECT_ID"]
+          last_active = os.environ["LAST_ACTIVE"]
+          sprint_summary = os.environ["SPRINT_SUMMARY"]
+          doc_path = f"ideas/{project_id}.md"
+
+          section_header = "## Sprint Summary"
+          section_content = f"_Last updated: {last_active}_\n\n{sprint_summary}"
+
+          if not os.path.exists(doc_path):
+              with open(doc_path, "w") as f:
+                  f.write(f"# {project_id}\n\n{section_header}\n\n{section_content}\n")
+              print(f"Created {doc_path}")
+          else:
+              with open(doc_path, "r") as f:
+                  content = f.read()
+
+              sprint_pattern = re.compile(
+                  r"(## Sprint Summary\n).*?(?=\n## |\Z)",
+                  re.DOTALL
+              )
+
+              new_section = f"{section_header}\n\n{section_content}\n"
+
+              if sprint_pattern.search(content):
+                  # Replace existing section
+                  content = sprint_pattern.sub(new_section, content)
+              else:
+                  # Insert before any ## Notes section, or append near end
+                  notes_match = re.search(r"\n## Notes", content)
+                  if notes_match:
+                      insert_pos = notes_match.start()
+                      content = content[:insert_pos] + f"\n\n{new_section}" + content[insert_pos:]
+                  else:
+                      # Append before trailing whitespace/END markers
+                      content = content.rstrip()
+                      content += f"\n\n{new_section}"
+
+              with open(doc_path, "w") as f:
+                  f.write(content)
+
+              print(f"Updated {doc_path} with Sprint Summary")
+          PYEOF
+
+      - name: Commit changes
+        env:
+          PROJECT_NAME: ${{ github.event.client_payload.project_name }}
+          PROJECT_ID: ${{ github.event.client_payload.project_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ideas/README.md "ideas/${PROJECT_ID}.md"
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "sync: update ${PROJECT_NAME} sprint summary"
+            git push
+          fi
