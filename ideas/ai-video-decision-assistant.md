@@ -347,12 +347,30 @@ Web平台：AI驱动的模型推荐 + 并行预览对比
 
 _Last updated: 2026-03-06_
 
-# Sprint Report
+Week 5 _(current)_ · 2026-03-02 to 2026-03-08
+Status: ⚠️ Slow
+Active days: 3 / 7
+Total commits: 14
 
-**Generated:** 2026-03-06 01:06 UTC  
-**Showing:** last 5 week(s) of 5 total  
+Week 4 · 2026-02-23 to 2026-03-01
+Status: ❌ Stalled
+Active days: 1 / 7
+Total commits: 3
 
----
+Week 3 · 2026-02-16 to 2026-02-22
+Status: ❌ Stalled
+Active days: 0 / 7
+Total commits: 0
+
+Week 2 · 2026-02-09 to 2026-02-15
+Status: ✅ Good
+Active days: 7 / 7
+Total commits: 25
+
+Week 1 · 2026-02-02 to 2026-02-08
+Status: ❌ Stalled
+Active days: 2 / 7
+Total commits: 12
 
 ## Week 5 _(current)_ · 2026-03-02 to 2026-03-08
 
