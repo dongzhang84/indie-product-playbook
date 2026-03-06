@@ -342,6 +342,92 @@ Web平台：AI驱动的模型推荐 + 并行预览对比
 **APIs Integrated**: Kling, Minimax
 **Next Action**: 收集用户反馈，追踪 Week 4 success metrics
 
+
+## Sprint Summary
+
+_Last updated: 2026-03-06_
+
+# Sprint Report
+
+**Generated:** 2026-03-06 01:06 UTC  
+**Showing:** last 5 week(s) of 5 total  
+
+---
+
+## Week 5 _(current)_ · 2026-03-02 to 2026-03-08
+
+| Stat | Value |
+|------|-------|
+| Status | ⚠️ Slow |
+| Active days | 3 / 7 |
+| Total commits | 13 |
+
+| Mon | Tue | Wed | Thu | Fri | Sat | Sun |
+|---|---|---|---|---|---|---|
+| ⚪ | **9** | **3** | **1** | ⚪ | ⚪ | ⚪ |
+
+**Tue – Tuesday, Mar 3**
+
+- `0283063` feat: integrate Runway Gen-4.5 API — _dongzhang84_ `2026-03-03 23:48`
+- `8344b48` update docs for sora — _dongzhang84_ `2026-03-03 23:17`
+- `da19429` feat: integrate Sora API and fix video proxy — _dongzhang84_ `2026-03-03 23:12`
+- `87ad1e6` fix: exclude auto-commits from sprint report — _dongzhang84_ `2026-03-03 18:38`
+- `056a296` feat: integrate Sora 2 Standard 4s — _dongzhang84_ `2026-03-03 18:33`
+- `2c54866` update documents — _dongzhang84_ `2026-03-03 18:15`
+- `767ced0` feat: add luma status checking — _dongzhang84_ `2026-03-03 17:57`
+- `c9cccc5` feat: add luma provider to generate route — _dongzhang84_ `2026-03-03 17:38`
+- `cc02fe6` feat: add Luma Ray Flash 2 models and API wrapper — _dongzhang84_ `2026-03-03 17:31`
+
+**Wed – Wednesday, Mar 4**
+
+- `4d986f0` docs: update for Runway and Sora PiAPI integration — _dongzhang84_ `2026-03-04 01:13`
+- `a6e67f6` fix: exclude merge commits from sprint report — _dongzhang84_ `2026-03-04 01:04`
+- `8e42710` feat: integrate Runway Gen-4.5 and switch Sora to PiAPI — _dongzhang84_ `2026-03-04 01:01`
+
+**Thu – Thursday, Mar 5**
+
+- `1feb502` add notify playbook — _dongzhang84_ `2026-03-05 17:06`
+
+---
+
+## Week 4 · 2026-02-23 to 2026-03-01
+
+| Stat | Value |
+|------|-------|
+| Status | ❌ Stalled |
+| Active days | 1 / 7 |
+| Total commits | 3 |
+
+| Mon | Tue | Wed | Thu | Fri | Sat | Sun |
+|---|---|---|---|---|---|---|
+| ⚪ | ⚪ | **3** | ⚪ | ⚪ | ⚪ | ⚪ |
+
+**Wed – Wednesday, Feb 25**
+
+- `13f4dac` add sprint setup md — _dongzhang84_ `2026-02-25 17:44`
+- `dae443b` feat: generate complete sprint history from day 1 — _dongzhang84_ `2026-02-25 17:08`
+- `d7c6649` feat: add auto sprint report workflow — _dongzhang84_ `2026-02-25 16:59`
+
+---
+
+## Week 3 · 2026-02-16 to 2026-02-22
+
+| Stat | Value |
+|------|-------|
+| Status | ❌ Stalled |
+| Active days | 0 / 7 |
+| Total commits | 0 |
+
+| Mon | Tue | Wed | Thu | Fri | Sat | Sun |
+|---|---|---|---|---|---|---|
+| ⚪ | ⚪ | ⚪ | ⚪ | ⚪ | ⚪ | ⚪ |
+
+---
+
+## Week 2 · 2026-02-09 to 2026-02-15
+
+| Stat | Value |
+
 ## Notes
 - 这不是"又一个AI视频生成器"，是"AI视频的导航系统"
 - 核心价值：帮用户省钱省时间，不是提供更多选择
