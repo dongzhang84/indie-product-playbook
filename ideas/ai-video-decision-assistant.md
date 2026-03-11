@@ -345,9 +345,14 @@ Web平台：AI驱动的模型推荐 + 并行预览对比
 
 ## Sprint Summary
 
-_Last updated: 2026-03-10_
+_Last updated: 2026-03-11_
 
-Week 5 _(current)_ · 2026-03-02 to 2026-03-08
+Week 6 _(current)_ · 2026-03-09 to 2026-03-15
+Status: ❌ Stalled
+Active days: 1 / 7
+Total commits: 2
+
+Week 5 · 2026-03-02 to 2026-03-08
 Status: ⚠️ Slow
 Active days: 3 / 7
 Total commits: 16
