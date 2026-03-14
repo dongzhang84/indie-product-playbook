@@ -15,8 +15,9 @@
 │   ├── 05-marketing.md
 │   ├── 06-metrics.md
 │   ├── 07-success.md
-│   └── 08-failure.md
-│   └── 09-indie-resources.md
+│   ├── 08-failure.md
+│   ├── 09-indie-resources.md
+│   └── indie-roadmap-2026.md   # 2026年独立开发路线图
 ├── ideas/              # 产品想法库
 │   ├── INDEX.md
 │   └── *-proposal.md
@@ -129,6 +130,7 @@ Week 4: 看数据 → 决定继续/放弃
 - [产品评估模板](product-evaluation.md)
 - [周复盘模板](weekly-review.md)
 - [产品想法库](ideas/INDEX.md)
+- [2026年独立开发路线图](playbook/indie-roadmap-2026.md)
 
 ## 📝 使用方法
 
@@ -150,5 +152,5 @@ Week 4: 看数据 → 决定继续/放弃
 
 ---
 
-Last Updated: 2026-02-04
-Version: 1.1
+Last Updated: 2026-03-14
+Version: 1.2
