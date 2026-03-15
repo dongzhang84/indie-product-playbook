@@ -18,7 +18,7 @@
 |Date|Name|One-liner|Status|Link| Last Active |
 |--------------|-----------------------------|------------------------------------|-------------|------|------------|
 | 2026-02-12   | LaunchRadar (Customer Finder) | AI finds Reddit/HN discussions where people need your product, 3-5 high-intent leads daily | Next Up    | [link](./customer-finder-product-analysis.md) | |
-| 2026-03-08   | Socrates Finds You          | 自动监控Blind/LinkedIn/Reddit，识别有真实需求的潜在客户，每天输出可操作线索报告 | Queued #2    | [link](./socrates-finds-you.md) | 2026-03-09 |
+| 2026-03-08   | Socrates Finds You          | 自动监控Blind/LinkedIn/Reddit，识别有真实需求的潜在客户，每天输出可操作线索报告 | Queued #2    | [link](./socrates-finds-you.md) | 2026-03-15 |
 | 2026-02-05   | Shopify AI Analyst          | AI电商分析，30个预设问题秒懂店铺数据 | Queued #2    | [link](./shopify-ai-analyst-proposal.md) | |
 | 2026-02-09   | TimeLock (Notion Time Blocker) | Auto time-block your Notion tasks in 1 click, AI智能调度到Google Calendar | Queued #3    | [link](./notion-time-blocker-proposal.md) | |
 | 2026-02-06   | DevTool Lead Finder         | Find developers who need your tool, get AI-written replies in 30 seconds | Queued #4    | [link](./devtool-lead-finder-proposal.md) | |
