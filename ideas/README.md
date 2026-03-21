@@ -7,8 +7,8 @@
 | 顺序 | Name | 类型 | 理由 | 预计周期 |
 |------|------|------|------|----------|
 | 🟢 Now | Socrates Finds You | 开源 | 已进入每日使用阶段，持续打磨 | Daily use |
-| 🔥 Next | LaunchRadar (Customer Finder) | 闭源 | 解决自己的痛点——indie dev找客户刷Reddit，自己就是第一个用户（Peter原则） | 2-3周 |
-| 🔥 3 | Vibe Coding Orchestrator | 开源 | 自动化 Planner+Claude Code 双窗口工作流，自己就是第一个用户 | 2-3周 |
+| ❄️ Next | LaunchRadar (Customer Finder) | 闭源 | 已冷藏：竞品调研显示无一成功，方向验证失败，无法获客 | Shelved |
+| 🔥 Next | Vibe Coding Orchestrator | 开源 | 自动化 Planner+Claude Code 双窗口工作流，自己就是第一个用户 | 2-3周 |
 | 🔥 4 | Shopify AI Analyst | 闭源 | B2B高客单价，学习OAuth | - |
 | 🔥 5 | TimeLock (Notion Time Blocker) | 开源 | 积累用户基础和X关注者后，开源项目传播效果更好 | - |
 | ❌   | AI Video Decision Assistant | 闭源 | 已放弃：上线后300+访问、1次注册、0使用，产品市场不匹配 | Abandoned |
@@ -18,7 +18,7 @@
 |Date|Name|One-liner|Status|Link| Last Active |
 |--------------|-----------------------------|------------------------------------|-------------|------|------------|
 | 2026-03-08   | Socrates Finds You          | 自动监控Blind/LinkedIn/Reddit，识别有真实需求的潜在客户，每天输出可操作线索报告 | In Progress | [link](./socrates-finds-you.md) | 2026-03-20 |
-| 2026-02-12   | LaunchRadar (Customer Finder) | AI finds Reddit/HN discussions where people need your product, 3-5 high-intent leads daily | Next Up    | [link](./customer-finder-product-analysis.md) | |
+| 2026-02-12   | LaunchRadar (Customer Finder) | AI finds Reddit/HN discussions where people need your product, 3-5 high-intent leads daily | Shelved    | [link](./customer-finder-product-analysis.md) | 2026-03-21 |
 | 2026-03-20   | Vibe Coding Orchestrator    | 一个脚本编排 Planner Claude + Claude Code CLI，告别双窗口手动搬运，自然语言驱动开发全流程 | Queued #3   | [link](./orchestrator-proposal.md) | 2026-03-20 |
 | 2026-02-05   | Shopify AI Analyst          | AI电商分析，30个预设问题秒懂店铺数据 | Queued #4    | [link](./shopify-ai-analyst-proposal.md) | |
 | 2026-02-09   | TimeLock (Notion Time Blocker) | Auto time-block your Notion tasks in 1 click, AI智能调度到Google Calendar | Queued #5    | [link](./notion-time-blocker-proposal.md) | |
@@ -47,4 +47,5 @@
 - **Launched**: 已上线
 - **Validated**: 有付费用户
 - **Paused**: 暂停
+- **Shelved**: 冷藏，方向有问题，暂不执行
 - **Abandoned**: 放弃
