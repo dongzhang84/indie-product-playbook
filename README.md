@@ -17,9 +17,10 @@
 │   ├── 07-success.md
 │   ├── 08-failure.md
 │   ├── 09-indie-resources.md
+│   ├── 10-ai-workflow-plan.md  # AI多项目管理系统规划
 │   └── indie-roadmap-2026.md   # 2026年独立开发路线图
 ├── ideas/              # 产品想法库
-│   ├── INDEX.md
+│   ├── README.md
 │   └── *-proposal.md
 ├── product-evaluation.md
 ├── weekly-review.md
@@ -36,7 +37,42 @@
 6. [数据分析](playbook/06-metrics.md) - 如何追踪关键指标
 7. [成功后](playbook/07-success.md) - 产品有起色后怎么办
 8. [失败后](playbook/08-failure.md) - 如何快速复盘和继续
-9. [参考资料](playbook/09-indie-resources.md) - 如何快速复盘和继续
+9. [参考资料](playbook/09-indie-resources.md) - 参考工具和资源
+10. [AI多项目工作流](playbook/10-ai-workflow-plan.md) - OpenClaw + Mac Mini 自动化调度系统
+
+## 🚀 当前状态（2026-03-23）
+
+### 活跃项目
+
+| 项目 | 状态 | 下一步 |
+|------|------|--------|
+| **Socrates Finds You** | 🟢 每日使用中 | 持续打磨 |
+| **AceRocket** | 🔨 开发中 | 推进功能 |
+| **SAT/AP** | 🔨 开发中 | 推进功能 |
+| **ProfitPilot** | 🔨 开发中 | 推进功能 |
+| **Shopify AI Analyst** | 📋 排队中 | 待启动 |
+| **Vibe Coding Orchestrator** | 📋 排队中 | 待启动 |
+| **LaunchRadar** | ❄️ 冷藏 | 无成功竞品，方向验证失败 |
+
+### 下一步优先级
+
+**阶段一：立刻（免费，今天就能做）**
+- [ ] 把所有项目推到 GitHub private repo
+- [ ] 每个项目根目录创建 `CLAUDE.md`（参考 [模板](playbook/10-ai-workflow-plan.md#六claude-md-模板)）
+- [ ] 发 GitHub repo 链接给 Claude，开始第一次调度
+
+**阶段二：购买 Mac Mini**
+- [ ] 购买 Mac Mini M4 16GB — Best Buy open-box $580.99 或 apple.com $599
+- [ ] 安装 OpenClaw，配置 WhatsApp 晨报
+
+**阶段三：自动化（Mac Mini 到货后）**
+- [ ] 写 Perception Script（读 git log + 报错日志）
+- [ ] 配置 Morning Brief + Evening Retrospective
+- [ ] 测试完整闭环
+
+> 详细规划见 [AI多项目工作流](playbook/10-ai-workflow-plan.md)
+
+---
 
 ## 🎯 核心理念
 
@@ -129,7 +165,7 @@ Week 4: 看数据 → 决定继续/放弃
 
 - [产品评估模板](product-evaluation.md)
 - [周复盘模板](weekly-review.md)
-- [产品想法库](ideas/INDEX.md)
+- [产品想法库](ideas/README.md)
 - [2026年独立开发路线图](playbook/indie-roadmap-2026.md)（含 Build in Public / X.com 策略）
 
 ## 📝 使用方法
@@ -152,5 +188,5 @@ Week 4: 看数据 → 决定继续/放弃
 
 ---
 
-Last Updated: 2026-03-14
-Version: 1.3
+Last Updated: 2026-03-23
+Version: 1.4
