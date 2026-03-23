@@ -20,8 +20,8 @@ jobs:
           # Use jq to safely construct the JSON payload (handles escaping automatically)
           PAYLOAD=$(jq -n \
             --arg event_type "project-sprint-update" \
-            --arg project_id "ai-video-decision-assistant" \
-            --arg project_name "AI Video Decision Assistant" \
+            --arg project_id "YOUR_PROJECT_ID" \
+            --arg project_name "YOUR_PROJECT_NAME" \
             --arg last_active "$TODAY" \
             --arg sprint_summary "$SPRINT_SUMMARY" \
             '{

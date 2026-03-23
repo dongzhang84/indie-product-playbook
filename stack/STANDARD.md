@@ -609,31 +609,40 @@ export async function POST(request: Request) {
 
 每个项目标配，用来追踪每周进度。自动生成 SPRINT.md，记录每周 commit 活跃度。
 
-### 设置（3步，新项目建立后立即做）
+### 设置（4步，新项目建立后立即做）
 
 **Step 1: 复制 workflow 文件**
 ```bash
 mkdir -p .github/workflows
 cp ../indie-product-playbook/stack/sprint-report.yml .github/workflows/
+cp ../indie-product-playbook/stack/notify-playbook.yml .github/workflows/
 ```
 
-**Step 2: 提交**
+**Step 2: 更新 notify-playbook.yml**
+
+编辑 `.github/workflows/notify-playbook.yml`，将 `project_id` 和 `project_name` 改为匹配 `indie-product-playbook/ideas/README.md` 中的项目行（`project_id` 必须是该行中出现的字符串，通常是 proposal 文件名去掉 `-proposal.md`）：
+```yaml
+--arg project_id "your-project-id" \
+--arg project_name "Your Project Name" \
+```
+
+**Step 3: 添加 PLAYBOOK_TOKEN**
+
+GitHub repo → Settings → Secrets and variables → Actions → New repository secret，添加 `PLAYBOOK_TOKEN`（与其他项目相同的 token）。
+
+**Step 4: 提交并验证**
 ```bash
-git add .github/workflows/sprint-report.yml
+git add .github/workflows/ scripts/
 git commit -m "feat: add sprint tracking"
 git push
-```
-
-**Step 3: 等待并 pull**
-```bash
-# 等30秒让 GitHub Actions 运行
-git pull
-# SPRINT.md 自动生成在项目根目录
+# 在 GitHub Actions 确认两个 workflow 都成功
+git pull  # 拉取 SPRINT.md
 ```
 
 ### 常见问题
-- Push 被拒绝 → `git pull --no-rebase` 再 push
-- Workflow 失败 → GitHub → Actions 查看错误日志
+- Push 被拒绝 → `git pull --rebase` 再 push
+- notify-playbook 失败退出码1 → 检查 PLAYBOOK_TOKEN 是否已设置
+- ideas/shopify-xx.md 只有 Sprint Summary → 文件不存在时会新建空文件；需手动填入 proposal 内容后 Sprint Summary 才会追加更新
 
 ----
 
@@ -661,5 +670,8 @@ git pull
 □ 修改 Build Command → npx prisma generate && next build
 □ git push → 验证 Vercel 部署成功
 □ 配置 Stripe Webhook（生产 URL）→ 更新 STRIPE_WEBHOOK_SECRET
-□ 复制 sprint-report.yml → .github/workflows/ → push → git pull
+□ 复制 sprint-report.yml + notify-playbook.yml → .github/workflows/
+□ 更新 notify-playbook.yml 中的 project_id / project_name（匹配 ideas/README.md）
+□ GitHub repo → Settings → Secrets → 添加 PLAYBOOK_TOKEN
+□ push → 确认两个 workflow 成功 → git pull
 ```
