@@ -1,7 +1,7 @@
-# Dong Zhang — AI 多项目管理系统规划文档
+# Dong Zhang — AI 私人秘书系统规划文档
 
-**版本：** v1.0  
-**日期：** 2026-03-23  
+**版本：** v2.0  
+**日期：** 2026-03-24  
 **状态：** 执行中
 
 ---
@@ -10,7 +10,7 @@
 
 ### 1.1 我是谁，我在做什么
 
-同时推进多个 vibe coding 项目的独立开发者，项目包括：
+同时推进多个 vibe coding 项目的独立开发者，工作时间 早上8-9点 → 晚上10点。
 
 | 项目 | 状态 | 描述 |
 |------|------|------|
@@ -18,69 +18,76 @@
 | **AceRocket** | 开发中 | AI 数学/STEM 教育平台 |
 | **SAT/AP** | 开发中 | 考试辅导工具 |
 | **ProfitPilot** | 开发中 | 盈利分析工具 |
-| **Socrates Finds You** | 开发中 | 自动获客pipeline |
+| **Socrates Finds You** | 开发中 | 自动获客 pipeline |
 
-### 1.2 我的核心痛点
+### 1.2 我真正要的：一个永远在线的AI私人秘书
 
-1. **我是人肉中间层** — 在 Claude Console 和 CC Terminal 之间手动传话，每个任务需要我自己生成 prompt 再粘贴给 CC
-2. **单线程切换成本高** — 每天只能有效推进 1 个项目，3-5 个项目完全来不及
-3. **没有全局视野** — 不知道每个项目今天该做什么、优先级是什么
-4. **没有自动复盘** — 需要手动同步各项目进度，没有"昨天做了什么"的自动记录
-5. **CC 失控风险** — 担心 AI 跑偏了才发现，浪费大量时间
+不是工具，是秘书。它需要：
 
-### 1.3 我真正需要的系统
+- **监控** — 自动知道我今天做了什么，不需要我汇报，不只是 git，包括我在哪个 App 待了多久
+- **规划** — 主动告诉我明天该做什么，顺序怎么排，哪些并行
+- **执行** — 配合 CC 自动化任务，每阶段汇报，防止跑偏
+- **推送** — 主动找我，不是我找它，发到手机
+- **进化** — 数据越积累越了解我的节奏和工作习惯，建议越来越准
 
-一个 **AI 幕僚长系统**，具备以下能力：
+### 1.3 痛点
 
-- ✅ **自动感知进度** — 不需要我手动汇报，AI 自己读 git commits、文件变化、报错日志
-- ✅ **每日主动建议** — 早上起来告诉我今天该做什么、顺序怎么排、哪些可以并行
-- ✅ **根据完成情况进化** — 昨天卡在哪里，第二天建议自动调整
-- ✅ **跨项目调度** — 同时管理 5 个项目，感知项目间依赖关系
-- ✅ **我只做决策** — 高价值判断留给我，执行和感知交给 AI
-- ✅ **安全** — 不能破坏主力机系统
-
----
-
-## 二、现有工具评估
-
-### 2.1 市面上现成工具的局限
-
-| 工具 | 能做到 | 做不到 |
-|------|--------|--------|
-| Motion / Reclaim | 日历调度、任务排期 | 读代码进度、感知 CC 状态 |
-| Linear / Notion AI | 项目管理 | 自动感知，需手动更新 |
-| Windsurf / Cursor | 写代码更顺 | 跨项目调度、每日主动建议 |
-| GitHub Copilot | 代码补全 | 跨项目调度 |
-
-**结论：没有任何现成产品能完整满足需求。**
-
-### 2.2 最接近需求的方案：OpenClaw
-
-**OpenClaw** 是 2026 年最火的开源本地 AI Agent，100,000+ GitHub stars。
-
-核心能力：
-- 本地运行，读取文件系统、git commits、终端日志
-- Heartbeat 机制：每 30 分钟自动执行任务，不需要你触发
-- 通过 WhatsApp/Telegram 主动推送给你
-- Skill 系统：可以自定义自动化逻辑
-- 支持 Claude API 作为大脑
+1. **人肉中间层** — 在 Claude Console 和 CC Terminal 之间手动传话
+2. **CC 跑偏** — 跑很远了才发现方向错了，浪费大量时间
+3. **多项目切换成本高** — 每天只能有效推进 1 个项目
+4. **没有全局视野** — 不知道每个项目今天该做什么
+5. **没有自动复盘** — 没有人帮我记录昨天做了什么
 
 ---
 
-## 三、系统架构设计
+## 二、工具评估结论
 
-### 3.1 整体架构
+### 现成工具都不够用
+
+| 工具 | 能做 | 不能做 |
+|------|------|--------|
+| Claude Cowork | 读文件、执行任务、定时任务 | 跨天记忆、主动推送、监控活动、Mac关了就停 |
+| OpenClaw | 感知本地文件、Heartbeat推送、24h运行 | 需要自己配置skill |
+| ActivityWatch | 记录所有App活动时间 | 本身不做规划推送 |
+| Motion / Reclaim | 日历调度 | 不懂代码项目 |
+
+### 结论
+
+**没有任何现成产品能满足需求。必须组合三个工具自己搭。**
+
+---
+
+## 三、系统架构：三层秘书系统
 
 ```
-Mac Mini（24小时运行）
-└── OpenClaw（调度中枢）
-    ├── 感知层：读 git commits、文件变化、报错日志
-    ├── 调度层：分析进度、生成今日建议
-    ├── 通知层：WhatsApp 推送晨报和预警
-    └── 记忆层：记录每日完成情况，供明天参考
+感知层（眼睛）
+└── ActivityWatch — 记录你在哪个App待了多久、编辑器在哪个文件
+└── Git Commits — 记录代码进展
+└── 终端日志 — 记录CC运行状态
 
-MacBook Pro M4 Max（主力机）
-└── Claude Code（执行层）
+        ↓ 数据流向
+
+大脑层（决策）
+└── OpenClaw on Mac Mini（24小时运行）
+    ├── 每天深夜读取ActivityWatch数据 + git commits
+    ├── 生成今日复盘 → 写入 logs/YYYY-MM-DD.md
+    ├── 每天早上8:30读取昨日复盘 → 生成今日建议
+    └── 数据积累后越来越了解你的节奏
+
+        ↓ 推送
+
+推送层（嘴巴）
+└── Telegram Bot → 你的手机
+    "Dong，今日简报：
+    - 昨天在AceRocket花了3小时，PDF解析卡住
+    - LaunchRadar发现5条Shopify需求
+    - 建议：先30分钟修AceRocket，再推LaunchRadar
+    - Socrates草稿已准备好，待审核"
+
+        ↓ 执行
+
+执行层（手）
+└── Claude Code on MacBook Pro
     ├── LaunchRadar
     ├── AceRocket
     ├── SAT/AP
@@ -88,134 +95,112 @@ MacBook Pro M4 Max（主力机）
     └── Socrates
 ```
 
-### 3.2 每日标准流程
+---
 
-**早上 09:00 — 收到 OpenClaw 晨报（WhatsApp）**
-```
-"Dong，今日简报：
-- 昨天 AceRocket 有 2 个未修复报错
-- LaunchRadar 发现 3 条高价值 Shopify 需求
-- 今日建议：先修 AceRocket bug（30min），再推进 LaunchRadar
-- Socrates 昨晚生成了 10 条 Reddit 回复草稿，待你审核"
-```
+## 四、每日标准流程（目标状态）
 
-**09:15 — 启动并行执行**
-- CC 窗口 1：LaunchRadar 任务
-- CC 窗口 2：AceRocket 任务
-- 你：审核 Socrates 草稿，选择发布
+**早上 8:30 — 手机收到 Telegram 晨报**
+不需要开电脑，已经知道今天做什么
 
-**18:00 — OpenClaw 自动生成复盘**
-```
-status_report.md 自动更新：
-- 今日新增代码量
-- 完成了哪些功能
-- 哪些任务被取消或推迟
-- 明日建议的调整方向
-```
+**早上 9:00 — 开电脑直接执行**
+按晨报建议开多个 CC 窗口，并行跑任务
 
-### 3.3 项目依赖关系（需配置）
+**白天 — CC 自动阶段汇报**
+每完成一个阶段暂停，你验收后继续，不会跑偏
 
-```markdown
-# dependencies.md
-- Shopify Analysis 依赖 LaunchRadar 发现需求才启动
-- ProfitPilot 独立运行
-- SAT/AP 独立运行
-- AceRocket 独立运行
-- Socrates 每日独立扫描
-```
+**晚上 10:00 — commit 代码**
+OpenClaw 深夜读取，生成复盘，为明天准备
 
-### 3.4 安全边界（Guardrails）
+---
+
+## 五、硬件配置
+
+### 主力机（已有）
+MacBook Pro M4 Max 48GB — 跑 Claude Code，写代码
+
+### 秘书机（待购）
+**Mac Mini M4 16GB 256GB — $599**
+- 24小时开着，不休眠
+- 跑 OpenClaw + ActivityWatch 数据读取
+- 物理隔离，主力机安全
+- 16GB 够用，不需要买 24GB 版本
+
+**购买：** apple.com，选 Pick up today，今天拿
+
+---
+
+## 六、安全边界
 
 ```
-PLAN_BEFORE_CODE = true          # 动工前必须出计划
-HUMAN_APPROVAL = [               # 这些操作必须人工确认
-  "reddit_post",
-  "git_push_main", 
-  "api_deployment",
-  "email_send"
+# 这些操作必须人工确认，OpenClaw不能自动执行
+HUMAN_APPROVAL = [
+  "reddit_post",        # 发帖前必须我看
+  "git_push_main",      # 主分支push必须我确认
+  "api_deployment",     # 部署必须我批准
+  "email_send"          # 发邮件必须我审核
 ]
-VIBE_CHECKPOINT = "50 lines"     # 每改动50行暂停汇报
-MAX_DAILY_API_SPEND = "$5"       # 每日 API 消费上限
+
+# CC工作规则（写入每个项目CLAUDE.md）
+PLAN_BEFORE_CODE = true         # 动工前先出计划
+VIBE_CHECKPOINT = "50 lines"    # 每改50行暂停汇报
+MAX_DAILY_API_SPEND = "$5"      # 每日API消费上限
 ```
 
 ---
 
-## 四、硬件决策
+## 七、实施计划
 
-### 4.1 为什么需要 Mac Mini
+### ✅ 阶段零：已完成（今天）
 
-| 需求 | MacBook（合盖休眠） | Mac Mini（24h运行） |
-|------|-------------------|-------------------|
-| 半夜跑 Socrates 扫描 | ❌ | ✅ |
-| 早上起来晨报已准备好 | ❌ | ✅ |
-| 不占用主力机资源 | ❌ | ✅ |
-| 主力机安全隔离 | ❌ | ✅ |
+- [x] 安装 ActivityWatch — 感知层开始收集数据
+- [x] 安装 Claude Cowork — 了解其能力边界
+- [x] 明确需求：AI私人秘书，而非普通工具
 
-### 4.2 推荐配置
+### 🔄 阶段一：过渡期（现在 → Mac Mini 到货）
 
-**Mac Mini M4 / 16GB / 256GB — $599**
+用 Claude + Cowork 手动替代，每天：
+- 早上：在 Cowork 里问今日建议（读 repo + git commits）
+- 晚上：commit 代码，告诉 Claude 今天做了什么
 
-- 16GB 内存足够（OpenClaw 是轻量调度工具，不跑本地 LLM）
-- 256GB 存储足够（代码库不大）
-- 不需要买 $799 的 24GB 版本
+需要做：
+- [ ] 每个项目根目录创建 `CLAUDE.md`
+- [ ] 在 indie-product-playbook repo 建 `logs/` 文件夹
+- [ ] 在 Cowork 设置早上9点定时任务
 
-**购买渠道：**
-- Best Buy open-box：$580.99（目前缺货，点 Notify Me）
-- apple.com 新机：$599（随时有货）
+### ⏳ 阶段二：购买并配置 Mac Mini
 
----
-
-## 五、实施计划
-
-### 阶段一：现在立刻开始（今天，免费）
-
-**用 Claude 手动替代 OpenClaw 的调度功能**
-
-每天早上：把昨天的 GitHub commit 记录 + 今天计划发给 Claude，Claude 给出今日执行建议
-
-每天晚上：告诉 Claude 完成了什么、卡在哪里
-
-这是零成本、今天就能用的过渡方案。
-
-**需要做：**
-- [ ] 把所有项目推到 GitHub private repo
-- [ ] 每个项目根目录创建 `CLAUDE.md`（项目说明 + 工作规则）
-- [ ] 发 GitHub repo 链接给 Claude，开始第一次调度
-
-### 阶段二：买 Mac Mini（等到货）
-
-- [ ] 购买 Mac Mini M4 16GB（Best Buy Notify Me 或 apple.com）
+- [ ] 购买 Mac Mini M4 16GB $599（apple.com）
 - [ ] 安装 OpenClaw
-- [ ] 配置 WhatsApp/Telegram 集成
-- [ ] 配置 Heartbeat 晨报
+- [ ] 配置 Telegram Bot 集成
+- [ ] 把 ActivityWatch 数据接入 OpenClaw
+- [ ] 配置 Heartbeat 晨报（每天8:30）
 
-### 阶段三：自定义 Skill（Mac Mini 到货后 1-2 天）
+### ⏳ 阶段三：自定义 Skill（Mac Mini 到货后1-2天）
 
-用 CC 来 vibe code 这个 skill 本身：
-
-- [ ] 写 Perception Script（读 git log + 文件变化 + 报错日志）
+用 CC 来 vibe code 这个系统本身：
+- [ ] 写 Perception Script（读 ActivityWatch API + git log）
 - [ ] 写 Morning Brief 生成逻辑
 - [ ] 写 Evening Retrospective 逻辑
 - [ ] 配置 dependencies.md（项目依赖关系）
 - [ ] 测试完整闭环
 
-### 阶段四：稳定运行
+### ⏳ 阶段四：进化期（跑满一个月后）
 
-- [ ] 根据第一周使用反馈调整 Heartbeat 频率
-- [ ] 根据实际 API 消费调整 Daily Budget
-- [ ] 持续优化各项目的 CLAUDE.md
+- [ ] 分析 ActivityWatch 数据，找出你效率最高的时间段
+- [ ] 调整晨报建议的粒度和节奏
+- [ ] 根据哪些任务你容易拖，自动加强提醒
 
 ---
 
-## 六、CLAUDE.md 模板
+## 八、CLAUDE.md 模板
 
-每个项目根目录放一个，内容如下：
+每个项目根目录放一个：
 
 ```markdown
 # [项目名称]
 
 ## 项目描述
-[一句话描述这个项目是什么]
+[一句话]
 
 ## 技术栈
 - Frontend: 
@@ -224,49 +209,46 @@ MAX_DAILY_API_SPEND = "$5"       # 每日 API 消费上限
 - Deployment: 
 
 ## 项目依赖
-- 依赖哪个项目的结果：
-- 哪个项目依赖我：
+- 我依赖：
+- 依赖我的：
 
 ## 工作规则
-1. 开始任务前，先列出执行计划，等我说"ok"再动手
+1. 开始前先列执行计划，等我说ok再动手
 2. 每完成一个主要步骤，停下来汇报
-3. 不确定的地方直接问，不要猜
+3. 不确定直接问，不要猜
 4. 不要修改我没提到的文件
 5. 每次改动超过50行，主动暂停汇报
 
 ## 当前状态
-- 阶段：[刚开始 / 开发中 / 测试中 / 接近上线]
+- 阶段：
 - 上次进展：
 - 已知问题：
 
 ## 今日任务
-[每天早上更新这里]
+[每天早上更新]
 ```
 
 ---
 
-## 七、预期收益
+## 九、预期收益
 
 | 指标 | 现在 | 目标 |
 |------|------|------|
 | 每日有效推进项目数 | 1个 | 3个 |
-| 手动状态同步时间 | 每天30-60分钟 | 0 |
-| CC 失控被发现的延迟 | 几小时 | 实时预警 |
-| 早上规划时间 | 30分钟 | 5分钟（看晨报） |
+| 每天规划时间 | 30分钟 | 0（看晨报） |
+| CC跑偏发现延迟 | 几小时 | 每50行汇报 |
+| 手动状态同步 | 每天30-60分钟 | 0 |
+| AI对你的了解程度 | 零 | 随数据积累持续提升 |
 
 ---
 
-## 八、今天的第一步
+## 十、今天立刻做的事
 
-**现在就做（10分钟）：**
-
-1. 把你的 GitHub repo 链接发给 Claude
-2. 告诉 Claude 今天 5 个项目各自的状态
-3. Claude 给你今天的执行计划
-
-不需要等 Mac Mini，不需要装任何软件，今天就能开始。
+1. **去 apple.com 买 Mac Mini M4 16GB $599，选 Pick up today**
+2. ActivityWatch 继续在后台跑，积累数据
+3. 每个项目创建 CLAUDE.md
 
 ---
 
-*文档由 Claude + Gemini 协作整理*  
-*下次更新：Mac Mini 到货后*
+*v2.0 更新：加入 ActivityWatch 感知层、Claude Cowork 评估、秘书系统完整架构*
+*下次更新：Mac Mini 到货配置完成后*
