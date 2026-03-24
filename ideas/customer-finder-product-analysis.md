@@ -2973,3 +2973,37 @@ Total: $1,000-$5,000 depending on DIY vs hire
 
 Total: ~25,000 words
 Reading time: ~100 minutes
+
+## Sprint Summary
+
+_Last updated: 2026-03-24_
+
+Week 6 _(current)_ · 2026-03-23 to 2026-03-29
+Status: ❌ Stalled
+Active days: 1 / 7
+Total commits: 2
+
+Week 5 · 2026-03-16 to 2026-03-22
+Status: ❌ Stalled
+Active days: 1 / 7
+Total commits: 2
+
+Week 4 · 2026-03-09 to 2026-03-15
+Status: ❌ Stalled
+Active days: 0 / 7
+Total commits: 0
+
+Week 3 · 2026-03-02 to 2026-03-08
+Status: ❌ Stalled
+Active days: 0 / 7
+Total commits: 0
+
+Week 2 · 2026-02-23 to 2026-03-01
+Status: ⚠️ Slow
+Active days: 3 / 7
+Total commits: 31
+
+Week 1 · 2026-02-16 to 2026-02-22
+Status: ⚠️ Slow
+Active days: 3 / 7
+Total commits: 7
