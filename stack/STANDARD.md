@@ -306,6 +306,32 @@ npx prisma generate && next build
 
 > Vercel Build Settings 里要改这个，否则 Prisma client 不会生成。
 
+### 4.6 Alternative: Supabase-only (No Prisma)
+
+Use this approach when:
+- Sharing a Supabase project across multiple apps
+- Want to avoid Prisma complexity
+- Prefer SQL-first schema management
+
+Setup:
+- Create tables directly in Supabase Dashboard → SQL Editor
+- Use supabase-js client for all DB operations (no Prisma)
+- No `DATABASE_URL` needed in `.env.local`
+- Use `supabaseAdmin` (service role) for server-side writes
+
+Remove from `.env.local`:
+- `DATABASE_URL`
+
+Remove from dependencies:
+- `prisma`
+- `@prisma/client`
+- `@prisma/adapter-pg`
+- `pg`
+- `@types/pg`
+
+Remove from Build Command:
+- `"npx prisma generate &&"` prefix (just use `next build`)
+
 ---
 
 ## 5. Vercel 部署
