@@ -1,95 +1,95 @@
-# 两个月 B端 AI 技能学习计划
-> 目标：从 entry level 出发，两个月内掌握所有核心技能，开始服务本地中小企业
+# Two-Month B2B AI Skills Learning Plan
+> Goal: Starting from entry level, master all core skills within two months and begin serving local small and medium-sized businesses.
 
 ---
 
-## 🧭 核心思路
+## Core Approach
 
-B端 AI 项目的本质是**把 AI 接进企业已有系统**，而不是训练模型。你需要掌握的是"连接层"技能：
-
-```
-API调用 → 自动化工作流 → Agent构建 → 系统集成 → 交付给本地企业
-```
-
----
-
-## 📋 技术栈全景（先整体看懂再分周学）
+The essence of B2B AI projects is **connecting AI into a company's existing systems** — not training models. The skills you need are in the "integration layer":
 
 ```
-基础层：Python + API 调用
-  ↓
-AI层：OpenAI / Claude API（Prompt 工程）
-  ↓
-记忆层：向量数据库（Pinecone / Chroma）+ RAG
-  ↓
-框架层：LangChain / LangGraph（Agent 编排）
-  ↓
-自动化层：n8n / Make.com（无代码流程）
-  ↓
-集成层：CRM API / Webhook / REST API
-  ↓
-部署层：FastAPI + Railway/Render 上线
+API calls → Automated workflows → Agent building → System integration → Deliver to local businesses
 ```
 
 ---
 
-## 📅 第一个月：打地基（Week 1–4）
+## Tech Stack Overview (understand the full picture before diving in week by week)
+
+```
+Foundation:   Python + API calls
+     ↓
+AI Layer:     OpenAI / Claude API (Prompt Engineering)
+     ↓
+Memory Layer: Vector databases (Pinecone / Chroma) + RAG
+     ↓
+Framework:    LangChain / LangGraph (Agent orchestration)
+     ↓
+Automation:   n8n / Make.com (no-code workflows)
+     ↓
+Integration:  CRM API / Webhook / REST API
+     ↓
+Deployment:   FastAPI + Railway/Render
+```
 
 ---
 
-### Week 1：Python 快速补强 + OpenAI API 入门
+## Month 1: Build the Foundation (Week 1–4)
 
-**目标：能写能跑，不卡工具**
+---
 
-每天时间：2–3 小时
+### Week 1: Python Quick Review + OpenAI API Basics
 
-#### Day 1–2：Python 核心语法速通
+**Goal: Write it, run it, don't get stuck on tools**
 
-学习资源：Python官方教程（中文版）或 B站"Python入门"
+Daily time: 2–3 hours
 
-重点掌握：
+#### Day 1–2: Python Core Syntax Speed Run
+
+Learning resources: Official Python Tutorial or any beginner Python course on YouTube
+
+Key topics:
 - `list` / `dict` / `for` / `if` / `function`
-- `requests` 库发 HTTP 请求
-- 读写 `.json` 文件
-- `pip install` 装包
+- `requests` library for HTTP calls
+- Reading and writing `.json` files
+- Installing packages with `pip install`
 
-> ⚠️ 不需要学：类继承、多线程、装饰器（暂时跳过）
+> Skip for now: class inheritance, multithreading, decorators
 
-#### Day 3–4：调用 OpenAI API
+#### Day 3–4: Calling the OpenAI API
 
-注册 OpenAI，拿到 API Key，安装：`pip install openai`
+Sign up for OpenAI, get an API key, install: `pip install openai`
 
 ```python
 from openai import OpenAI
-client = OpenAI(api_key="你的key")
+client = OpenAI(api_key="your-key")
 
 response = client.chat.completions.create(
     model="gpt-4o",
     messages=[
-        {"role": "system", "content": "你是一个客服助手"},
-        {"role": "user", "content": "我的订单在哪里？"}
+        {"role": "system", "content": "You are a customer service assistant."},
+        {"role": "user", "content": "Where is my order?"}
     ]
 )
 print(response.choices[0].message.content)
 ```
 
-练习变体：改 system prompt、加上下文记忆（把历史对话传入 messages）
+Practice variations: change the system prompt, add conversation memory (pass chat history into `messages`)
 
-#### Day 5–6：Prompt 工程（B端核心技能）
+#### Day 5–6: Prompt Engineering (Core B2B Skill)
 
-这是 B 端项目里用得最多的技能，必须精通：
+This is the most-used skill in B2B projects — you must master it:
 
-| 技巧 | 说明 | 示例 |
+| Technique | Description | Example |
 |---|---|---|
-| Role Prompting | 给模型设定角色 | "你是一个专业的销售顾问" |
-| Few-shot | 给例子 | "以下是3个好回复的例子..." |
-| Chain of Thought | 让模型分步思考 | "请一步步分析..." |
-| Output Format | 控制输出格式 | "请以JSON格式返回，字段包含..." |
-| Constraint | 限制行为 | "只回答与产品相关的问题，其他一律拒绝" |
+| Role Prompting | Assign a role to the model | "You are a professional sales advisor." |
+| Few-shot | Provide examples | "Here are 3 examples of good responses..." |
+| Chain of Thought | Ask the model to reason step by step | "Please analyze this step by step..." |
+| Output Format | Control the output format | "Return JSON with fields: ..." |
+| Constraint | Restrict behavior | "Only answer product-related questions; decline everything else." |
 
-**⭐ 重点强化：Structured Output（结构化输出）**
+**⭐ Key focus: Structured Output**
 
-> 这是 B 端系统对接的关键。AI 结果要填入 CRM / Excel / 数据库时，必须保证格式 100% 准确，否则下游系统会出错。
+> This is critical for B2B system integration. When AI results need to go into a CRM, Excel, or database, the format must be 100% accurate — otherwise downstream systems break.
 
 ```python
 from openai import OpenAI
@@ -102,58 +102,57 @@ response = client.chat.completions.create(
     messages=[
         {
             "role": "system",
-            "content": """你是一个线索分析助手。
-请分析以下线索信息，并严格按照JSON格式返回，不要输出任何其他内容：
+            "content": """You are a lead analysis assistant.
+Analyze the lead below and return ONLY a JSON object — no other text:
 {
-  "score": 1-10的整数,
-  "industry": "所属行业",
-  "pain_point": "核心痛点（一句话）",
+  "score": integer from 1 to 10,
+  "industry": "industry name",
+  "pain_point": "core pain point in one sentence",
   "priority": "high/medium/low",
-  "suggested_action": "建议的第一步行动"
+  "suggested_action": "recommended first step"
 }"""
         },
         {
             "role": "user",
-            "content": "公司：某律所，联系人：张律师，需求：想把合同审查自动化，团队10人"
+            "content": "Company: a law firm, Contact: Attorney Zhang, Need: automate contract review, Team size: 10"
         }
     ]
 )
 
-# 解析JSON，确保格式正确
 result = json.loads(response.choices[0].message.content)
-print(result["score"])       # 可以直接取字段
-print(result["priority"])    # 写入CRM不会出错
+print(result["score"])     # Access fields directly
+print(result["priority"])  # Safe to write to CRM
 ```
 
-练习要求：让输出格式出错（故意给错误prompt），再修复——这个debug能力在实际项目中非常重要。
+Practice: intentionally break the format with a bad prompt, then fix it — this debug skill is critical in real projects.
 
-**练习项目**：写一个"AI 客服机器人"的 system prompt，能回答产品FAQ、拒绝无关问题、以 JSON 格式输出结构化回复（包含 answer、confidence、category 三个字段）
+**Practice project**: Write a system prompt for an "AI customer service bot" that answers product FAQs, rejects off-topic questions, and returns structured JSON replies with three fields: `answer`, `confidence`, and `category`.
 
-#### Day 7：做一个完整的小项目
+#### Day 7: Build One Complete Mini-Project
 
-**项目：AI 邮件回复助手**
-- 输入：客户邮件原文
-- 输出：3种不同风格的回复草稿（正式 / 友好 / 简洁）
-- 用 Python 脚本跑通，结果存入 txt 文件
+**Project: AI Email Reply Assistant**
+- Input: original customer email
+- Output: 3 reply drafts in different tones (formal / friendly / concise)
+- Run as a Python script, save results to a `.txt` file
 
 ---
 
-### Week 2：LangChain 核心 + RAG 知识库系统
+### Week 2: LangChain Core + RAG Knowledge Base System
 
-**目标：能构建有记忆的对话系统，并让 AI 读懂企业文档**
+**Goal: Build conversation systems with memory, and let AI understand company documents**
 
-#### Day 1–2：LangChain 基础
+#### Day 1–2: LangChain Basics
 
-安装：`pip install langchain langchain-openai`
+Install: `pip install langchain langchain-openai`
 
-学习资源：LangChain 官方文档（只看 Get Started 部分）
+Learning resource: LangChain official docs (Get Started section only)
 
-重点理解：
-- `ChatPromptTemplate` — 模板化 prompt
-- `ChatOpenAI` — 模型调用
-- `chain = prompt | model | parser` — LCEL 管道写法
+Key concepts:
+- `ChatPromptTemplate` — templated prompts
+- `ChatOpenAI` — model invocation
+- `chain = prompt | model | parser` — LCEL pipe syntax
 
-#### Day 3：对话记忆（Memory）
+#### Day 3: Conversation Memory
 
 ```python
 from langchain_openai import ChatOpenAI
@@ -164,15 +163,15 @@ llm = ChatOpenAI(model="gpt-4o")
 memory = ConversationBufferMemory()
 conversation = ConversationChain(llm=llm, memory=memory)
 
-conversation.predict(input="我叫张三")
-conversation.predict(input="我叫什么名字？")  # 应该回答：张三
+conversation.predict(input="My name is John.")
+conversation.predict(input="What is my name?")  # Should answer: John
 ```
 
-练习：ConversationBufferMemory vs ConversationSummaryMemory 的区别
+Practice: understand the difference between `ConversationBufferMemory` and `ConversationSummaryMemory`
 
-#### Day 4–5：RAG 系统（检索增强生成）— B端最刚需
+#### Day 4–5: RAG System (Retrieval-Augmented Generation) — Most In-Demand B2B Feature
 
-让 AI 读懂企业自己的文档，是客户愿意付高价的核心功能：
+Letting AI understand a company's own documents is the core feature clients will pay top dollar for:
 
 ```python
 from langchain_community.document_loaders import PyPDFLoader
@@ -182,93 +181,88 @@ from langchain_community.vectorstores import Chroma
 from langchain.chains import RetrievalQA
 from langchain_openai import ChatOpenAI
 
-# 1. 加载文档
+# 1. Load document
 loader = PyPDFLoader("company_manual.pdf")
 docs = loader.load()
 
-# 2. 切片
+# 2. Split into chunks
 splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
 chunks = splitter.split_documents(docs)
 
-# 3. 向量化存储
+# 3. Embed and store
 embeddings = OpenAIEmbeddings()
 vectorstore = Chroma.from_documents(chunks, embeddings)
 
-# 4. 问答链
+# 4. Q&A chain
 qa = RetrievalQA.from_chain_type(
     llm=ChatOpenAI(model="gpt-4o"),
     retriever=vectorstore.as_retriever()
 )
-print(qa.invoke("公司的退款政策是什么？"))
+print(qa.invoke("What is the company's refund policy?"))
 ```
 
-**⭐ 重点强化：显示引用来源（Citations）**
+**⭐ Key focus: Show citation sources**
 
-> 本地企业老板最怕 AI "胡说"。能显示"这个答案来自第3页第2段"，是打消客户顾虑、拿下订单的直接武器。
+> Business owners are most afraid of AI "making things up." Being able to show "this answer comes from page 3, paragraph 2" directly removes client skepticism and helps close deals.
 
 ```python
-from langchain.chains import RetrievalQA
-from langchain_openai import ChatOpenAI
-from langchain.chains.question_answering import load_qa_chain
-
-# 使用 return_source_documents=True 返回来源
 qa = RetrievalQA.from_chain_type(
     llm=ChatOpenAI(model="gpt-4o"),
     retriever=vectorstore.as_retriever(search_kwargs={"k": 3}),
-    return_source_documents=True  # 关键参数
+    return_source_documents=True  # key parameter
 )
 
-result = qa.invoke("公司的退款政策是什么？")
+result = qa.invoke("What is the company's refund policy?")
 
-print("📌 AI 回答：")
+print("Answer:")
 print(result["result"])
 
-print("\n📄 来源段落：")
+print("\nSources:")
 for i, doc in enumerate(result["source_documents"]):
-    page = doc.metadata.get("page", "未知")
-    print(f"  [{i+1}] 第{page+1}页：{doc.page_content[:100]}...")
+    page = doc.metadata.get("page", "unknown")
+    print(f"  [{i+1}] Page {page+1}: {doc.page_content[:100]}...")
 ```
 
-演示给客户看时，输出格式如下：
+Demo output format:
 ```
-📌 AI 回答：
-退款需在购买后7天内申请，提供订单号即可全额退款。
+Answer:
+Refunds can be requested within 7 days of purchase by providing the order number for a full refund.
 
-📄 来源段落：
-  [1] 第3页：7.2 退款政策——客户在购买后7天内可申请无理由退款...
-  [2] 第5页：附录A——退款流程说明，需提供有效订单编号...
+Sources:
+  [1] Page 3: 7.2 Refund Policy — customers may request a no-questions-asked refund within 7 days...
+  [2] Page 5: Appendix A — Refund process requires a valid order number...
 ```
 
-这个细节让你的演示比其他人专业一个档次。
+This detail makes your demo look a full level more professional than competitors.
 
-#### Day 6–7：Week 2 项目（作品集 #1）
+#### Day 6–7: Week 2 Project (Portfolio #1)
 
-**项目：企业内部知识库问答系统**
-- 上传一个 PDF（任何公司手册或产品文档）
-- 用户输入问题，AI 从文档中找答案
-- 显示来源段落（引用来源是 B 端的加分项）
-- 录制演示视频，放入作品集 ✅
+**Project: Company Internal Knowledge Base Q&A System**
+- Upload a PDF (any company manual or product document)
+- User types a question; AI finds the answer from the document
+- Show source paragraphs (citations are a major plus in B2B)
+- Record a demo video and add it to your portfolio ✅
 
 ---
 
-### Week 3：AI Agent 构建
+### Week 3: AI Agent Development
 
-**目标：能构建能自主决策、调用工具的 Agent**
+**Goal: Build agents that can make decisions autonomously and call tools**
 
-#### Day 1–2：理解 Agent 的本质
+#### Day 1–2: Understand What an Agent Actually Is
 
-Agent = LLM + Tools + Loop（让模型不断决策直到任务完成）
+Agent = LLM + Tools + Loop (the model keeps deciding until the task is done)
 
 ```
-用户：帮我查一下苹果公司今天的股价，然后写一份分析报告
+User: Check Apple's stock price today and write an analysis report.
 
-Agent 思考：
-→ 我需要先查股价（调用 search_tool）
-→ 拿到数据后写报告（调用 write_tool）
-→ 任务完成
+Agent reasoning:
+→ I need to look up the price first (call search_tool)
+→ Then write the report with that data (call write_tool)
+→ Task complete
 ```
 
-#### Day 3–4：用 LangChain 构建 Tool-calling Agent
+#### Day 3–4: Build a Tool-Calling Agent with LangChain
 
 ```python
 from langchain.agents import create_tool_calling_agent, AgentExecutor
@@ -278,116 +272,116 @@ from langchain_core.prompts import ChatPromptTemplate
 
 @tool
 def search_crm(customer_name: str) -> str:
-    """在CRM系统中搜索客户信息"""
-    # 实际项目中这里调用 HubSpot API
-    return f"客户{customer_name}：VIP用户，上次购买日期2024-12-01，总消费$5000"
+    """Search for customer information in the CRM system."""
+    # In a real project, this calls the HubSpot API
+    return f"Customer {customer_name}: VIP, last purchase 2024-12-01, total spend $5,000"
 
 @tool
 def send_email(to: str, subject: str, body: str) -> str:
-    """发送邮件给客户"""
-    return f"邮件已发送给{to}"
+    """Send an email to a customer."""
+    return f"Email sent to {to}"
 
 tools = [search_crm, send_email]
 llm = ChatOpenAI(model="gpt-4o")
 
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "你是一个销售助手，帮助查询客户信息并发送个性化邮件"),
+    ("system", "You are a sales assistant. Look up customer information and send personalized emails."),
     ("human", "{input}"),
     ("placeholder", "{agent_scratchpad}")
 ])
 
 agent = create_tool_calling_agent(llm, tools, prompt)
 executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
-executor.invoke({"input": "查询张三的信息，然后给他发一封感谢邮件"})
+executor.invoke({"input": "Look up John's info, then send him a thank-you email."})
 ```
 
-#### Day 5：LangGraph（进阶 Agent 框架）
+#### Day 5: LangGraph (Advanced Agent Framework)
 
-为什么要学：复杂 B 端项目需要多步骤、条件分支的 Agent 流程
+Why learn this: complex B2B projects require multi-step, conditional-branch agent workflows.
 
-只学核心概念：State、Node、Edge
+Learn only the core concepts: State, Node, Edge
 
-资源：LangGraph 官方 Quickstart（langchain-ai.github.io/langgraph）
+Resource: LangGraph official Quickstart (langchain-ai.github.io/langgraph)
 
-#### Day 6–7：Week 3 项目（作品集 #2）
+#### Day 6–7: Week 3 Project (Portfolio #2)
 
-**项目：AI 销售线索处理 Agent**
-- 输入：一条新线索（公司名、联系人、需求描述）
-- Agent 自动执行：
-  1. 分析线索质量（打分 1–10）
-  2. 搜索公司信息（用 DuckDuckGo Search Tool）
-  3. 生成个性化的第一封开发信
-  4. 输出结构化报告
+**Project: AI Sales Lead Processing Agent**
+- Input: one new lead (company name, contact, need description)
+- Agent automatically:
+  1. Scores lead quality (1–10)
+  2. Researches the company (using DuckDuckGo Search Tool)
+  3. Generates a personalized first outreach email
+  4. Outputs a structured report
 
 ---
 
-### Week 4：n8n 无代码自动化（B端必备神器）
+### Week 4: n8n No-Code Automation (Essential B2B Tool)
 
-**目标：能用 n8n 搭建企业级自动化流程，快速交付项目**
+**Goal: Build enterprise-grade automated workflows with n8n for fast project delivery**
 
-> 💡 很多本地中小企业预算有限，n8n 可以快速交付，不需要全程写代码，性价比极高。
+> Many local small businesses have limited budgets. n8n lets you deliver quickly without writing code for everything — extremely high value-for-effort.
 
-#### Day 1–2：n8n 安装与基础
+#### Day 1–2: Install n8n and Learn the Basics
 
-安装方式：
-- 本地：`npx n8n` 或用 Docker
-- 注册 n8n Cloud 免费试用（推荐）
+Installation options:
+- Local: `npx n8n` or via Docker
+- Sign up for n8n Cloud free trial (recommended)
 
-核心概念：Trigger（触发器）→ Node（处理节点）→ Action（执行动作）
+Core concept: Trigger → Node (processing) → Action
 
-练习：
-- 每天早上9点，自动发一封天气邮件给自己
-- 当 Google Sheet 新增一行数据时，发微信/邮件通知
+Practice:
+- Every morning at 9am, automatically send yourself a weather email
+- When a new row is added to Google Sheets, send an email or notification
 
-#### Day 3–4：n8n 接入 AI
+#### Day 3–4: Connect AI to n8n
 
-在 n8n 中使用 OpenAI 节点，搭建这个流程：
+Use the OpenAI node in n8n to build this workflow:
 
 ```
-客户填写表单（Typeform / 腾讯问卷）
-  → n8n 触发
-  → OpenAI 分析客户需求
-  → 自动生成回复邮件
-  → 发送邮件（Gmail 节点）
-  → 记录到 Google Sheet
+Customer fills out a form (Typeform / Google Forms)
+  → n8n triggers
+  → OpenAI analyzes the customer's needs
+  → Auto-generates a reply email
+  → Sends email (Gmail node)
+  → Logs to Google Sheets
 ```
 
-#### Day 5：n8n + Webhook + CRM
+#### Day 5: n8n + Webhook + CRM
 
-- 学会 Webhook 节点（B端集成的关键）
-- 练习：CRM 有新联系人时 → AI 自动打标签分类
+- Learn the Webhook node (key for B2B integrations)
+- Practice: when a new CRM contact is added → AI auto-tags and classifies them
 
-#### Day 6–7：Week 4 项目（作品集 #3）
+#### Day 6–7: Week 4 Project (Portfolio #3)
 
-**项目：全自动线索跟进流程**
-- 触发：新线索填写表单
-- 步骤1：AI 分析线索 → 判断是否为目标客户
-- 步骤2：是目标客户 → 发个性化邮件 + 记录 CRM
-- 步骤3：不是目标客户 → 发婉拒邮件
-- 步骤4：3天无回复 → 自动发跟进邮件
-- 录制 Loom 视频演示 ✅
+**Project: Fully Automated Lead Follow-Up Workflow**
+- Trigger: new lead submits a form
+- Step 1: AI analyzes the lead → decides if they are a target customer
+- Step 2: Target customer → send personalized email + log to CRM
+- Step 3: Not a target → send polite decline email
+- Step 4: No reply in 3 days → auto-send follow-up email
+- Record a Loom video demo ✅
 
 ---
 
-## 📅 第二个月：实战拔高（Week 5–8）
+## Month 2: Advanced Practice (Week 5–8)
 
 ---
 
-### Week 5：API 集成与 FastAPI 部署
+### Week 5: API Integration + FastAPI Deployment
 
-**目标：能把 AI 功能部署成在线服务，让客户系统直接调用**
+**Goal: Deploy AI features as an online service that client systems can call directly**
 
-#### Day 1–2：REST API 基础
+#### Day 1–2: REST API Basics
 
-- 理解 GET / POST / PUT / DELETE
-- 理解 JSON 数据格式
-- 理解 API Key 鉴权
-- 工具：用 Postman 测试各种 API
+- Understand GET / POST / PUT / DELETE
+- Understand JSON data format
+- Understand API key authentication
+- Tool: use Postman to test various APIs
 
-#### Day 3–4：FastAPI 快速入门
+#### Day 3–4: FastAPI Quick Start
 
-安装：`pip install fastapi uvicorn`
-运行：`uvicorn main:app --reload`
+Install: `pip install fastapi uvicorn`
+Run: `uvicorn main:app --reload`
 
 ```python
 from fastapi import FastAPI
@@ -406,49 +400,48 @@ async def ask_ai(request: QueryRequest):
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": f"你是{request.company_id}的专属客服助手"},
+            {"role": "system", "content": f"You are the dedicated support assistant for {request.company_id}."},
             {"role": "user", "content": request.question}
         ]
     )
     return {"answer": response.choices[0].message.content}
 ```
 
-#### Day 5：部署上线
+#### Day 5: Deploy to Production
 
-- 注册 Railway（railway.app）或 Render（render.com）— 免费额度够用
-- 把 FastAPI 项目部署上去，得到真实 HTTPS 链接
-- 这样你可以告诉本地客户："你们系统直接调用这个接口就行"
+- Sign up for Railway (railway.app) or Render (render.com) — free tier is enough
+- Deploy the FastAPI project and get a real HTTPS URL
+- You can then tell clients: "Just call this endpoint from your system."
 
-#### Day 6–7：Week 5 项目（作品集 #4）
+#### Day 6–7: Week 5 Project (Portfolio #4)
 
-**项目：企业知识库 API 服务**
-- 把 Week 2 的 RAG 项目包装成 API
-- 接口：`POST /ask` → 输入问题 → 返回答案 + 来源段落
-- 部署上线，得到真实 URL ✅
+**Project: Company Knowledge Base API Service**
+- Wrap the Week 2 RAG project as an API
+- Endpoint: `POST /ask` → input a question → return answer + source paragraphs
+- Deploy and get a live URL ✅
 
 ---
 
-### Week 6：主流 B端工具集成
+### Week 6: Mainstream B2B Tool Integrations
 
-**目标：能对接企业常用工具（CRM / 通讯 / 文档系统）**
+**Goal: Integrate with common enterprise tools (CRM / messaging / document systems)**
 
-#### Day 1–2：CRM API 集成
+#### Day 1–2: CRM API Integration
 
-以 HubSpot 为例（免费版可用）：
+Using HubSpot as an example (free tier available):
 
 ```python
 import requests
 
-HUBSPOT_TOKEN = "你的token"
+HUBSPOT_TOKEN = "your-token"
 headers = {"Authorization": f"Bearer {HUBSPOT_TOKEN}"}
 
-# 创建联系人
 data = {
     "properties": {
         "email": "test@example.com",
-        "firstname": "张",
-        "lastname": "三",
-        "company": "ABC公司"
+        "firstname": "John",
+        "lastname": "Doe",
+        "company": "ABC Corp"
     }
 }
 requests.post(
@@ -458,245 +451,244 @@ requests.post(
 )
 ```
 
-常见操作：获取联系人列表 / 创建联系人 / 更新属性 / 创建 Deal
+Common operations: get contact list / create contact / update properties / create a Deal
 
-#### Day 3：企业通讯集成
+#### Day 3: Enterprise Messaging Integration
 
-- 企业微信 / 钉钉 Webhook：AI 完成任务后推送消息到群
-- 这是国内本地企业最常用的通知方式
-- 练习：n8n 定时任务 → AI 生成日报 → 推送到企业微信群
+- Slack / Teams Webhook: push a message to a channel when AI completes a task
+- Practice: n8n scheduled job → AI generates a daily report → posts to a Slack channel
 
-#### Day 4：Notion / 飞书文档 API
+#### Day 4: Notion / Airtable API
 
-- 学会读写文档数据库
-- 常见场景：AI 处理完内容后，自动写入飞书多维表格
+- Learn to read and write document databases
+- Common use case: AI processes content, then automatically writes to an Airtable base
 
-#### Day 5–7：Week 6 综合项目（作品集 #5）
+#### Day 5–7: Week 6 Integrated Project (Portfolio #5)
 
-**项目：AI 销售日报自动化系统**
-- 每天下班时触发（n8n 定时任务）
-- 从 CRM 拉取当天所有销售动态
-- AI 生成销售日报（成交情况、待跟进建议）
-- 推送到企业微信群
-- 同时写入飞书多维表格存档
+**Project: AI Sales Daily Report Automation**
+- Triggers at end of each workday (n8n scheduled job)
+- Pulls all sales activity for the day from CRM
+- AI generates a sales report (deals closed, follow-up recommendations)
+- Posts to a Slack channel
+- Also writes to an Airtable base for archiving
 
-> 这是最接近真实本地企业需求的项目，演示效果极好
-
----
-
-### Week 7：Voice AI Agent（高价方向）
-
-**目标：能构建企业电话 / 语音 AI 系统**
-
-> 💰 语音 AI 是 B 端单价最高的方向之一，本地企业（餐饮、诊所、门店）需求非常旺盛，一个项目交付价 5000–20000 元不等。
-
-#### Day 1–2：VAPI 平台入门
-
-注册 VAPI.ai，理解整体架构：
-
-```
-电话呼入
-  → VAPI 转成文字（STT）
-  → 发给 LLM 处理
-  → LLM 回复内容
-  → 转成语音播放（TTS）
-  → 继续对话
-```
-
-在 VAPI 控制台创建第一个语音 Agent，配置：
-- System Prompt（角色设定 / 性格）
-- 开场白
-- 结束语条件
-
-#### Day 3–4：VAPI 高级配置
-
-Functions（工具调用）：电话中 AI 实时查询数据库 / CRM
-
-示例对话流程：
-```
-AI：您好，请问您的订单号是多少？
-用户：123456
-AI：（调用查询工具）您的订单将在明天下午送达，请注意签收。
-```
-
-配置项：
-- End Call 条件（何时挂断）
-- Voicemail 检测（无人接听时留言）
-- 语音角色选择（音色 / 语速 / 语言）
-
-#### Day 5：VAPI + n8n 联动
-
-```
-通话结束
-  → VAPI 发 Webhook 到 n8n
-  → n8n 自动处理：
-      记录通话摘要
-      更新 CRM 联系人
-      发企业微信通知给销售
-```
-
-#### Day 6–7：Week 7 项目（作品集 #6）
-
-**项目：AI 预约接待语音机器人**
-- 功能：接听客户电话 → 了解预约需求 → 查询可用时间 → 确认预约 → 发短信确认
-- 适用客户：诊所、美容院、餐厅、律所
-- 录制演示视频（用 VAPI 的测试功能打给自己）✅
+> This is the project closest to real local business needs — it demos extremely well.
 
 ---
 
-### Week 8：作品集打磨 + 本地客户开发
+### Week 7: Voice AI Agent (High-Value Direction)
 
-**目标：准备好所有材料，开始联系本地中小企业，拿下第一个付费客户**
+**Goal: Build enterprise phone / voice AI systems**
 
-#### Day 1–2：整理作品集
+> Voice AI is one of the highest-ticket B2B directions. Local businesses (restaurants, clinics, salons) have strong demand — a single project can fetch $1,000–$5,000+.
 
-你现在已经有 6 个项目：
+#### Day 1–2: VAPI Platform Basics
 
-| # | 项目名称 | 展示的核心技能 |
+Sign up at VAPI.ai and understand the overall architecture:
+
+```
+Incoming call
+  → VAPI converts to text (STT)
+  → Sends to LLM
+  → LLM generates a reply
+  → Converts reply to speech (TTS)
+  → Continues conversation
+```
+
+Create your first voice agent in the VAPI console and configure:
+- System Prompt (role / personality)
+- Opening greeting
+- End-call conditions
+
+#### Day 3–4: VAPI Advanced Configuration
+
+Functions (tool calling): AI queries a database or CRM in real time during a call
+
+Example conversation flow:
+```
+AI: Hi, could you give me your order number?
+User: 123456
+AI: (calls lookup tool) Your order will arrive tomorrow afternoon. Please be available to receive it.
+```
+
+Configuration options:
+- End Call conditions (when to hang up)
+- Voicemail detection (leave a message if unanswered)
+- Voice selection (tone / speed / language)
+
+#### Day 5: VAPI + n8n Integration
+
+```
+Call ends
+  → VAPI sends Webhook to n8n
+  → n8n automatically:
+      Saves call summary
+      Updates CRM contact
+      Sends Slack notification to sales team
+```
+
+#### Day 6–7: Week 7 Project (Portfolio #6)
+
+**Project: AI Appointment Reception Voice Bot**
+- Function: answer customer calls → understand appointment needs → check available times → confirm booking → send SMS confirmation
+- Target clients: clinics, beauty salons, restaurants, law firms
+- Record a demo video (use VAPI's test feature to call yourself) ✅
+
+---
+
+### Week 8: Portfolio Polish + Local Client Outreach
+
+**Goal: Have all materials ready and start contacting local small businesses to land the first paying client**
+
+#### Day 1–2: Organize Your Portfolio
+
+You now have 6 projects:
+
+| # | Project Name | Core Skills Demonstrated |
 |---|---|---|
-| 1 | 企业知识库问答系统 | RAG / LangChain |
-| 2 | AI 销售线索处理 Agent | Tool-calling Agent |
-| 3 | 全自动线索跟进流程 | n8n 自动化 |
-| 4 | 企业知识库 API 服务 | FastAPI / 部署 |
-| 5 | AI 销售日报自动化 | 多系统集成 |
-| 6 | AI 预约接待语音机器人 | Voice AI |
+| 1 | Company Knowledge Base Q&A System | RAG / LangChain |
+| 2 | AI Sales Lead Processing Agent | Tool-calling Agent |
+| 3 | Fully Automated Lead Follow-Up | n8n Automation |
+| 4 | Knowledge Base API Service | FastAPI / Deployment |
+| 5 | AI Sales Daily Report Automation | Multi-system Integration |
+| 6 | AI Appointment Reception Voice Bot | Voice AI |
 
-每个项目整理：
-- 录制 2–3 分钟录屏演示（可用 OBS / 剪映）
-- 截图 + 流程图放入 GitHub README
-- 用一句话总结项目价值（写给老板看，不是给程序员看）
-  - ❌ "基于 LangChain 构建 RAG 系统"
-  - ✅ "让员工直接问 AI 查公司文件，节省每天 2 小时人工翻查时间"
+For each project, prepare:
+- A 2–3 minute screen recording demo (OBS or Loom)
+- Screenshots + flow diagrams in the GitHub README
+- One sentence summarizing business value (written for a business owner, not a developer)
+  - Bad: "Built a RAG system using LangChain"
+  - Good: "Lets employees ask AI to find company documents instantly, saving 2 hours of manual searching per day"
 
-#### Day 3–4：准备客户沟通材料
+#### Day 3–4: Prepare Client-Facing Materials
 
-**一页介绍文档（发给老板看的）**
+**One-page introduction (for business owners)**
 
 ```
-标题：用 AI 帮您的企业自动化日常工作
+Title: Using AI to Automate Your Business's Daily Work
 
-我可以帮您做什么：
-• 搭建 AI 客服：7×24 自动回答客户问题，无需人工值守
-• 自动整理线索：新客户信息自动录入、分类、跟进
-• 语音接待机器人：电话自动接听、预约、查询
-• 内部知识库：员工直接问 AI，不用翻手册
+What I can do for you:
+• AI Customer Service: 24/7 automatic replies, no human needed
+• Lead Automation: New contacts auto-logged, categorized, and followed up
+• Voice Reception Bot: Automatically answers calls, books appointments, handles queries
+• Internal Knowledge Base: Staff ask AI directly instead of flipping through manuals
 
-合作方式：
-• 项目制，按功能交付，不按小时收费
-• 先做免费演示，满意再付款
-• 提供1个月免费维护
+How we work together:
+• Fixed-price per project, delivered by feature — not hourly billing
+• Free demo first; pay only when you're satisfied
+• 1 month of free maintenance included
 
-联系方式：[你的微信 / 电话]
+Contact: [your email / phone]
 ```
 
-**定价参考（本地企业版）**
+**Pricing reference (local business rates)**
 
-| 项目类型 | 建议报价 | 交付周期 |
+| Project Type | Suggested Price | Delivery Time |
 |---|---|---|
-| 简单 n8n 自动化（如线索跟进） | 2000–5000 元 | 3–5天 |
-| AI 客服知识库 | 5000–12000 元 | 1–2周 |
-| AI Agent 定制 | 8000–20000 元 | 2–3周 |
-| 语音预约机器人 | 10000–30000 元 | 2–4周 |
+| Simple n8n automation (e.g., lead follow-up) | $300–$700 | 3–5 days |
+| AI customer service knowledge base | $700–$1,800 | 1–2 weeks |
+| Custom AI Agent | $1,200–$3,000 | 2–3 weeks |
+| Voice appointment bot | $1,500–$5,000 | 2–4 weeks |
 
-> 💡 前 2–3 个客户可以半价，目的是拿案例和口碑，之后恢复正常定价
+> For your first 2–3 clients, offer a discount to get case studies and referrals — then return to full pricing.
 
-#### Day 5–7：开始接触本地企业
+#### Day 5–7: Start Reaching Out to Local Businesses
 
-**目标客户画像（最容易成单）**
+**Ideal client profile (easiest to close)**
 
-优先找这类企业：
-- **诊所 / 口腔 / 美容院**：需要语音预约机器人，重复电话多
-- **中小律所**：需要 AI 检索内部案例文档
-- **本地零售 / 连锁店**：需要自动化线索跟进和客户运营
-- **教培机构**：需要 AI 客服回答课程咨询、自动发资料
-- **本地 SaaS / 软件公司**：需要给产品加 AI 功能
+Prioritize these business types:
+- **Clinics / dental offices / beauty salons**: high volume of repetitive phone calls, great fit for voice bots
+- **Small law firms**: need AI to search internal case document libraries
+- **Local retail / chain stores**: need automated lead follow-up and customer management
+- **Education / tutoring centers**: need AI to answer course inquiries and send materials automatically
+- **Local software companies**: need to add AI features to their existing products
 
-**找客户的方式**
+**Ways to find clients**
 
-1. **身边人**：先问家人 / 朋友做不做生意，或者认不认识做生意的
-2. **微信朋友圈**：发一条"帮本地企业做 AI 自动化"的内容，配演示视频
-3. **本地商会 / 创业群**：加入后观察需求，主动提供解决方案
-4. **线下拜访**：带着 iPad，当场演示 AI 语音接待机器人，直观震撼
-5. **抖音 / 小红书**：发"我帮XX类企业做了AI自动化"的案例视频（用练习项目演示）
+1. **Your network**: ask family and friends if they or anyone they know owns a business
+2. **Social media**: post "I help local businesses automate with AI" + demo video
+3. **Local business groups / Chambers of Commerce**: join and watch for needs, offer solutions
+4. **In-person visits**: bring a laptop, demo the voice bot on the spot — the live effect is striking
+5. **TikTok / Instagram / LinkedIn**: post "I built AI automation for [business type]" case study videos (use your practice projects)
 
-**第一次见面话术**
-
-```
-"我最近在帮本地企业用 AI 自动化一些日常工作，
-比如客服回复、线索跟进、电话接待这些。
-我们可以先聊聊你们现在哪些事情最耗人工时间，
-我帮你看看有没有办法用 AI 省掉——
-第一次我可以免费给你做个演示。"
-```
-
-**跟进节奏**
+**First-meeting script**
 
 ```
-第1次：见面演示 / 发演示视频
-第2次（3天后）：发一页介绍文档 + 简单方案
-第3次（1周后）：提供一个针对他们问题的免费小原型
-签单：用微信收款，合同可用简单协议
+"I've been helping local businesses automate repetitive work with AI —
+things like customer service replies, lead follow-up, and phone reception.
+Can we spend a few minutes talking about where your team spends the most manual time?
+I can take a look and see if AI can eliminate it —
+and I'm happy to do a free demo for you first."
+```
+
+**Follow-up cadence**
+
+```
+Day 1:  In-person meeting or send demo video
+Day 3:  Send one-page intro + simple proposal
+Day 7:  Provide a free mini-prototype specific to their problem
+Close:  Collect payment, use a simple written agreement
 ```
 
 ---
 
-## 🛠️ 工具账号清单（提前注册）
+## Tool Accounts to Register in Advance
 
-| 工具 | 用途 | 费用 |
+| Tool | Purpose | Cost |
 |---|---|---|
-| OpenAI | LLM API | 按量付费，$20够练习 |
-| n8n Cloud | 自动化流程 | 免费试用 |
-| VAPI.ai | 语音 AI | 按分钟付费 |
-| Railway / Render | 项目部署 | 免费额度 |
-| HubSpot | CRM 练习 | 免费版 |
-| Pinecone | 向量数据库 | 免费版 |
-| GitHub | 代码托管 + 作品集 | 免费 |
-| OBS / 剪映 | 录制演示视频 | 免费 |
-| Canva | 做一页介绍文档 | 免费版 |
+| OpenAI | LLM API | Pay-as-you-go, $20 is enough to practice |
+| n8n Cloud | Automation workflows | Free trial |
+| VAPI.ai | Voice AI | Per-minute billing |
+| Railway / Render | Project deployment | Free tier |
+| HubSpot | CRM practice | Free tier |
+| Pinecone | Vector database | Free tier |
+| GitHub | Code hosting + portfolio | Free |
+| OBS / Loom | Record demo videos | Free |
+| Canva | One-page intro document | Free tier |
 
 ---
 
-## 📚 核心学习资源
+## Core Learning Resources
 
-| 资源 | 内容 | 地址 |
+| Resource | Content | URL |
 |---|---|---|
-| LangChain 官方文档 | Agent / RAG | python.langchain.com |
-| LangGraph Quickstart | 复杂 Agent 流程 | langchain-ai.github.io/langgraph |
-| n8n 官方教程 | 自动化节点 | docs.n8n.io |
-| VAPI 文档 | 语音 AI | docs.vapi.ai |
-| DeepLearning.AI | LLM 应用免费课程 | deeplearning.ai |
-| FastAPI 文档 | API 部署 | fastapi.tiangolo.com |
+| LangChain Docs | Agent / RAG | python.langchain.com |
+| LangGraph Quickstart | Complex Agent workflows | langchain-ai.github.io/langgraph |
+| n8n Docs | Automation nodes | docs.n8n.io |
+| VAPI Docs | Voice AI | docs.vapi.ai |
+| DeepLearning.AI | Free LLM application courses | deeplearning.ai |
+| FastAPI Docs | API deployment | fastapi.tiangolo.com |
 
 ---
 
-## ⚡ 每日时间分配（2–3小时/天）
+## Daily Time Allocation (2–3 hours/day)
 
 ```
-前 45 分钟：看文档 / 教程（输入）
-中 60 分钟：动手写代码 / 搭流程（实践）
-后 30 分钟：Debug / 记录问题（巩固）
-剩余时间：观察本地企业痛点，思考用哪个项目演示
+First 45 min:  Read docs / watch tutorials (input)
+Next 60 min:   Write code / build workflows (practice)
+Last 30 min:   Debug / note down questions (reinforce)
+Remaining:     Observe local business pain points; think about which project to demo
 ```
 
 ---
 
-## 🗓️ 全计划一览表
+## Full Plan at a Glance
 
-| 周次 | 核心内容 | 交付物 |
+| Week | Core Content | Deliverable |
 |---|---|---|
-| Week 1 | Python + OpenAI API + Prompt 工程 | AI 邮件助手脚本 |
-| Week 2 | LangChain + 记忆 + RAG | 知识库问答系统（作品集#1） |
-| Week 3 | AI Agent + Tool Calling + LangGraph | 线索处理 Agent（作品集#2） |
-| Week 4 | n8n 自动化 + AI 节点 + Webhook | 线索跟进流程（作品集#3） |
-| Week 5 | FastAPI + REST API + 云部署 | 知识库 API 上线（作品集#4） |
-| Week 6 | CRM / 企业微信 / 飞书集成 | 销售日报自动化（作品集#5） |
-| Week 7 | VAPI 语音 AI + 通话后自动化 | 预约语音机器人（作品集#6） |
-| Week 8 | 作品集打磨 + 本地客户开发 | **第一个付费客户** |
+| Week 1 | Python + OpenAI API + Prompt Engineering | AI email assistant script |
+| Week 2 | LangChain + Memory + RAG | Knowledge base Q&A system (Portfolio #1) |
+| Week 3 | AI Agent + Tool Calling + LangGraph | Lead processing agent (Portfolio #2) |
+| Week 4 | n8n Automation + AI nodes + Webhooks | Lead follow-up workflow (Portfolio #3) |
+| Week 5 | FastAPI + REST API + Cloud deployment | Knowledge base API live (Portfolio #4) |
+| Week 6 | CRM / Slack / Airtable integration | Sales daily report automation (Portfolio #5) |
+| Week 7 | VAPI Voice AI + post-call automation | Appointment voice bot (Portfolio #6) |
+| Week 8 | Portfolio polish + local client outreach | **First paying client** |
 
 ---
 
-> 📌 **最重要的一句话**：Week 2 结束后就开始整理作品集、联系身边的人演示。不要等"学完"再出发——边学边接触客户，才是最快拿到第一单的路径。
+> **Most important takeaway**: Start organizing your portfolio and reaching out to people in your network after Week 2 — don't wait until you've "finished learning." Working with real clients while you learn is the fastest path to your first sale.
 
 ---
 
-*文档生成日期：2026年3月*
+*Document created: March 2026*
