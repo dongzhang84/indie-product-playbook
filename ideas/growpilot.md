@@ -1,8 +1,8 @@
-# ContentShip — 一周实现方案 v2
+# GrowPilot — 一周实现方案 v2
 
-**项目代号**: ContentShip（暂定）  
+**项目代号**: GrowPilot（暂定）  
 **目标**: 7天内上线可收钱的 MVP  
-**Repo**: github.com/[your-username]/contentship（private）  
+**Repo**: github.com/[your-username]/growpilot（private）  
 **语言**: 全英文网站，面向国际用户  
 **技术栈**: 全部复用 LaunchRadar 已有基础
 
@@ -75,7 +75,7 @@ jobs:
     steps:
       - name: Trigger weekly cron
         run: |
-          curl -X POST https://contentship.app/api/cron/weekly \
+          curl -X POST https://growpilot.app/api/cron/weekly \
             -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
 ```
 - **完全免费**，GitHub Actions 每月 2000 分钟免费额度
@@ -446,7 +446,7 @@ X 自动发布先不做（等有付费用户再开 Twitter API）。
 **追踪逻辑**：
 ```
 每篇内容生成唯一 utm_code（nanoid 8位）
-发布链接 = contentship.app/track/{code}
+发布链接 = growpilot.app/track/{code}
 用户点击 → 记录 conversion(type: click) → 302 redirect 到目标 URL
 用户注册 → 如果 session 里有 utm_code → 记录 conversion(type: signup)
 ```

@@ -47,7 +47,7 @@
 | 项目 | 状态 | 下一步 |
 |------|------|--------|
 | **Socrates Finds You** | 🟢 每日使用中 | 持续打磨 |
-| **ContentShip** | 🔥 **最高优先级，7天MVP** | 自动化内容营销SaaS，$29/月，Day 1先跑通收款 |
+| **GrowPilot** | 🔥 **最高优先级，7天MVP** | 自动化内容营销SaaS，$29/月，Day 1先跑通收款 |
 | **AceRocket B2B** | 🔥 **高优先级，建MVP** | AI Teaching Loop，目标前3个付费客户 |
 | **Shopify AI Analyst** | 📋 排队中 | 待启动 |
 | **Vibe Coding Orchestrator** | 📋 排队中 | 待启动 |

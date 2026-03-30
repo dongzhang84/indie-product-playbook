@@ -7,7 +7,7 @@
 | 顺序 | Name | 类型 | 理由 | 预计周期 |
 |------|------|------|------|----------|
 | 🟢 Now | Socrates Finds You | 开源 | 已进入每日使用阶段，持续打磨 | Daily use |
-| 🔥 **Now** | **ContentShip** | 闭源 | **最高优先级，7天MVP** — 自动化内容营销，每周输出40关键词+10篇SEO博客+社交草稿，$29/月 founding price | **7天** |
+| 🔥 **Now** | **GrowPilot** | 闭源 | **最高优先级，7天MVP** — 自动化内容营销，每周输出40关键词+10篇SEO博客+社交草稿，$29/月 founding price | **7天** |
 | 🔥 **Now** | **AceRocket B2B** | 闭源 | **高优先级，立即做MVP** — B2B教学闭环，$99-399/月，目标前3个付费客户 | **2-3周** |
 | ❄️ Shelved | LaunchRadar (Customer Finder) | 闭源 | 已冷藏：竞品调研显示无一成功，方向验证失败，无法获客 | Shelved |
 | 🔥 3 | Vibe Coding Orchestrator | 开源 | 自动化 Planner+Claude Code 双窗口工作流，自己就是第一个用户 | 2-3周 |
@@ -41,7 +41,7 @@
 | 2026-02-24   | Relationship Playbook AI    | 把非结构化的人际复盘记录转化成可执行的沟通规则（Playbook），告诉你下次该怎么说 | Proposal    | [link](./relationship-playbook-proposal.md) | |
 | 2026-03-19   | x-growth-radar              | 分析 X 英语区爆款规律，给用户提供数据驱动的发帖策略（发什么、何时发、用什么格式） | Proposal    | [link](./x-growth-radar-proposal.md) | 2026-03-19 |
 | 2026-03-30   | AceRocket B2B               | AI-Powered Teaching Loop — SAT数学/AP微积分辅导机构的课后教学闭环系统，帮老师30秒自动推荐作业，机构Owner实时查看学生进度 | **🔥 In Progress** | [link](./acerocket_b2b_proposal.md) | 2026-03-30 |
-| 2026-03-30   | ContentShip                 | You build the product, we handle the growth — 每周自动生成40个buyer-intent关键词、10篇SEO博客草稿、X+LinkedIn社交帖子，面向SaaS founders和indie hackers，$29/月 | **🔥 In Progress** | [link](./contentship.md) | 2026-03-30 |
+| 2026-03-30   | GrowPilot                 | You build the product, we handle the growth — 每周自动生成40个buyer-intent关键词、10篇SEO博客草稿、X+LinkedIn社交帖子，面向SaaS founders和indie hackers，$29/月 | **🔥 In Progress** | [link](./growpilot.md) | 2026-03-30 |
 
 ## Legend
 - **Next Up**: 下一个要做的
