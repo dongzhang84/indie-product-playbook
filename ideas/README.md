@@ -7,8 +7,9 @@
 | 顺序 | Name | 类型 | 理由 | 预计周期 |
 |------|------|------|------|----------|
 | 🟢 Now | Socrates Finds You | 开源 | 已进入每日使用阶段，持续打磨 | Daily use |
-| ❄️ Next | LaunchRadar (Customer Finder) | 闭源 | 已冷藏：竞品调研显示无一成功，方向验证失败，无法获客 | Shelved |
-| 🔥 Next | Vibe Coding Orchestrator | 开源 | 自动化 Planner+Claude Code 双窗口工作流，自己就是第一个用户 | 2-3周 |
+| 🔥 **Now** | **AceRocket B2B** | 闭源 | **高优先级，立即做MVP** — B2B教学闭环，$99-399/月，目标前3个付费客户 | **2-3周** |
+| ❄️ Shelved | LaunchRadar (Customer Finder) | 闭源 | 已冷藏：竞品调研显示无一成功，方向验证失败，无法获客 | Shelved |
+| 🔥 3 | Vibe Coding Orchestrator | 开源 | 自动化 Planner+Claude Code 双窗口工作流，自己就是第一个用户 | 2-3周 |
 | 🔥 4 | Shopify AI Analyst | 闭源 | B2B高客单价，学习OAuth | - |
 | 🔥 5 | TimeLock (Notion Time Blocker) | 开源 | 积累用户基础和X关注者后，开源项目传播效果更好 | - |
 | ❌   | AI Video Decision Assistant | 闭源 | 已放弃：上线后300+访问、1次注册、0使用，产品市场不匹配 | Abandoned |
@@ -38,6 +39,7 @@
 | 2026-02-24   | PatentMotion                | 输入专利描述，5分钟得到可在浏览器交互的机械原理动画，专为专利诉讼litigation graphics设计 | Proposal    | [link](./patent-viz-mvp-proposal.md) | |
 | 2026-02-24   | Relationship Playbook AI    | 把非结构化的人际复盘记录转化成可执行的沟通规则（Playbook），告诉你下次该怎么说 | Proposal    | [link](./relationship-playbook-proposal.md) | |
 | 2026-03-19   | x-growth-radar              | 分析 X 英语区爆款规律，给用户提供数据驱动的发帖策略（发什么、何时发、用什么格式） | Proposal    | [link](./x-growth-radar-proposal.md) | 2026-03-19 |
+| 2026-03-30   | AceRocket B2B               | AI-Powered Teaching Loop — SAT数学/AP微积分辅导机构的课后教学闭环系统，帮老师30秒自动推荐作业，机构Owner实时查看学生进度 | **🔥 In Progress** | [link](./acerocket_b2b_proposal.md) | 2026-03-30 |
 
 ## Legend
 - **Next Up**: 下一个要做的

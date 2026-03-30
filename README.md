@@ -40,16 +40,14 @@
 9. [参考资料](playbook/09-indie-resources.md) - 参考工具和资源
 10. [AI多项目工作流](playbook/10-ai-workflow-plan.md) - OpenClaw + Mac Mini 自动化调度系统
 
-## 🚀 当前状态（2026-03-23）
+## 🚀 当前状态（2026-03-30）
 
 ### 活跃项目
 
 | 项目 | 状态 | 下一步 |
 |------|------|--------|
 | **Socrates Finds You** | 🟢 每日使用中 | 持续打磨 |
-| **AceRocket** | 🔨 开发中 | 推进功能 |
-| **SAT/AP** | 🔨 开发中 | 推进功能 |
-| **ProfitPilot** | 🔨 开发中 | 推进功能 |
+| **AceRocket B2B** | 🔥 **高优先级，建MVP** | AI Teaching Loop，目标前3个付费客户 |
 | **Shopify AI Analyst** | 📋 排队中 | 待启动 |
 | **Vibe Coding Orchestrator** | 📋 排队中 | 待启动 |
 | **LaunchRadar** | ❄️ 冷藏 | 无成功竞品，方向验证失败 |
@@ -188,5 +186,5 @@ Week 4: 看数据 → 决定继续/放弃
 
 ---
 
-Last Updated: 2026-03-23
-Version: 1.4
+Last Updated: 2026-03-30
+Version: 1.5
