@@ -8,7 +8,7 @@
 |------|------|------|------|----------|
 | 🟢 Now | Socrates Finds You | 开源 | 已进入每日使用阶段，持续打磨 | Daily use |
 | 🔥 **Now** | **GrowPilot** | 闭源 | **最高优先级，7天MVP** — 自动化内容营销，每周输出40关键词+10篇SEO博客+社交草稿，$29/月 founding price | **7天** |
-| 🔥 **Now** | **AceRocket B2B** | 闭源 | **高优先级，立即做MVP** — B2B教学闭环，$99-399/月，目标前3个付费客户 | **2-3周** |
+| 🔥 **Now** | **TeachLoop** | 闭源 | **高优先级，立即做MVP** — B2B教学闭环，$99-399/月，目标前3个付费客户 | **2-3周** |
 | ❄️ Shelved | LaunchRadar (Customer Finder) | 闭源 | 已冷藏：竞品调研显示无一成功，方向验证失败，无法获客 | Shelved |
 | 🔥 3 | Vibe Coding Orchestrator | 开源 | 自动化 Planner+Claude Code 双窗口工作流，自己就是第一个用户 | 2-3周 |
 | 🔥 4 | Shopify AI Analyst | 闭源 | B2B高客单价，学习OAuth | - |
