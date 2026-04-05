@@ -48,11 +48,13 @@ Week 1-2的目标：
 
 ```
 ❌ Google Ads（太贵，$100+起步）
-❌ Facebook Ads（转化率低）
 ❌ 买followers/traffic（垃圾流量）
 ❌ PR公司（$5000+，性价比低）
 ❌ Influencer marketing（太贵）
 ```
+
+> 💡 **关于 Facebook/Meta Ads：** 免费渠道验证需求后，Meta Ads 是一个值得尝试的付费渠道。
+> 见下方「付费广告」章节。
 
 ## 📊 免费渠道详解
 
@@ -283,6 +285,63 @@ IndieHackers用户喜欢：
 ✅ 数字/metrics
 ✅ 过程/learnings
 ```
+
+## 💰 付费广告（Week 2+，有信号后再做）
+
+> 前提：免费渠道跑完 Week 1，**有了好信号或中性信号**，再考虑花钱。
+
+### Meta / Facebook Ads（推荐首选）
+
+```
+为什么：
+✅ 精准定位（兴趣、行为、lookalike）
+✅ 最低 $5/天 就能测试
+✅ 有 Pixel 可以追踪转化
+✅ 适合 B2C SaaS 和 landing page 验证
+
+怎么做：
+1. 先完成 Meta 广告账号设置
+   → 详见 [Meta 广告账号设置指南](meta_ads_setup.md)
+
+2. 测试预算：$5-10/天，跑 3-5 天（总计 $15-50）
+3. 目标选「Traffic」或「Conversions」
+4. 一个广告组，2-3 条不同创意 A/B 测试
+5. 看 CPC < $1、CTR > 1% 才算及格
+```
+
+### 测试广告的决策框架
+
+```
+$30 测试后看数据：
+
+✅ 好信号（继续投）：
+- CPC < $0.50
+- CTR > 2%
+- 有 signup 或试用
+→ 加预算到 $20/天，继续优化
+
+⚠️ 中性信号（调整后再试）：
+- CPC $0.50-1.50
+- CTR 1-2%
+- 有点击但没转化
+→ 换文案/素材/受众，再跑 $30
+
+❌ 坏信号（停止）：
+- CPC > $2
+- CTR < 0.5%
+- 零转化
+→ 停止投放，问题可能在产品本身
+```
+
+### 其他付费渠道（备选）
+
+```
+Reddit Ads：$20 起测，适合 niche 社区
+Google Ads：$100+ 起步，早期不推荐
+Twitter/X Ads：效果不稳定，不推荐早期用
+```
+
+---
 
 ## 📋 Week 1 Marketing Checklist
 

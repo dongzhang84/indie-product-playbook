@@ -94,14 +94,18 @@ Month 4: $580  (+5%)
 ### 增长的来源
 
 ```
-好的增长：
+最好的增长：
 ✅ Organic（SEO、口碑）
 ✅ Word of mouth
 ✅ 用户推荐
 
+可以的增长（有正 ROI）：
+⚠️ 付费广告（Meta Ads 等），前提是 CPA < LTV
+⚠️ 需要持续优化，不能"设了就忘"
+
 不好的增长：
 ❌ 只靠你手动推广
-❌ 买流量
+❌ 买垃圾流量（bot traffic）
 ❌ 一次性spike
 ```
 
@@ -147,7 +151,12 @@ Month 4: $580  (+5%)
    - 写几篇内容
    - 优化landing page
 
-4. 继续做1-2个新产品
+4. 尝试付费广告
+   - Meta Ads $5-10/天测试
+   - 设置参考：playbook/meta_ads_setup.md
+   - 详细策略见：05-marketing.md 付费广告章节
+
+5. 继续做1-2个新产品
    - 作为backup plan
    - 保持做新产品的节奏
 

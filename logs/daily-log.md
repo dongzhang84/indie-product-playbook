@@ -45,3 +45,23 @@
 - 用虚拟账户跑完整测试流程（注册 → trial → dashboard → 洞察 → 问题 → 升级）
 - ProfitPilot pricing 页面 UI 修改
 
+## 2026-03-31（周二）
+
+- ✅ Scott 邮件已于今早发送
+- ProfitPilot（~25 commits）：
+  - Dashboard 全面重设计：left-border insights、AI 洞察质量升级（更严格 prompt + WOW Moment 红色警告卡）、Questions 区改名为 Ask ProfitPilot + 5个快捷 pill 按钮、Sync Button 新增、profit overview heading 优化
+  - 数据修复：rolling 30-day windows 替代 this month/last month、ad spend 计算修复、monthly profit server-side fetch、'warning' insight 红色样式修复
+  - Landing page 大改：全新 copy（question-led hero + 真实用户引言 + 3步 how-it-works）、v1 template 设计、deep blue 主题、pricing cards 拓宽、字体修复
+  - 功能新增：Google OAuth 注册、已登录用户自动跳转 dashboard
+  - UI 细节：font loading 修复、各区块 header 尺寸统一
+- AceRocket / AP_Calculus_Question_Bank（12 commits）：实现 30-question cap（expired-trial / 免费用户强制上限），PR #10、#11、#12 合并上线
+- AceRocket / SAT_Math_Question_Bank：同步实现 30-question cap（https://github.com/dongzhang84/SAT_Math_Question_Bank）
+- AceRocket / AP_Calculus_Question_Bank：修复做题记录无法存入 Realtime Database 的 bug
+- AceRocket / SAT_Math_Question_Bank：修复 landing page "More Questions" 按钮失效的 bug
+- 学习（Week 2 Day 1）✅ LangChain 入门完成：LCEL pipe syntax、ChatPromptTemplate、对话记忆（RunnableWithMessageHistory）、完整 RAG 系统（Load → Split → Embed → Retrieve → 带 source citation 输出），代码整理进 Study_Notes/LLM/LangChain.md 和 study_sandbox/week2_langchain_rag.py
+
+## 2026-04-01（周三）
+
+- ProfitPilot：制定 distribution 计划
+- Socrates Finds You：复盘无法获客的原因，思考是否回归国内市场
+
