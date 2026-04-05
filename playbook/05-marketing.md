@@ -301,7 +301,7 @@ IndieHackers用户喜欢：
 
 怎么做：
 1. 先完成 Meta 广告账号设置
-   → 详见 [Meta 广告账号设置指南](meta_ads_setup.md)
+   → 详见 [Meta 广告账号设置指南](11-meta-ads-setup.md)
 
 2. 测试预算：$5-10/天，跑 3-5 天（总计 $15-50）
 3. 目标选「Traffic」或「Conversions」

@@ -18,6 +18,7 @@
 │   ├── 08-failure.md
 │   ├── 09-indie-resources.md
 │   ├── 10-ai-workflow-plan.md  # AI多项目管理系统规划
+│   ├── 11-meta-ads-setup.md   # Meta广告账号设置指南
 │   └── indie-roadmap-2026.md   # 2026年独立开发路线图
 ├── ideas/              # 产品想法库
 │   ├── README.md
@@ -39,6 +40,7 @@
 8. [失败后](playbook/08-failure.md) - 如何快速复盘和继续
 9. [参考资料](playbook/09-indie-resources.md) - 参考工具和资源
 10. [AI多项目工作流](playbook/10-ai-workflow-plan.md) - OpenClaw + Mac Mini 自动化调度系统
+11. [Meta广告设置](playbook/11-meta-ads-setup.md) - Meta Business Manager / Pixel 账号设置与投放指南
 
 ## 🚀 当前状态（2026-03-30）
 

@@ -153,7 +153,7 @@ Month 4: $580  (+5%)
 
 4. 尝试付费广告
    - Meta Ads $5-10/天测试
-   - 设置参考：playbook/meta_ads_setup.md
+   - 设置参考：playbook/11-meta-ads-setup.md
    - 详细策略见：05-marketing.md 付费广告章节
 
 5. 继续做1-2个新产品
