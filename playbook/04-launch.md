@@ -74,19 +74,15 @@ Week 1可以先不买：
 
 ### 绑定域名到Vercel
 
+> 详细的购买、DNS配置、验证全流程见：[12 - 域名设置](12-domain-setup.md)
+
+简要步骤：
 ```
-1. 在域名注册商：
-   添加A记录或CNAME
-   
-2. 在Vercel：
-   Settings → Domains
-   添加你的域名
-
-3. 等待DNS传播（10分钟-24小时）
-
-4. Vercel自动配置HTTPS
-
-完成！
+1. Namecheap 购买域名（开启 Domain Privacy）
+2. Vercel → Settings → Domains → Add 域名 → 拿到 DNS 记录
+3. Namecheap → Advanced DNS → 添加 A Record + CNAME Record
+4. 等待 DNS 生效（通常几分钟）→ Vercel 自动配置 HTTPS
+5. 更新代码和第三方服务中的旧 URL
 ```
 
 ## 📊 Analytics设置

@@ -19,6 +19,7 @@
 │   ├── 09-indie-resources.md
 │   ├── 10-ai-workflow-plan.md  # AI多项目管理系统规划
 │   ├── 11-meta-ads-setup.md   # Meta广告账号设置指南
+│   ├── 12-domain-setup.md     # 域名购买与DNS配置指南
 │   └── indie-roadmap-2026.md   # 2026年独立开发路线图
 ├── ideas/              # 产品想法库
 │   ├── README.md
@@ -41,6 +42,7 @@
 9. [参考资料](playbook/09-indie-resources.md) - 参考工具和资源
 10. [AI多项目工作流](playbook/10-ai-workflow-plan.md) - OpenClaw + Mac Mini 自动化调度系统
 11. [Meta广告设置](playbook/11-meta-ads-setup.md) - Meta Business Manager / Pixel 账号设置与投放指南
+12. [域名设置](playbook/12-domain-setup.md) - 域名购买、DNS配置、Vercel绑定全流程
 
 ## 🚀 当前状态（2026-03-30）
 
