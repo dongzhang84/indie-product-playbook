@@ -41,7 +41,7 @@
 | 2026-02-24   | Relationship Playbook AI    | 把非结构化的人际复盘记录转化成可执行的沟通规则（Playbook），告诉你下次该怎么说 | Proposal    | [link](./relationship-playbook-proposal.md) | |
 | 2026-03-19   | x-growth-radar              | 分析 X 英语区爆款规律，给用户提供数据驱动的发帖策略（发什么、何时发、用什么格式） | Proposal    | [link](./x-growth-radar-proposal.md) | 2026-03-19 |
 | 2026-03-30   | TeachLoop                   | AI-Powered Teaching Loop — SAT数学/AP微积分辅导机构的课后教学闭环系统，帮老师30秒自动推荐作业，机构Owner实时查看学生进度 | **🔥 In Progress** | [link](./teachloop.md) | 2026-03-31 |
-| 2026-03-30   | GrowPilot                 | You build the product, we handle the growth — 每周自动生成40个buyer-intent关键词、10篇SEO博客草稿、X+LinkedIn社交帖子，面向SaaS founders和indie hackers，$29/月 | **🔥 In Progress** | [link](./growpilot.md) | 2026-04-01 |
+| 2026-03-30   | GrowPilot                 | You build the product, we handle the growth — 每周自动生成40个buyer-intent关键词、10篇SEO博客草稿、X+LinkedIn社交帖子，面向SaaS founders和indie hackers，$29/月 | **🔥 In Progress** | [link](./growpilot.md) | 2026-04-07 |
 
 ## Legend
 - **Next Up**: 下一个要做的
