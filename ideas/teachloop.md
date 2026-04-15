@@ -167,7 +167,17 @@ AI自动标注考点和难度（老师可手动修改）
 
 _Last updated: 2026-04-15_
 
-Week 1 _(current)_ · 2026-03-30 to 2026-04-05
+Week 3 _(current)_ · 2026-04-13 to 2026-04-19
+Status: ❌ Stalled
+Active days: 1 / 7
+Total commits: 1
+
+Week 2 · 2026-04-06 to 2026-04-12
+Status: ❌ Stalled
+Active days: 0 / 7
+Total commits: 0
+
+Week 1 · 2026-03-30 to 2026-04-05
 Status: ❌ Stalled
 Active days: 1 / 7
 Total commits: 5
