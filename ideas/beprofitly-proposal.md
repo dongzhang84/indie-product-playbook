@@ -1,4 +1,4 @@
-# Shopify AI Analyst - Product Proposal
+# BeProfitly - Product Proposal
 
 ## One-liner
 "10分钟连接Shopify，AI自动告诉你：什么卖得好、为什么不出单、该进多少货"
@@ -142,7 +142,7 @@ Enterprise: $199/月
 
 ## Differentiation
 
-| Feature | Shopify AI Analyst | Triple Whale | Glew | Daasity | Shopify自带 |
+| Feature | BeProfitly | Triple Whale | Glew | Daasity | Shopify自带 |
 |---------|-------------------|--------------|------|---------|-------------|
 | **定价** | $29/月 | $129/月 | $79/月 | $299/月 | 免费-$299 |
 | **复杂度** | ⭐ 极简 | ⭐⭐⭐⭐ 复杂 | ⭐⭐⭐ 中等 | ⭐⭐⭐⭐⭐ 企业级 | ⭐⭐ 简单 |
@@ -159,13 +159,13 @@ Enterprise: $199/月
 4. **垂直专注** - 只做Shopify，不分散精力
 
 ## Why This Works
-✅ **真实痛点** - Shopify卖家确实需要简单的分析工具
-✅ **明确用户** - 500万Shopify卖家，1%愿意付费 = 5万潜在客户
-✅ **技术可行** - Shopify API成熟，GPT-4足够好
-✅ **一人可做** - Week 1能做出MVP，不需要团队
-✅ **获客渠道** - Shopify App Store有天然流量
-✅ **付费意愿** - $29/月对卖家不算贵（<2%收入）
-✅ **快速验证** - 1个月就能知道有没有人要
+✅ **真实痛点** - Shopify卖家确实需要简单的分析工具  
+✅ **明确用户** - 500万Shopify卖家，1%愿意付费 = 5万潜在客户  
+✅ **技术可行** - Shopify API成熟，GPT-4足够好  
+✅ **一人可做** - Week 1能做出MVP，不需要团队  
+✅ **获客渠道** - Shopify App Store有天然流量  
+✅ **付费意愿** - $29/月对卖家不算贵（<2%收入）  
+✅ **快速验证** - 1个月就能知道有没有人要  
 
 ## Success Metrics
 
@@ -187,7 +187,7 @@ Enterprise: $199/月
 - Positive reviews (4+ stars)
 - <30% churn rate
 
-**如果达不到Month 3目标 → 放弃**
+**如果达不到Month 3目标 → 放弃**  
 **如果达到 → 继续优化，加Phase 2功能**
 
 ## Competition
@@ -244,27 +244,27 @@ Enterprise: $199/月
 ## Risks & Mitigation
 
 ### ⚠️ 风险1: Shopify API限制
-**问题:** Rate limit（每秒2请求），大店铺拉数据慢
+**问题:** Rate limit（每秒2请求），大店铺拉数据慢  
 **解决:** 后台异步拉数据 + 用户预期管理（"初始化需30分钟"）
 
 ### ⚠️ 风险2: 数据质量差
-**问题:** 小卖家数据不全，AI分析不准
+**问题:** 小卖家数据不全，AI分析不准  
 **解决:** 数据质量报告 + 教用户改进 + 降低预期
 
 ### ⚠️ 风险3: 客服压力
-**问题:** 电商卖家不懂技术，会问很多基础问题
+**问题:** 电商卖家不懂技术，会问很多基础问题  
 **解决:** 详细FAQ + 视频教程 + Intercom自动回复
 
 ### ⚠️ 风险4: 竞争加剧
-**问题:** Triple Whale可能降价，Shopify可能自己加AI
+**问题:** Triple Whale可能降价，Shopify可能自己加AI  
 **解决:** 速度优势（快速获取1000用户）+ 口碑 + 考虑被收购
 
 ### ⚠️ 风险5: 市场太小
-**问题:** 只有几千真正愿意付费的用户
+**问题:** 只有几千真正愿意付费的用户  
 **解决:** $29定价，100用户=$2,900 MRR，solo可接受
 
 ### ⚠️ 风险6: 用户不续费
-**问题:** 用完一次就走（低留存）
+**问题:** 用完一次就走（低留存）  
 **解决:** Weekly digest email保持engagement + 持续价值（预警通知）
 
 ## Acquisition Strategy
@@ -458,27 +458,3 @@ Week 4:
 **Priority**: High（真实痛点 + 技术可行 + 明确用户）
 **Next Action**: Week 1 Day 1 - 注册Shopify Partner账号，学习API文档
 **Decision Deadline**: Week 4末（2026年3月初）
-
-## Sprint Summary
-
-_Last updated: 2026-04-14_
-
-Week 4 _(current)_ · 2026-04-13 to 2026-04-19
-Status: ❌ Stalled
-Active days: 2 / 7
-Total commits: 9
-
-Week 3 · 2026-04-06 to 2026-04-12
-Status: ⚠️ Slow
-Active days: 4 / 7
-Total commits: 27
-
-Week 2 · 2026-03-30 to 2026-04-05
-Status: ⚠️ Slow
-Active days: 4 / 7
-Total commits: 41
-
-Week 1 · 2026-03-23 to 2026-03-29
-Status: ⚠️ Slow
-Active days: 4 / 7
-Total commits: 46

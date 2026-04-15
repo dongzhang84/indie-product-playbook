@@ -11,7 +11,7 @@
 | 🔥 **Now** | **TeachLoop** | 闭源 | **高优先级，立即做MVP** — B2B教学闭环，$99-399/月，目标前3个付费客户 | **2-3周** |
 | ❄️ Shelved | LaunchRadar (Customer Finder) | 闭源 | 已冷藏：竞品调研显示无一成功，方向验证失败，无法获客 | Shelved |
 | 🔥 3 | Vibe Coding Orchestrator | 开源 | 自动化 Planner+Claude Code 双窗口工作流，自己就是第一个用户 | 2-3周 |
-| 🔥 4 | Shopify AI Analyst | 闭源 | B2B高客单价，学习OAuth | - |
+| 🔥 4 | BeProfitly | 闭源 | B2B高客单价，学习OAuth | - |
 | 🔥 5 | TimeLock (Notion Time Blocker) | 开源 | 积累用户基础和X关注者后，开源项目传播效果更好 | - |
 | ❌   | AI Video Decision Assistant | 闭源 | 已放弃：上线后300+访问、1次注册、0使用，产品市场不匹配 | Abandoned |
 
@@ -22,7 +22,7 @@
 | 2026-03-08   | Socrates Finds You          | 自动监控Blind/LinkedIn/Reddit，识别有真实需求的潜在客户，每天输出可操作线索报告 | In Progress | [link](./socrates-finds-you.md) | 2026-03-31 |
 | 2026-02-12   | LaunchRadar (Customer Finder) | AI finds Reddit/HN discussions where people need your product, 3-5 high-intent leads daily | Shelved    | [link](./customer-finder-product-analysis.md) | 2026-03-27 |
 | 2026-03-20   | Vibe Coding Orchestrator    | 一个脚本编排 Planner Claude + Claude Code CLI，告别双窗口手动搬运，自然语言驱动开发全流程 | Queued #3   | [link](./orchestrator-proposal.md) | 2026-03-20 |
-| 2026-02-05   | Shopify AI Analyst          | AI电商分析，30个预设问题秒懂店铺数据 | Queued #4    | [link](./shopify-ai-analyst-proposal.md) | 2026-04-14 |
+| 2026-02-05   | BeProfitly                  | AI电商分析，30个预设问题秒懂店铺数据 | Queued #4    | [link](./beprofitly-proposal.md) | 2026-04-14 |
 | 2026-02-09   | TimeLock (Notion Time Blocker) | Auto time-block your Notion tasks in 1 click, AI智能调度到Google Calendar | Queued #5    | [link](./notion-time-blocker-proposal.md) | |
 | 2026-02-06   | DevTool Lead Finder         | Find developers who need your tool, get AI-written replies in 30 seconds | Queued #6    | [link](./devtool-lead-finder-proposal.md) | |
 | 2026-02-06   | AI Video Decision Assistant | Stop wasting credits testing 10 AI video models. Get smart recommendations and side-by-side previews before you generate. | Abandoned   | [link](./ai-video-decision-assistant.md) | 2026-03-20 |
@@ -42,6 +42,7 @@
 | 2026-03-19   | x-growth-radar              | 分析 X 英语区爆款规律，给用户提供数据驱动的发帖策略（发什么、何时发、用什么格式） | Proposal    | [link](./x-growth-radar-proposal.md) | 2026-03-19 |
 | 2026-03-30   | TeachLoop                   | AI-Powered Teaching Loop — SAT数学/AP微积分辅导机构的课后教学闭环系统，帮老师30秒自动推荐作业，机构Owner实时查看学生进度 | **🔥 In Progress** | [link](./teachloop.md) | 2026-04-15 |
 | 2026-03-30   | GrowPilot                 | You build the product, we handle the growth — 每周自动生成40个buyer-intent关键词、10篇SEO博客草稿、X+LinkedIn社交帖子，面向SaaS founders和indie hackers，$29/月 | **🔥 In Progress** | [link](./growpilot.md) | 2026-04-07 |
+| 2026-04-13   | Doppelgang                  | Distill real customers into AI sparring partners — sales reps practice discovery, negotiation, and objection handling against AI customers with hidden goals and emotional state, then get multi-dimensional coaching feedback | **🔥 In Progress** | [link](./doppelgang.md) | 2026-04-14 |
 
 ## Legend
 - **Next Up**: 下一个要做的
