@@ -20,3 +20,6 @@ npm-debug.log*
 .env
 .env.local
 Thumbs.db
+
+# Personal
+daily-log.md
