@@ -42,7 +42,7 @@ Two parallel product tracks, same as Guo Yu's model:
 ### Track A: For Human (my personal experiment ground)
 
 - Each product comes from a real pain point I personally experience
-- Ship fast (1-2 weeks per MVP, vibe coding pace)
+- **Ship cadence: 1 day for MVP, 3-day buffer max.** Vibe coding + existing `stack/new-project.sh` pipeline makes this realistic. The real time cost is **distribution** (self-use + friends + content), not the build.
 - Expect most of them to not "blow up"—that's fine
 - Purpose: each For Human product feeds the next track
 

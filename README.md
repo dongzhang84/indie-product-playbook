@@ -125,11 +125,13 @@
 
 ### 典型周期（Track A 产品）
 
+**构建是 1-3 天的事，之后的 2-4 周才是真正工作（分发 + 自用 + friction 积累）**。
+
 ```
-Week 1: self-use 痛点识别 → 写产品说明 (ideas/<id>.md)
-Week 2: 写技术步骤 → stack/new-project.sh 建仓库 → vibe coding MVP
-Week 3: 自用 + 3-5 个朋友试用 → friction log 开始积累
-Week 4: 决定继续 or 杀（5 天没开 = 杀）；浮现 Track B 候选？
+Day 1:    痛点识别 + 产品说明 + 技术步骤 + new-project.sh + vibe coding MVP
+Day 2-3:  buffer（修 bug + 打磨最小 UX，直到能自用）
+Day 4+:   自用 + 3-5 个朋友试用 + 发推文讲过程（分发在这里，不在构建）
+Day 14:   检查点 — 5 天没开自己 = 杀；friction log 有没有浮现 Track B 候选？
 ```
 
 **公开活动是并行主线，不是附加项**：每日 1 条推文从 Day 1 开始，不等产品 ship 再说。
@@ -189,24 +191,27 @@ Week 4: 决定继续 or 杀（5 天没开 = 杀）；浮现 Track B 候选？
 
 ## 📈 时间规划（2026-04-21 重写）
 
-### Month 1-3: 粉丝 + Vibe Reading
+构建很快（1-3 天），慢的是分发 + friction 沉淀。时间尺度上：
 
-- Vibe Reading MVP ship，每周自用
-- 每日 1 条实质性推文（真名），激活 Amazon / Nanjing 校友网络
-- friction log 开始积累
-- **不规划**下一个 Track A 产品
+### Month 1-3: 粉丝积累 + Track A 自然迭代
 
-### Month 3-6: 分发起步 + 第二个 Track A 浮现
+- Vibe Reading Day 1-3 ship，之后每日自用 + 分发
+- 每日 1 条实质性推文（真名）— **从 Day 1 开始**，不等产品
+- 新 Track A 产品从 friction 自然浮现就 ship，不预先规划
+- 预期 3 个月可能 ship **3-6 个 Track A**（1/10-2/10 命中率）
+- 粉丝目标 300-500
 
-- 从 friction log 里看到下一个 Track A 的痛点信号
-- 粉丝 1000-2000
-- 陌生人出现
+### Month 3-6: 分发成肌肉记忆 + Track B 候选浮现
 
-### Month 6-12: Track B 候选 → 第一版 shovel
+- 内容和人脉激活已经是日常
+- friction log 里同一类摩擦 ≥ 3 次 → Track B 候选浮现
+- 粉丝 1000-2000，开始有陌生人注册 / 提问
 
-- friction log 里同一类摩擦 ≥ 3 次 → 考虑 Track B 提取
-- Track A 继续 ship（命中率 1/10-2/10）
-- 商业化拐点可能出现
+### Month 6-12: Track B 第一版 ship + 商业化拐点
+
+- Track B 候选变成第一版 shovel
+- Track A 某产品可能出现真实付费（付费是信号不是目的）
+- 公司形态开始成形（协作者 / 外包）
 
 **完整里程碑见 [STRATEGY.md §8](./STRATEGY.md)。**
 

@@ -13,7 +13,8 @@
 ### Track A — For Human（个人实验田）
 
 - 每个产品**必须**来自我亲身遇到的痛点（self-use 原则）
-- 1-2 周 MVP，vibe coding 节奏
+- **构建节奏**：1 天 MVP + 3 天 buffer，vibe coding + `stack/new-project.sh` 一条龙
+- **真正的时间花在分发和自用**，不在构建。不要把构建时间估成周/月
 - **预期大多数不会爆**——这是正常结果，不是失败
 - 真正的意义：每个 For Human 产品是下一轨的**原料**
 
@@ -142,9 +143,16 @@ Guo Yu 能 ship 13 个产品、每个都拿到真实用户反馈——因为 167
 传统创业："一个产品 all-in 五年。"
 vibe coding 时代："ship 20 个，留下 land 的 2 个。"
 
+**节奏基准**：
+- 构建：**1 天 MVP，3 天 buffer**（vibe coding + `stack/new-project.sh`）
+- 分发 + 自用 + friction 积累：**接下来 2-4 周**（真正的工作）
+- 决策点：Day 14 检查，5 天没自己开 = 杀
+
+**原则**：
 - 70% 质量能 ship 就 ship，别等 100%
 - 过度规划是过去 5 周失败的根因之一
 - 不要 Claude 帮我"优化到完美"，要 Claude 帮我"卡 70% 质量立即推出去"
+- **构建时间估成周 / 月 = 在偷懒**。vibe coding 时代没这种借口
 
 ---
 
