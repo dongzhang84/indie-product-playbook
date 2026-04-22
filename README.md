@@ -30,12 +30,70 @@
 
 或者手动 4 步：
 
-1. Claude 写 `ideas/<id>.md`（产品说明）
-2. Claude 写 `implementation-guides/<id>.md`（技术步骤 v1）
+1. Claude 写 `ideas/<id>.md`（产品说明）— 参考 `ideas/vibe-reading.md` 结构
+2. Claude 写 `implementation-guides/<id>.md`（技术步骤 v1）— **详见下面"写 implementation-guide 约定"**
 3. 跑 `bash stack/new-project.sh <id> "<项目名>"`（自动建 repo + 配 workflow + push）
 4. 脚本打印的 URL → 点进去加 `PLAYBOOK_TOKEN` secret（30 秒）
 
-完整说明：[`stack/NEW-PROJECT.md`](stack/NEW-PROJECT.md)
+完整流程说明：[`stack/NEW-PROJECT.md`](stack/NEW-PROJECT.md)
+
+### 📝 写 implementation-guide 的约定
+
+核心套路：**引用 STANDARD.md 的标准模块，只写偏离 + 业务定制。** STANDARD 越厚，每个新项目 guide 越薄，维护成本越低。
+
+**必备骨架（顺序）：**
+
+```
+# <产品名> — Implementation Guide
+**Product** / **Tagline** / **Stack** / **Repo** / **Last Updated**
+
+(可选) ## ⚠️ Golden Rules — 产品独有的哲学铁律
+                              见 implementation-guides/vibe-reading.md 开头
+
+## Phase 0 — 项目初始化
+  Step 1: scaffold（create-next-app + shadcn + deps）
+  Step 2: Supabase 配置 — 按 STANDARD §3.7 + 项目偏离
+  Step 3: 目录结构
+  Step 4: 环境变量（从最近的项目 .env.local 复制共享凭据）
+  Step 5: 类型生成（db:types script）
+
+## Phase 1..N — 业务逻辑（按用户流程时间顺序排，每屏一个 phase）
+  每个 Phase 含：
+    - 页面结构 / 关键组件
+    - API route 骨架
+    - 数据库操作（引用 schema）
+    - AI prompt + JSON schema（如有）
+
+## 常见坑（继承 STANDARD + 项目专属）
+
+## 环境变量完整清单
+
+## 新项目 Checklist（给未来执行者逐项勾选）
+```
+
+**重用 vs 定制规则：**
+
+| 内容 | 做法 |
+|------|------|
+| Auth 三件套（client/server/admin + login/register/callback + middleware）| 引用 `STANDARD §3` — 只列偏离（砍哪个 provider、是否加 Profile 表等）|
+| 数据库安全模型（RLS + owner policies）| 引用 `STANDARD §4.1` — 照做 |
+| Supabase Dashboard + Setup checklist | 引用 `STANDARD §3.7` — 只列项目偏离（schema 名、bucket 名、共享 vs 新建 project）|
+| Stripe 模式 A（Credits）/ 模式 B（Subscription）| 引用 `STANDARD §6` — 只列 price ID 和 credit 规则 |
+| Vercel 部署 | 引用 `STANDARD §5` — 只列项目专属 env vars 和 Build Command 偏离 |
+| 数据 schema（表结构、索引、policies 具体形状）| **完整写**（项目差异最大的部分）|
+| AI prompts + JSON schema | **完整写** |
+| UI flow + 页面组件代码骨架 | **完整写** |
+| Cron jobs / background jobs | **完整写**（STANDARD 管框架，内容项目定）|
+
+**起步最快的方法：** `cp` 最接近的现有 guide 再改。
+
+| 风格 | 范例文件 | 适合 |
+|------|---------|------|
+| 最小化（强哲学约束）| `implementation-guides/vibe-reading.md` | 产品哲学优先、技术复杂度低 |
+| 标准 SaaS | `implementation-guides/teachloop.md` | 一般业务 SaaS + Stripe |
+| 多模块复杂 | `implementation-guides/growpilot.md` | 多角色 / 多集成 / 多 cron |
+
+写完提交给你 review，你批了再跑 `bash stack/new-project.sh`。
 
 ---
 

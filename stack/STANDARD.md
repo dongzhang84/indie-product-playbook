@@ -225,6 +225,117 @@ export const config = {
 - Authentication → Providers → **GitHub**: 填入 Client ID + Secret（从 GitHub OAuth Apps 获取）
 - Redirect URL 填：`https://your-project.vercel.app/auth/callback`
 
+### 3.7 Supabase Setup Checklist
+
+> 踩过的坑的合集。新项目照抄，别再重新踩。Vibe Reading 项目 2026-04-22 卡在这上花了一整个上午，主要因为 Supabase UI 会变位置、SQL Editor 有容易忽略的点、用肉眼确认不如用脚本探针。
+
+#### 3.7.1 新建 project vs 复用已有 project
+
+- **新建** 适合：第一个项目、数据量大的项目、不希望跟其他项目共享 auth.users 的项目
+- **复用（schema 隔离）** 适合：后续副项目、个人 side-project、希望跨项目同一个登录身份
+- 命名约定：复用时每个 app 用 **2-letter schema 前缀**——`lr` (launchradar) / `pp` (profitpilot) / `vr` (vibe-reading) / `gp` (growpilot)
+- 复用时 `auth.users` 共享 = 跨项目 SSO（同一个 `user.id`）。这是特性不是 bug
+- Storage bucket 是 project-wide 非 schema-scoped，复用时用独立 bucket 名（如 `vr-pdfs`）或路径前缀
+
+#### 3.7.2 SQL Editor 使用要点
+
+| 坑 | 事实 |
+|---|------|
+| 粘贴 SQL ≠ 执行 | 必须按 **Cmd/Ctrl + Enter** 或点右上 **Run** 按钮才跑。贴完不按 Run 什么都不会发生 |
+| DDL 成功的视觉信号 | 结果面板显示 `Success. No rows returned` — 这是正常的 DDL 语法，不是"空结果 = 没建"|
+| "Run without RLS" vs "Run and enable RLS" 弹框 | **永远选 "Run and enable RLS"**。如果 SQL 里已经写了 `enable row level security` + policies，选 "Run without RLS" 会让 Supabase 少做一次多余的 alter；但默认仍应该选 "enable RLS" 防止忘记某张表 |
+| `relation "X" already exists` 报错 | 说明 SQL 之前已经跑过一次成功了。要重置就在 SQL 顶部加 `drop schema if exists <name> cascade;` + 重新建 |
+| 建完去哪看表 | **Table Editor**，左上角有 **schema 下拉**，默认显示 `public`——要切到你的自定义 schema 才能看到你建的表 |
+
+#### 3.7.3 Exposed Schemas（最容易漏的一步）
+
+**自定义 schema 必须手动加到 Data API 的 Exposed schemas 列表**，否则 supabase-js 报 `PGRST106: Invalid schema`。
+
+**UI 路径会随 Supabase 版本变**，以下按时间顺序列，哪个能打开用哪个：
+
+1. **直链（最稳）：** `https://supabase.com/dashboard/project/{ref}/settings/api`
+2. 新 UI（2026+）：Dashboard → Settings → **Data API**（不是 "API Keys"）
+3. 老 UI：Dashboard → Settings → **API** → 滚动到 "Exposed schemas"
+
+在 "Exposed schemas" 列表里加你的自定义 schema（`public, graphql_public` 之外），**点 Save**。保存按钮不灰 = 有未保存改动。
+
+#### 3.7.4 Grants
+
+自定义 schema 必须显式 grant，不像 `public` 那样自动配置好。跑 schema 建表 SQL 时顺带跑：
+
+```sql
+grant usage on schema <schema_name> to service_role, authenticated;
+alter default privileges in schema <schema_name> grant all on tables to service_role;
+alter default privileges in schema <schema_name> grant all on sequences to service_role;
+alter default privileges in schema <schema_name> grant select, insert, update, delete on tables to authenticated;
+alter default privileges in schema <schema_name> grant usage, select on sequences to authenticated;
+
+-- 建表之后再 catch-all 一遍（alter default privileges 只对未来生效）
+grant all on all tables in schema <schema_name> to service_role;
+grant all on all sequences in schema <schema_name> to service_role;
+grant select, insert, update, delete on all tables in schema <schema_name> to authenticated;
+```
+
+**不给 `anon`** — pre-login 流程只走后端 API（service_role），不需要 anon 能查表。这比 RLS 多一层"根本连不上"的防御。
+
+#### 3.7.5 验证：supabase-js 探针（不要靠 Dashboard 肉眼）
+
+Dashboard 的 UI 会骗你（schema 下拉打开里看到 `vr` ≠ 已暴露；"Save" 按钮不一定点了；某些改动不保存自动丢）。**Setup 完毕后必跑**这个脚本确认：
+
+```js
+// scripts/probe.mjs（每个项目都放一份，`.gitignore` 掉）
+import { createClient } from '@supabase/supabase-js'
+
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+const service = process.env.SUPABASE_SERVICE_ROLE_KEY
+const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const schema = 'vr'          // ← 换成项目 schema
+const tables = ['books']     // ← 换成项目的核心表
+
+const svc = createClient(url, service, { db: { schema } })
+const pub = createClient(url, anon, { db: { schema } })
+
+for (const t of tables) {
+  const r1 = await svc.from(t).select('id', { count: 'exact', head: true })
+  console.log(`service_role ${schema}.${t}:`, r1.error ? '❌ ' + r1.error.message : '✅ count=' + (r1.count ?? 0))
+
+  const r2 = await pub.from(t).select('id').limit(1)
+  console.log(`anon        ${schema}.${t}:`, r2.error ? 'blocked: ' + r2.error.message : 'rows=' + r2.data.length)
+}
+```
+
+**通过标准：**
+- service_role 每张表都 ✅
+- anon 全部被 `permission denied for schema` 或 RLS 过滤成 0 行
+
+跑法：把脚本放进项目根目录（not tmp，要能 resolve `@supabase/supabase-js`），`node scripts/probe.mjs`。
+
+#### 3.7.6 Types 生成
+
+```bash
+npx supabase login   # 首次需要，走浏览器 OAuth
+npx supabase gen types typescript --project-id <ref> --schema <schema_name> > types/db.ts
+```
+
+坑：
+- 漏 `--schema` → 默认只 gen `public`，你的自定义 schema 表都缺
+- `Access token not provided` → 跑 `npx supabase login`
+- 用 `--db-url` 绕过登录的方案需要 Docker（大概率没开，别用）
+
+把 `db:types` 脚本加到 `package.json`，schema 改动后跑 `npm run db:types`。
+
+#### 3.7.7 症状 → 原因 速查表
+
+| 症状 | 原因 | 解法 |
+|------|------|------|
+| `PGRST106: Invalid schema: <name>` | exposed schemas 列表漏加 | Settings → Data API → Exposed schemas → 加 → **Save** |
+| `permission denied for schema <name>` | 该 role 没 `usage on schema` grant | 跑 §3.7.4 的 grants SQL |
+| Dashboard 里看不到表但 SQL 没报错 | Table Editor schema 下拉没切到自定义 schema | 左上角 schema 下拉切换 |
+| `relation "X" already exists` | 之前跑成功过 | `drop schema ... cascade;` + 重跑 |
+| `Invalid supabaseUrl: Provided URL is malformed` (Node) | 脚本里把 `URL` 当普通变量名用，shadow 了 Node 内置 | 改变量名（`url` 或 `SUPABASE_URL`），别用 `URL` |
+| RLS policies 写了但 anon 能读 | 没 `alter table X enable row level security` | 执行 enable 语句 |
+| `supabase gen types` 报 "Access token not provided" | CLI 没登录 | `npx supabase login` |
+
 ---
 
 ## 4. Database 模块（Prisma）
