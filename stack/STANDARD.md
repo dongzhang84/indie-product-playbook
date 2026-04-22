@@ -231,15 +231,40 @@ export const config = {
 
 ### 4.1 安全模型
 
-**所有表 RLS DISABLED。安全靠 API 层保证。**
+**所有表 RLS ENABLED。** 双层防御：API 层验证 session（Layer 1）+ DB 层 RLS 策略（Layer 2）。
 
-规则：每个 API route 第一行必须验证 session：
+canonical 实现参考：`/Users/dong/Projects/profitpilot/implementation-guide.md` §4。
+
+**Layer 1 — 每个 API route 第一行必须验证 session：**
+
 ```typescript
 const supabase = await createServerSupabaseClient()
 const { data: { user } } = await supabase.auth.getUser()
 if (!user) return new Response('Unauthorized', { status: 401 })
 ```
-> 这条规则没有例外。忘记写 = 安全漏洞。
+这条规则没有例外。忘记写 = RLS 挡住后返回 "not found"（而不是 401），体验差且泄露存在性信息。
+
+**Layer 2 — 每张表 enable RLS + 加 owner-based policies：**
+
+```sql
+alter table X enable row level security;
+
+create policy "own X read"   on X for select using (auth.uid() = owner_id);
+create policy "own X insert" on X for insert with check (auth.uid() = owner_id);
+create policy "own X update" on X for update using (auth.uid() = owner_id);
+create policy "own X delete" on X for delete using (auth.uid() = owner_id);
+```
+
+子表通过 parent table 间接限制：
+```sql
+create policy "own child" on child_table for all
+  using (parent_id in (select id from parent_table where owner_id = auth.uid()))
+  with check (parent_id in (select id from parent_table where owner_id = auth.uid()));
+```
+
+**服务端 admin client（`service_role` key）自动绕过 RLS。** 后端批量操作（cron jobs、system tasks、pre-login 匿名 session 的操作）不受 policy 限制，但仍必须在 API route 层做 Layer 1 的 session / 授权校验。
+
+> 以前版本的 STANDARD 是 "RLS DISABLED 安全靠 API 层保证"。现在改成 ENABLED 是因为：(1) Supabase Dashboard 创建表时会主动警告缺 RLS；(2) 多一层防御成本近乎零（service_role 已经绕过）；(3) 跨项目一致（profitpilot 已经这么做）。老项目若仍是 RLS DISABLED，下次碰这个项目时再一并迁移。
 
 ### 4.2 Prisma 初始化（Prisma v7 必须用 adapter）
 
@@ -318,6 +343,7 @@ Setup:
 - Use supabase-js client for all DB operations (no Prisma)
 - No `DATABASE_URL` needed in `.env.local`
 - Use `supabaseAdmin` (service role) for server-side writes
+- **Tables still follow §4.1 — RLS ENABLED + owner-based policies. Supabase-only mode changes the ORM, not the security model.**
 
 Remove from `.env.local`:
 - `DATABASE_URL`
