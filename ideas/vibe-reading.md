@@ -195,4 +195,9 @@ Vibe Reading 是一个**反主流**的读书工具。它故意阻止用户做三
 
 ## Sprint Summary
 
-_This section will be auto-updated by the sync-from-projects workflow once the repo is created._
+_Last updated: 2026-04-22_
+
+Week 1 _(current)_ · 2026-04-20 to 2026-04-26
+Status: ❌ Stalled
+Active days: 1 / 7
+Total commits: 2
