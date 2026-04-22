@@ -48,6 +48,7 @@
 必须遵守：
 
 1. 标准模块直接引用 STANDARD.md，不复制
+   - Scaffold 清理（meta / favicon / 字体变量）→ STANDARD §2.5
    - Auth 三件套 → STANDARD §3
    - Supabase Dashboard + Setup checklist → STANDARD §3.7
    - 数据库 RLS + owner policies → STANDARD §4.1
@@ -65,7 +66,9 @@
    - Header: Product / Tagline / Stack / Repo / Last Updated
    - (可选) Golden Rules — 产品独有哲学铁律
    - Phase 0: Scaffold + Supabase + 目录 + env + 类型生成
-   - Phase 1..N: 按用户流程时间顺序，每 Phase 一个核心功能
+   - Phase 1: Landing + 壳（按 STANDARD §2.5 做 scaffold 清理；
+             metadata / favicon / 字体变量一次改对，不留到后面）
+   - Phase 2..N: 按用户流程时间顺序，每 Phase 一个核心功能
    - 常见坑（继承 STANDARD + 项目专属）
    - 环境变量完整清单
    - 新项目 Checklist
