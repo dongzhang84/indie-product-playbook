@@ -4,6 +4,21 @@
 >
 > 从0到1，快速验证，以量取胜
 
+## 🆕 新建项目（standardized flow）
+
+要建新项目？**跟 Claude 说"按新项目流程走，项目叫 XXX"** 就行。
+
+或者手动 4 步：
+
+1. Claude 写 `ideas/<id>.md`（产品说明）
+2. Claude 写 `implementation-guides/<id>.md`（技术步骤 v1）
+3. 跑 `bash stack/new-project.sh <id> "<项目名>"`（自动建 repo + 配 workflow + push）
+4. 脚本打印的 URL → 点进去加 `PLAYBOOK_TOKEN` secret（30 秒）
+
+完整说明：[`stack/NEW-PROJECT.md`](stack/NEW-PROJECT.md)
+
+---
+
 ## 📁 项目结构
 
 ```

@@ -1,0 +1,2 @@
+# GitHub token (for local git operations; remote URL already embeds it)
+GITHUB_TOKEN={{GITHUB_TOKEN}}
