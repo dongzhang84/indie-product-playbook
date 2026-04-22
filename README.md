@@ -123,15 +123,16 @@
 - **不预设 Track B**：shovel 从 friction log 浮现，不从空想规划
 - **命中率 1/10-2/10**：10 个 Track A 产品 1-2 个 land，其他是学费
 
-### 典型周期（Track A 产品）
+### 典型周期（Track A 产品）—— **1 周一个，流水线叠**
 
-**构建是 1-3 天的事，之后的 2-4 周才是真正工作（分发 + 自用 + friction 积累）**。
+vibe coding 时代节奏：**构建 1-3 天，初步分发 3-4 天，下一个立刻起**。不要等上一个"验证完"才开下一个——分发是长尾，后台继续。
 
 ```
-Day 1:    痛点识别 + 产品说明 + 技术步骤 + new-project.sh + vibe coding MVP
-Day 2-3:  buffer（修 bug + 打磨最小 UX，直到能自用）
-Day 4+:   自用 + 3-5 个朋友试用 + 发推文讲过程（分发在这里，不在构建）
-Day 14:   检查点 — 5 天没开自己 = 杀；friction log 有没有浮现 Track B 候选？
+Day 1:   痛点识别 + 产品说明 + 技术步骤 + new-project.sh + vibe coding MVP
+Day 2-3: buffer（修 bug + 打磨最小 UX，能自用即可）
+Day 4-7: 自用 + 朋友试用 + 发推文讲过程（初步分发窗口）
+Day 8+:  **下一个 Track A 立即启动**。上一个的分发、自用、friction 后台继续
+Day 7:   上一个产品第一次检查点 — 5 天没自己开 = 杀
 ```
 
 **公开活动是并行主线，不是附加项**：每日 1 条推文从 Day 1 开始，不等产品 ship 再说。
@@ -193,12 +194,12 @@ Day 14:   检查点 — 5 天没开自己 = 杀；friction log 有没有浮现 T
 
 构建很快（1-3 天），慢的是分发 + friction 沉淀。时间尺度上：
 
-### Month 1-3: 粉丝积累 + Track A 自然迭代
+### Month 1-3: Track A 流水线化 + 粉丝积累
 
-- Vibe Reading Day 1-3 ship，之后每日自用 + 分发
-- 每日 1 条实质性推文（真名）— **从 Day 1 开始**，不等产品
-- 新 Track A 产品从 friction 自然浮现就 ship，不预先规划
-- 预期 3 个月可能 ship **3-6 个 Track A**（1/10-2/10 命中率）
+- **每周 1 个 Track A 启动**（3 天构建 + 4 天初步分发 + 下周又起一个）
+- 3 个月末累计 **10-12 个 Track A attempt**，1-2 个 land（1/10-2/10 命中率）
+- 每日 1 条推文（真名）— **从 Day 1 开始**，不等产品
+- friction log 边做边记
 - 粉丝目标 300-500
 
 ### Month 3-6: 分发成肌肉记忆 + Track B 候选浮现
