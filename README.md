@@ -55,40 +55,28 @@
 基于 ideas/<id>.md 和 stack/STANDARD.md 写 implementation-guides/<id>.md。
 结构参考 implementation-guides/<参考项目>.md。
 
-必须遵守：
+规则：
 
-1. 标准模块直接引用 STANDARD.md，不复制
-   - Scaffold 清理（meta / favicon / 字体变量）→ STANDARD §2.5
-   - Auth 三件套 → STANDARD §3
-   - Supabase Dashboard + Setup checklist → STANDARD §3.7
-   - 数据库 RLS + owner policies → STANDARD §4.1
-   - Stripe Credits / Subscription → STANDARD §6
-   - Vercel 部署 → STANDARD §5
-   每处只列项目偏离（砍哪个 provider / schema 名 / price ID / 等）。
+1. Phase 顺序照 STANDARD §11 新项目 Checklist 的 5 个 Phase 写
+   （Phase 0 Bootstrap → 1 Scaffold+Landing → 2 首次部署 →
+    3 DB+Auth → 4 Stripe 可选 → 5-N 业务循环）
 
-2. 业务逻辑完整写
-   - 数据 schema（所有表 + RLS policies + indexes）
+2. 标准模块直接引用 STANDARD，不复制：
+   - Auth → §3，Database → §4，Stripe → §6，Email → §7，
+     Vercel → §5，API route 规范 → §8
+   每处只列项目偏离（砍哪个 provider / schema 名 / price ID）
+
+3. 业务逻辑完整写：
+   - 数据 schema（表 + policies + indexes）
    - AI prompts + JSON schema
-   - UI flow + 页面组件代码骨架
+   - UI flow + 组件代码骨架
    - Cron / background jobs 内容
 
-3. 骨架（按顺序）
-   - Header: Product / Tagline / Stack / Repo / Last Updated
-   - (可选) Golden Rules — 产品独有哲学铁律
-   - Phase 0: Scaffold + Supabase + 目录 + env + 类型生成
-   - Phase 1: Landing + 壳（按 STANDARD §2.5 做 scaffold 清理；
-             metadata / favicon / 字体变量一次改对，不留到后面）
-   - Phase 2..N: 按用户流程时间顺序，每 Phase 一个核心功能
-   - 常见坑（继承 STANDARD + 项目专属）
-   - 环境变量完整清单
-   - 新项目 Checklist
-   - **Human Work Budget**（文档末尾；按 STANDARD §10.5 模板）
+4. 骨架：Header / (可选) Golden Rules / Phase 0-N /
+   常见坑 / 环境变量清单
 
-4. Ownership 标注（按 STANDARD §0 约定）
-   - 每个 Phase 开头加 "Ownership at a glance" 表，列出本 Phase
-     的 🤖/🙋/👥 步骤和时间估算
-   - 行文中 🤖（默认）不标；🙋 / 👥 必须显式标
-   - 文档末尾的 Human Work Budget 汇总所有 🙋 步骤 + 总人工时间
+每个 Phase 里标清哪些是 Claude 写代码、哪些是 Human 在
+Dashboard 点击——参考 STANDARD 每节开头的 blockquote 归属注。
 ```
 
 **`<参考项目>` 选哪个：**
