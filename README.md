@@ -37,6 +37,16 @@
 
 完整流程说明：[`stack/NEW-PROJECT.md`](stack/NEW-PROJECT.md)
 
+### 📊 AI / Human 所有权流程图
+
+下图是从 `new-project.sh` 到业务循环的完整 5-Phase 流程。**蓝 = AI 做 / 橙 = Human 做 / 紫 = 协作**。箭头显示执行顺序，最底部的虚线回环表示每个业务 phase 的循环。
+
+<p align="center">
+  <img src="./stack/diagrams/standard-ownership-flowchart.svg" alt="STANDARD.md Ownership Flow — 5 Phases 从 scaffold 到 ship" />
+</p>
+
+详情见 [`stack/STANDARD.md §11 新项目 Checklist`](stack/STANDARD.md#11-新项目-checklist)。
+
 ### 📝 写 implementation-guide 的 prompt
 
 把下面这段改 `<id>` 和 `<参考项目>` 后直接贴给 Claude：
