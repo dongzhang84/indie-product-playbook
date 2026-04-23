@@ -7,6 +7,8 @@
 **Last Updated**: February 2026  
 **Based on**: AI Video Assistant + LaunchRadar (两个已验证的项目)
 
+📊 **所有权流程图**：[diagrams/standard-ownership-flowchart.svg](./diagrams/standard-ownership-flowchart.svg) — 从 scaffold 到 ship 的 14 步双泳道图，蓝=AI / 橙=Human / 紫=协作。一眼看清每步归属。
+
 ---
 
 ## 1. Tech Stack

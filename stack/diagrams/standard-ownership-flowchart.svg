@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 860"
+     font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif">
+  <style>
+    :root {
+      --fg: #111827; --fg-muted: #6b7280; --fg-soft: #9ca3af;
+      --bg: #ffffff; --divider: #d1d5db;
+      --ai-bg: #eff6ff; --ai-stroke: #3b82f6; --ai-text: #1e3a8a;
+      --human-bg: #fff7ed; --human-stroke: #f97316; --human-text: #7c2d12;
+      --collab-bg: #faf5ff; --collab-stroke: #a855f7; --collab-text: #581c87;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fg: #f3f4f6; --fg-muted: #9ca3af; --fg-soft: #6b7280;
+        --bg: #0b0f17; --divider: #4b5563;
+        --ai-bg: #172554; --ai-stroke: #60a5fa; --ai-text: #dbeafe;
+        --human-bg: #431407; --human-stroke: #fb923c; --human-text: #fed7aa;
+        --collab-bg: #3b0764; --collab-stroke: #c084fc; --collab-text: #e9d5ff;
+      }
+    }
+    .bg { fill: var(--bg); }
+    .title { font-size: 18px; font-weight: 600; fill: var(--fg); }
+    .subtitle { font-size: 12px; fill: var(--fg-muted); }
+    .lane-header { font-size: 12px; font-weight: 700; fill: var(--fg-muted); letter-spacing: 0.1em; }
+    .lane-divider { stroke: var(--divider); stroke-width: 1; stroke-dasharray: 3,3; }
+    .box-ai     { fill: var(--ai-bg); stroke: var(--ai-stroke); stroke-width: 1.4; }
+    .box-human  { fill: var(--human-bg); stroke: var(--human-stroke); stroke-width: 1.4; }
+    .box-collab { fill: var(--collab-bg); stroke: var(--collab-stroke); stroke-width: 1.4; }
+    .text-ai     { font-size: 13px; font-weight: 500; fill: var(--ai-text); }
+    .text-human  { font-size: 13px; font-weight: 500; fill: var(--human-text); }
+    .text-collab { font-size: 13px; font-weight: 500; fill: var(--collab-text); }
+    .num-ai     { font-size: 10px; font-weight: 700; fill: var(--ai-stroke); }
+    .num-human  { font-size: 10px; font-weight: 700; fill: var(--human-stroke); }
+    .num-collab { font-size: 10px; font-weight: 700; fill: var(--collab-stroke); }
+    .arrow { stroke: var(--fg-soft); stroke-width: 1.2; fill: none; stroke-linecap: round; }
+    .arrow-head { fill: var(--fg-soft); stroke: none; }
+    .legend-text { font-size: 12px; fill: var(--fg); }
+    .footnote { font-size: 11px; fill: var(--fg-muted); }
+  </style>
+
+  <rect class="bg" width="100%" height="100%"/>
+
+  <!-- Title -->
+  <text class="title" x="60" y="42">STANDARD.md · Ownership Flowchart</text>
+  <text class="subtitle" x="60" y="64">从 scaffold 到 ship — 每步标明 AI 做 / Human 做 / 协作。颜色表示所有权，时间从上往下。</text>
+
+  <!-- Legend -->
+  <g>
+    <rect class="box-ai" x="60" y="82" width="16" height="14" rx="3"/>
+    <text class="legend-text" x="82" y="94">AI 做</text>
+    <rect class="box-human" x="140" y="82" width="16" height="14" rx="3"/>
+    <text class="legend-text" x="162" y="94">Human 做</text>
+    <rect class="box-collab" x="236" y="82" width="16" height="14" rx="3"/>
+    <text class="legend-text" x="258" y="94">协作（AI 产出 + Human 粘 / 执行）</text>
+  </g>
+
+  <!-- Lane headers -->
+  <text class="lane-header" x="195" y="128" text-anchor="middle">AI LANE</text>
+  <text class="lane-header" x="485" y="128" text-anchor="middle">HUMAN LANE</text>
+
+  <!-- Lane divider -->
+  <line class="lane-divider" x1="340" y1="138" x2="340" y2="790"/>
+
+  <!-- Nodes (14 steps). AI lane x=70..320 (w=250); Human lane x=360..610 (w=250). -->
+  <!-- box height 34, stride 44, first y_top=148 -->
+
+  <!-- 01 AI: Scaffold -->
+  <rect class="box-ai" x="70" y="148" width="250" height="34" rx="6"/>
+  <text class="num-ai"  x="80" y="163">01</text>
+  <text class="text-ai" x="80" y="175">Scaffold: create-next-app + shadcn + deps</text>
+
+  <!-- arrow 1→2 (AI → Human, diagonal) -->
+  <path class="arrow" d="M 195 182 L 195 187 L 485 187 L 485 191"/>
+  <polygon class="arrow-head" points="485,197 481,190 489,190"/>
+
+  <!-- 02 Human: Supabase project + keys -->
+  <rect class="box-human" x="360" y="192" width="250" height="34" rx="6"/>
+  <text class="num-human"  x="370" y="207">02</text>
+  <text class="text-human" x="370" y="219">Supabase 建 project · 复制 keys 到 .env</text>
+
+  <!-- arrow 2→3 (Human → AI, diagonal) -->
+  <path class="arrow" d="M 485 226 L 485 231 L 195 231 L 195 235"/>
+  <polygon class="arrow-head" points="195,241 191,234 199,234"/>
+
+  <!-- 03 AI: lib/supabase -->
+  <rect class="box-ai" x="70" y="236" width="250" height="34" rx="6"/>
+  <text class="num-ai"  x="80" y="251">03</text>
+  <text class="text-ai" x="80" y="263">lib/supabase/{client,server,admin}.ts</text>
+
+  <!-- arrow 3→4 (AI → AI, vertical) -->
+  <path class="arrow" d="M 195 270 L 195 279"/>
+  <polygon class="arrow-head" points="195,285 191,278 199,278"/>
+
+  <!-- 04 AI: prisma -->
+  <rect class="box-ai" x="70" y="280" width="250" height="34" rx="6"/>
+  <text class="num-ai"  x="80" y="295">04</text>
+  <text class="text-ai" x="80" y="307">prisma schema + db push</text>
+
+  <!-- arrow 4→5 (AI → AI, vertical) -->
+  <path class="arrow" d="M 195 314 L 195 323"/>
+  <polygon class="arrow-head" points="195,329 191,322 199,322"/>
+
+  <!-- 05 AI: middleware + auth -->
+  <rect class="box-ai" x="70" y="324" width="250" height="34" rx="6"/>
+  <text class="num-ai"  x="80" y="339">05</text>
+  <text class="text-ai" x="80" y="351">middleware + /auth/{login,register,callback}</text>
+
+  <!-- arrow 5→6 (AI → Human, diagonal) -->
+  <path class="arrow" d="M 195 358 L 195 363 L 485 363 L 485 367"/>
+  <polygon class="arrow-head" points="485,373 481,366 489,366"/>
+
+  <!-- 06 Human: Supabase Dashboard OAuth -->
+  <rect class="box-human" x="360" y="368" width="250" height="34" rx="6"/>
+  <text class="num-human"  x="370" y="383">06</text>
+  <text class="text-human" x="370" y="395">Supabase Dashboard: Email off · OAuth</text>
+
+  <!-- arrow 6→7 (Human → Human, vertical) -->
+  <path class="arrow" d="M 485 402 L 485 411"/>
+  <polygon class="arrow-head" points="485,417 481,410 489,410"/>
+
+  <!-- 07 Human: Stripe Dashboard -->
+  <rect class="box-human" x="360" y="412" width="250" height="34" rx="6"/>
+  <text class="num-human"  x="370" y="427">07</text>
+  <text class="text-human" x="370" y="439">Stripe Dashboard: Product · Price ID · Key</text>
+
+  <!-- arrow 7→8 (Human → AI, diagonal) -->
+  <path class="arrow" d="M 485 446 L 485 451 L 195 451 L 195 455"/>
+  <polygon class="arrow-head" points="195,461 191,454 199,454"/>
+
+  <!-- 08 AI: Stripe + business routes -->
+  <rect class="box-ai" x="70" y="456" width="250" height="34" rx="6"/>
+  <text class="num-ai"  x="80" y="471">08</text>
+  <text class="text-ai" x="80" y="483">/api/stripe/{checkout,webhook} + 业务 API</text>
+
+  <!-- arrow 8→9 (AI → Human, diagonal) -->
+  <path class="arrow" d="M 195 490 L 195 495 L 485 495 L 485 499"/>
+  <polygon class="arrow-head" points="485,505 481,498 489,498"/>
+
+  <!-- 09 Human: Vercel env + Build Command -->
+  <rect class="box-human" x="360" y="500" width="250" height="34" rx="6"/>
+  <text class="num-human"  x="370" y="515">09</text>
+  <text class="text-human" x="370" y="527">Vercel: env vars 粘 · Build Command</text>
+
+  <!-- arrow 9→10 (Human → AI, diagonal) -->
+  <path class="arrow" d="M 485 534 L 485 539 L 195 539 L 195 543"/>
+  <polygon class="arrow-head" points="195,549 191,542 199,542"/>
+
+  <!-- 10 AI: git push -->
+  <rect class="box-ai" x="70" y="544" width="250" height="34" rx="6"/>
+  <text class="num-ai"  x="80" y="559">10</text>
+  <text class="text-ai" x="80" y="571">git push → Vercel 首次 deploy</text>
+
+  <!-- arrow 10→11 (AI → Human, diagonal) -->
+  <path class="arrow" d="M 195 578 L 195 583 L 485 583 L 485 587"/>
+  <polygon class="arrow-head" points="485,593 481,586 489,586"/>
+
+  <!-- 11 Human: Browser runtime test -->
+  <rect class="box-human" x="360" y="588" width="250" height="34" rx="6"/>
+  <text class="num-human"  x="370" y="603">11</text>
+  <text class="text-human" x="370" y="615">浏览器实测 Vercel URL（Ready ≠ runtime OK）</text>
+
+  <!-- arrow 11→12 (Human → Human, vertical) -->
+  <path class="arrow" d="M 485 622 L 485 631"/>
+  <polygon class="arrow-head" points="485,637 481,630 489,630"/>
+
+  <!-- 12 Human: Stripe prod webhook -->
+  <rect class="box-human" x="360" y="632" width="250" height="34" rx="6"/>
+  <text class="num-human"  x="370" y="647">12</text>
+  <text class="text-human" x="370" y="659">Stripe 生产 Webhook → Vercel redeploy</text>
+
+  <!-- arrow 12→13 (Human → AI, diagonal) -->
+  <path class="arrow" d="M 485 666 L 485 671 L 195 671 L 195 675"/>
+  <polygon class="arrow-head" points="195,681 191,674 199,674"/>
+
+  <!-- 13 AI: sprint workflow -->
+  <rect class="box-ai" x="70" y="676" width="250" height="34" rx="6"/>
+  <text class="num-ai"  x="80" y="691">13</text>
+  <text class="text-ai" x="80" y="703">sprint workflow 复制 + 改 project_id + push</text>
+
+  <!-- arrow 13→14 (AI → Human, diagonal) -->
+  <path class="arrow" d="M 195 710 L 195 715 L 485 715 L 485 719"/>
+  <polygon class="arrow-head" points="485,725 481,718 489,718"/>
+
+  <!-- 14 Human: PLAYBOOK_TOKEN -->
+  <rect class="box-human" x="360" y="720" width="250" height="34" rx="6"/>
+  <text class="num-human"  x="370" y="735">14</text>
+  <text class="text-human" x="370" y="747">GitHub Secrets: PLAYBOOK_TOKEN ✓ 完成</text>
+
+  <!-- Footnote -->
+  <text class="footnote" x="60" y="810">* 协作（紫）节点此图未出现——典型例子：AI 产出 SQL，Human 粘到 Supabase SQL Editor（Supabase-only §4.6）。</text>
+  <text class="footnote" x="60" y="828">* Owner 由 STANDARD §3-§11 每节开头的 blockquote 给出；改规范时同步更新此图。</text>
+</svg>
