@@ -423,6 +423,8 @@ if (request.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`
 
 > **AI 做**：`git add` / `git commit` / `git push`（AI 可以跑这三步，但授权先于每次 push，尤其是首次）。**Human 做**：推完必须**打开线上 URL 实测** `/` 和一个保护路由——`Deploy Ready` 只代表 build 过，不代表 runtime OK。middleware / API route 要到首个请求才会暴露 env vars 缺失或 Supabase 连不上（症状常见是 `500 MIDDLEWARE_INVOCATION_FAILED`）。
 
+**首次 deploy 时机：Phase 1 landing 做完之后立即触发**，不等 Auth / Stripe / 业务逻辑都写完（见 §11 Phase 2）。早部的好处：(1) 立刻暴露 env vars 漏配 / Build Command 错 / runtime 异常，省得几小时后才发现；(2) 之后每个 Phase 一推 commit 就自动 redeploy，每个 Phase 都能在生产 URL 立刻实测。只有 `/` 能显示 landing 就足够触发首次 deploy——其他路由跑不起来是正常的，因为业务代码还没写。
+
 ```bash
 git add .
 git commit -m "description"
@@ -671,7 +673,9 @@ export async function POST(request: Request) {
 
 ## 10. Sprint Tracking
 
-> **分工**：**AI 做** Step 1（复制 workflow 文件）+ Step 2（编辑 notify-playbook.yml 的 `project_id` / `project_name`）+ Step 4 的 `git commit` / `git push`。**Human 做** Step 3（GitHub repo → Settings → Secrets 加 `PLAYBOOK_TOKEN`，这是 Human-only 的 GitHub UI 操作）+ Step 4 推完**去 GitHub Actions 页面看两个 workflow 是否都绿灯**。
+> **一般情况（用 `new-project.sh` 建 repo）**：Step 1（复制 workflow）+ Step 2（替换 `project_id` / `project_name`）**已由 `bash stack/new-project.sh` 自动做掉**。你只需要做 Step 3（加 `PLAYBOOK_TOKEN` secret，30 秒）。
+>
+> **分工**（仅参考；手动初始化场景才用到 Step 1-2）：**AI 做** Step 1-2 + Step 4 的 `git commit` / `git push`。**Human 做** Step 3（GitHub Settings → Secrets，纯 GitHub UI）+ Step 4 推完**去 GitHub Actions 看两个 workflow 是否绿灯**。
 
 每个项目标配，用来追踪每周进度。自动生成 SPRINT.md，记录每周 commit 活跃度。
 
@@ -716,31 +720,72 @@ git pull  # 拉取 SPRINT.md
 
 > 每一行前面标 **[AI]** 或 **[Human]**。[AI] 是 Claude 可以自动做（写代码 / 装依赖 / 改文件 / 跑 npx / git 操作）；[Human] 是你必须亲自做（Dashboard 点击 / 浏览器授权 / 粘 secret / 控制台配置）。
 
-每次开新项目，按顺序操作：
+**核心原则**：
+- **landing 早做**：Phase 1 就把壳 + 首屏做出来，别埋到最后
+- **首次 deploy 早触发**：Phase 2 landing 能看就部到 Vercel，不等 Auth/Stripe 写完
+- **Stripe 独立**：Phase 4，仅付费项目需要；MVP 可跳过
+- **每 Phase 完都 push**：触发 Vercel 自动 redeploy，每 Phase 能在生产 URL 实测
+
+### Phase 0 — Bootstrap（`new-project.sh` 已自动完成）
+
+`bash stack/new-project.sh <id> "<name>"` 一条命令搞定：创建 GitHub repo、复制 `docs/product-spec.md` + `docs/implementation-guide.md`、写入 `.github/workflows/sprint-report.yml` + `notify-playbook.yml`（含 `project_id` 替换）、初始 commit + push。
+
+```
+[Human]  GitHub repo → Settings → Secrets and variables → Actions → 加 PLAYBOOK_TOKEN（一次性 30 秒）
+```
+
+### Phase 1 — Scaffold + Landing 壳
 
 ```
 [AI]     npx create-next-app@latest my-project --typescript --tailwind --app
 [AI]     npx shadcn@latest init
-[AI]     npm install prisma @prisma/client @prisma/adapter-pg pg @types/pg @supabase/supabase-js @supabase/ssr stripe
-[Human]  创建 Supabase 项目 → 复制 URL / anon key / service role key 到 .env.local
-[Human]  Supabase Dashboard → Connect → Transaction pooler 复制 URL → DATABASE_URL
-[AI]     创建 lib/supabase/client.ts + server.ts + admin.ts（照 Section 3.1）
-[AI]     创建 lib/db/client.ts（照 Section 4.2）
-[AI]     创建 prisma/schema.prisma（照 Section 4.3，加业务 model）
-[AI]     npx prisma db push
-[AI]     创建 middleware.ts（照 Section 3.5）
-[AI]     创建 app/auth/login + register + callback（照 Section 3.2-3.4）
-[Human]  Supabase Dashboard → Authentication → 关闭 Email Confirmation
-[Human]  Supabase Dashboard → 开启 Google + GitHub OAuth（如需要，粘 Client ID/Secret）
-[Human]  Stripe Dashboard → 创建 Product → 复制 Price ID + Secret Key
-[AI]     创建 app/api/stripe/checkout + webhook（模式 A 或 B，照 Section 6）
-[Human]  Vercel Dashboard → Settings → Environment Variables 粘入所有 env（可用 "Paste .env" tab）
-[Human]  Vercel Dashboard → Settings → 改 Build Command → `npx prisma generate && next build`
-[AI]     git push（触发 Vercel 首次部署）
-[Human]  打开 Vercel 部署 URL 实测 `/` + 一个保护路由（Deploy Ready ≠ runtime OK）
-[Human]  Stripe Dashboard → Webhooks → 用生产 URL 创建 endpoint → 复制 STRIPE_WEBHOOK_SECRET → 加到 Vercel env → Redeploy
-[AI]     复制 sprint-report.yml + notify-playbook.yml → .github/workflows/
-[AI]     更新 notify-playbook.yml 中的 project_id / project_name
-[Human]  GitHub repo → Settings → Secrets and variables → Actions → 添加 PLAYBOOK_TOKEN
-[AI]     git push → 确认两个 workflow 绿灯 → git pull
+[AI]     npm install @supabase/supabase-js @supabase/ssr <其他 deps by project>
+[AI]     Scaffold 清理（照 §2.5）：layout.tsx metadata / favicon / 字体变量
+[AI]     写 app/page.tsx landing 页（真设计，不是 scaffold 残留）
+[Human]  创建 / 复用 Supabase project → 复制 URL / anon key / service role key 到 .env.local
+```
+
+### Phase 2 — 首次 Vercel 部署（landing 能看就部）
+
+**关键点**：landing 一可见就立刻部署。早部 = 早发现 env vars 漏配 / Build Command 错 / runtime 问题。之后每个 commit push 都自动 redeploy，每个 Phase 完都能在生产 URL 实测。
+
+```
+[Human]  Vercel Dashboard → Import Git Repository → 选 repo → Deploy
+[Human]  Settings → Environment Variables → "Paste .env" tab 粘 .env.local 内容
+[Human]  Settings → Build Command → 改 `npx prisma generate && next build`（如用 Prisma）
+[Human]  打开 Vercel URL 实测 landing 页渲染正常（Deploy Ready ≠ runtime OK）
+```
+
+### Phase 3 — DB + Auth
+
+```
+[AI]     写 lib/supabase/{client,server,admin}.ts（照 §3.1）
+[AI]     写 middleware.ts + /auth/{login,register,callback}（照 §3.2–3.5）
+[AI]     写 lib/db/client.ts（如用 Prisma，照 §4.2）
+[AI]     写 prisma/schema.prisma + npx prisma db push（Prisma 路径）
+[AI→Human] 或产出建表 SQL → [Human] 粘到 Supabase Dashboard SQL Editor 跑（Supabase-only 路径，见 §4.6）
+[Human]  Supabase Dashboard → Authentication → 关 Email Confirmation
+[Human]  Supabase Dashboard → Auth → Providers → 开 Google / GitHub（如需要，粘 Client ID/Secret）
+[AI]     git push → Vercel 自动 redeploy
+[Human]  浏览器实测 Email 注册 / 登录 / Google OAuth + middleware 保护路由重定向
+```
+
+### Phase 4 — Stripe（仅付费项目；MVP 无付费可跳过）
+
+```
+[Human]  Stripe Dashboard → 建 Product → 复制 Price ID + Secret Key → 加到 Vercel env vars
+[AI]     写 /api/stripe/{checkout,webhook} + 前端付费按钮（照 §6 模式 A 或 B）
+[Human]  Stripe test mode 付款实测（test card 4242 4242 4242 4242）
+[Human]  Stripe Dashboard → Webhooks → 用生产 URL 创建 endpoint → 复制 STRIPE_WEBHOOK_SECRET
+[Human]  加 STRIPE_WEBHOOK_SECRET 到 Vercel env → Redeploy
+```
+
+### Phase 5-N — 业务逻辑
+
+按 `docs/implementation-guide.md` 的 Phase 顺序逐个做。每 Phase 完：
+
+```
+[AI]     git push
+         (Vercel 自动 redeploy)
+[Human]  线上 URL 实测本 Phase 新增功能（浏览器走一遍 user flow）
 ```

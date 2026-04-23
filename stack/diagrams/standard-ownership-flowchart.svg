@@ -1,191 +1,195 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 860"
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 1020"
      font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif">
   <style>
     :root {
       --fg: #111827; --fg-muted: #6b7280; --fg-soft: #9ca3af;
-      --bg: #ffffff; --divider: #d1d5db;
+      --bg: #ffffff; --divider: #d1d5db; --band-bg: #f9fafb; --band-stroke: #e5e7eb;
       --ai-bg: #eff6ff; --ai-stroke: #3b82f6; --ai-text: #1e3a8a;
       --human-bg: #fff7ed; --human-stroke: #f97316; --human-text: #7c2d12;
       --collab-bg: #faf5ff; --collab-stroke: #a855f7; --collab-text: #581c87;
+      --phase-num: #0f172a;
     }
     @media (prefers-color-scheme: dark) {
       :root {
         --fg: #f3f4f6; --fg-muted: #9ca3af; --fg-soft: #6b7280;
-        --bg: #0b0f17; --divider: #4b5563;
+        --bg: #0b0f17; --divider: #4b5563; --band-bg: #111827; --band-stroke: #1f2937;
         --ai-bg: #172554; --ai-stroke: #60a5fa; --ai-text: #dbeafe;
         --human-bg: #431407; --human-stroke: #fb923c; --human-text: #fed7aa;
         --collab-bg: #3b0764; --collab-stroke: #c084fc; --collab-text: #e9d5ff;
+        --phase-num: #f1f5f9;
       }
     }
     .bg { fill: var(--bg); }
     .title { font-size: 18px; font-weight: 600; fill: var(--fg); }
     .subtitle { font-size: 12px; fill: var(--fg-muted); }
-    .lane-header { font-size: 12px; font-weight: 700; fill: var(--fg-muted); letter-spacing: 0.1em; }
-    .lane-divider { stroke: var(--divider); stroke-width: 1; stroke-dasharray: 3,3; }
-    .box-ai     { fill: var(--ai-bg); stroke: var(--ai-stroke); stroke-width: 1.4; }
-    .box-human  { fill: var(--human-bg); stroke: var(--human-stroke); stroke-width: 1.4; }
-    .box-collab { fill: var(--collab-bg); stroke: var(--collab-stroke); stroke-width: 1.4; }
-    .text-ai     { font-size: 13px; font-weight: 500; fill: var(--ai-text); }
-    .text-human  { font-size: 13px; font-weight: 500; fill: var(--human-text); }
-    .text-collab { font-size: 13px; font-weight: 500; fill: var(--collab-text); }
-    .num-ai     { font-size: 10px; font-weight: 700; fill: var(--ai-stroke); }
-    .num-human  { font-size: 10px; font-weight: 700; fill: var(--human-stroke); }
-    .num-collab { font-size: 10px; font-weight: 700; fill: var(--collab-stroke); }
-    .arrow { stroke: var(--fg-soft); stroke-width: 1.2; fill: none; stroke-linecap: round; }
+    .band { fill: var(--band-bg); stroke: var(--band-stroke); stroke-width: 1; }
+    .phase-num { font-size: 11px; font-weight: 700; fill: var(--fg-soft); letter-spacing: 0.12em; }
+    .phase-title { font-size: 14px; font-weight: 600; fill: var(--fg); }
+    .phase-tag { font-size: 10px; font-weight: 500; fill: var(--fg-muted); }
+    .box-ai     { fill: var(--ai-bg); stroke: var(--ai-stroke); stroke-width: 1.3; }
+    .box-human  { fill: var(--human-bg); stroke: var(--human-stroke); stroke-width: 1.3; }
+    .box-collab { fill: var(--collab-bg); stroke: var(--collab-stroke); stroke-width: 1.3; }
+    .text-ai     { font-size: 12px; font-weight: 500; fill: var(--ai-text); }
+    .text-human  { font-size: 12px; font-weight: 500; fill: var(--human-text); }
+    .text-collab { font-size: 12px; font-weight: 500; fill: var(--collab-text); }
+    .legend-text { font-size: 11px; fill: var(--fg); }
+    .footnote { font-size: 10px; fill: var(--fg-muted); }
+    .arrow { stroke: var(--fg-soft); stroke-width: 1.4; fill: none; stroke-linecap: round; }
     .arrow-head { fill: var(--fg-soft); stroke: none; }
-    .legend-text { font-size: 12px; fill: var(--fg); }
-    .footnote { font-size: 11px; fill: var(--fg-muted); }
   </style>
 
   <rect class="bg" width="100%" height="100%"/>
 
   <!-- Title -->
-  <text class="title" x="60" y="42">STANDARD.md · Ownership Flowchart</text>
-  <text class="subtitle" x="60" y="64">从 scaffold 到 ship — 每步标明 AI 做 / Human 做 / 协作。颜色表示所有权，时间从上往下。</text>
+  <text class="title" x="60" y="42">STANDARD.md · Ownership Flow（5 Phase）</text>
+  <text class="subtitle" x="60" y="62">landing 早做 · 首次 deploy 早触发 · Stripe 独立 · 每 Phase 完都 push</text>
 
   <!-- Legend -->
   <g>
-    <rect class="box-ai" x="60" y="82" width="16" height="14" rx="3"/>
-    <text class="legend-text" x="82" y="94">AI 做</text>
-    <rect class="box-human" x="140" y="82" width="16" height="14" rx="3"/>
-    <text class="legend-text" x="162" y="94">Human 做</text>
-    <rect class="box-collab" x="236" y="82" width="16" height="14" rx="3"/>
-    <text class="legend-text" x="258" y="94">协作（AI 产出 + Human 粘 / 执行）</text>
+    <rect class="box-ai" x="60" y="78" width="14" height="14" rx="3"/>
+    <text class="legend-text" x="80" y="89">AI 做</text>
+    <rect class="box-human" x="130" y="78" width="14" height="14" rx="3"/>
+    <text class="legend-text" x="150" y="89">Human 做</text>
+    <rect class="box-collab" x="220" y="78" width="14" height="14" rx="3"/>
+    <text class="legend-text" x="240" y="89">协作（AI 产出 + Human 执行）</text>
   </g>
 
-  <!-- Lane headers -->
-  <text class="lane-header" x="195" y="128" text-anchor="middle">AI LANE</text>
-  <text class="lane-header" x="485" y="128" text-anchor="middle">HUMAN LANE</text>
+  <!-- ════════════ PHASE 0 ════════════ -->
+  <rect class="band" x="50" y="108" width="580" height="62" rx="6"/>
+  <text class="phase-num" x="62" y="124">PHASE 0</text>
+  <text class="phase-title" x="112" y="124">Bootstrap</text>
+  <text class="phase-tag" x="260" y="124">· new-project.sh 已自动完成</text>
+  <!-- Node: PLAYBOOK_TOKEN -->
+  <rect class="box-human" x="62" y="134" width="556" height="28" rx="6"/>
+  <text class="text-human" x="74" y="152">[Human] GitHub Settings → Secrets → 加 PLAYBOOK_TOKEN（一次性 30 秒）</text>
 
-  <!-- Lane divider -->
-  <line class="lane-divider" x1="340" y1="138" x2="340" y2="790"/>
+  <!-- arrow 0→1 -->
+  <path class="arrow" d="M 340 172 L 340 182"/>
+  <polygon class="arrow-head" points="340,188 336,181 344,181"/>
 
-  <!-- Nodes (14 steps). AI lane x=70..320 (w=250); Human lane x=360..610 (w=250). -->
-  <!-- box height 34, stride 44, first y_top=148 -->
+  <!-- ════════════ PHASE 1 ════════════ -->
+  <rect class="band" x="50" y="192" width="580" height="184" rx="6"/>
+  <text class="phase-num" x="62" y="208">PHASE 1</text>
+  <text class="phase-title" x="112" y="208">Scaffold + Landing 壳</text>
+  <text class="phase-tag" x="295" y="208">· 先把第一印象屏做对</text>
+  <!-- Nodes, 2 cols: AI (left) + Human (right) -->
+  <!-- AI nodes, x=62..338 (w=276) -->
+  <rect class="box-ai" x="62" y="218" width="276" height="28" rx="6"/>
+  <text class="text-ai" x="74" y="236">[AI] Scaffold: create-next-app + shadcn + deps</text>
 
-  <!-- 01 AI: Scaffold -->
-  <rect class="box-ai" x="70" y="148" width="250" height="34" rx="6"/>
-  <text class="num-ai"  x="80" y="163">01</text>
-  <text class="text-ai" x="80" y="175">Scaffold: create-next-app + shadcn + deps</text>
+  <rect class="box-ai" x="62" y="250" width="276" height="28" rx="6"/>
+  <text class="text-ai" x="74" y="268">[AI] §2.5 清理: metadata / favicon / 字体</text>
 
-  <!-- arrow 1→2 (AI → Human, diagonal) -->
-  <path class="arrow" d="M 195 182 L 195 187 L 485 187 L 485 191"/>
-  <polygon class="arrow-head" points="485,197 481,190 489,190"/>
+  <rect class="box-ai" x="62" y="282" width="276" height="28" rx="6"/>
+  <text class="text-ai" x="74" y="300">[AI] 写 app/page.tsx landing 页</text>
 
-  <!-- 02 Human: Supabase project + keys -->
-  <rect class="box-human" x="360" y="192" width="250" height="34" rx="6"/>
-  <text class="num-human"  x="370" y="207">02</text>
-  <text class="text-human" x="370" y="219">Supabase 建 project · 复制 keys 到 .env</text>
+  <rect class="box-ai" x="62" y="314" width="276" height="28" rx="6"/>
+  <text class="text-ai" x="74" y="332">[AI] 写其他 UI 组件 / dropzone / hero 等</text>
 
-  <!-- arrow 2→3 (Human → AI, diagonal) -->
-  <path class="arrow" d="M 485 226 L 485 231 L 195 231 L 195 235"/>
-  <polygon class="arrow-head" points="195,241 191,234 199,234"/>
+  <!-- Human nodes, x=342..618 (w=276) -->
+  <rect class="box-human" x="342" y="218" width="276" height="28" rx="6"/>
+  <text class="text-human" x="354" y="236">[Human] Supabase: 建 / 复用 project</text>
 
-  <!-- 03 AI: lib/supabase -->
-  <rect class="box-ai" x="70" y="236" width="250" height="34" rx="6"/>
-  <text class="num-ai"  x="80" y="251">03</text>
-  <text class="text-ai" x="80" y="263">lib/supabase/{client,server,admin}.ts</text>
+  <rect class="box-human" x="342" y="250" width="276" height="28" rx="6"/>
+  <text class="text-human" x="354" y="268">[Human] 复制 URL / anon / service → .env.local</text>
 
-  <!-- arrow 3→4 (AI → AI, vertical) -->
-  <path class="arrow" d="M 195 270 L 195 279"/>
-  <polygon class="arrow-head" points="195,285 191,278 199,278"/>
+  <!-- gap to next phase -->
+  <path class="arrow" d="M 340 376 L 340 386"/>
+  <polygon class="arrow-head" points="340,392 336,385 344,385"/>
 
-  <!-- 04 AI: prisma -->
-  <rect class="box-ai" x="70" y="280" width="250" height="34" rx="6"/>
-  <text class="num-ai"  x="80" y="295">04</text>
-  <text class="text-ai" x="80" y="307">prisma schema + db push</text>
+  <!-- ════════════ PHASE 2 ════════════ -->
+  <rect class="band" x="50" y="396" width="580" height="152" rx="6"/>
+  <text class="phase-num" x="62" y="412">PHASE 2</text>
+  <text class="phase-title" x="112" y="412">首次 Vercel 部署</text>
+  <text class="phase-title" x="240" y="412">🔑</text>
+  <text class="phase-tag" x="262" y="412">· landing 能看就部，别等 Auth/Stripe</text>
+  <!-- Human nodes full width -->
+  <rect class="box-human" x="62" y="422" width="556" height="28" rx="6"/>
+  <text class="text-human" x="74" y="440">[Human] Vercel Dashboard → Import Git Repository → Deploy</text>
 
-  <!-- arrow 4→5 (AI → AI, vertical) -->
-  <path class="arrow" d="M 195 314 L 195 323"/>
-  <polygon class="arrow-head" points="195,329 191,322 199,322"/>
+  <rect class="box-human" x="62" y="454" width="556" height="28" rx="6"/>
+  <text class="text-human" x="74" y="472">[Human] Settings → Env Vars "Paste .env" tab 整块粘</text>
 
-  <!-- 05 AI: middleware + auth -->
-  <rect class="box-ai" x="70" y="324" width="250" height="34" rx="6"/>
-  <text class="num-ai"  x="80" y="339">05</text>
-  <text class="text-ai" x="80" y="351">middleware + /auth/{login,register,callback}</text>
+  <rect class="box-human" x="62" y="486" width="556" height="28" rx="6"/>
+  <text class="text-human" x="74" y="504">[Human] Settings → Build Command（如用 Prisma: prisma generate &amp;&amp; next build）</text>
 
-  <!-- arrow 5→6 (AI → Human, diagonal) -->
-  <path class="arrow" d="M 195 358 L 195 363 L 485 363 L 485 367"/>
-  <polygon class="arrow-head" points="485,373 481,366 489,366"/>
+  <rect class="box-human" x="62" y="518" width="556" height="28" rx="6"/>
+  <text class="text-human" x="74" y="536">[Human] 打开线上 URL 实测 landing 渲染（Deploy Ready ≠ runtime OK）</text>
 
-  <!-- 06 Human: Supabase Dashboard OAuth -->
-  <rect class="box-human" x="360" y="368" width="250" height="34" rx="6"/>
-  <text class="num-human"  x="370" y="383">06</text>
-  <text class="text-human" x="370" y="395">Supabase Dashboard: Email off · OAuth</text>
+  <!-- arrow to Phase 3 -->
+  <path class="arrow" d="M 340 548 L 340 558"/>
+  <polygon class="arrow-head" points="340,564 336,557 344,557"/>
 
-  <!-- arrow 6→7 (Human → Human, vertical) -->
-  <path class="arrow" d="M 485 402 L 485 411"/>
-  <polygon class="arrow-head" points="485,417 481,410 489,410"/>
+  <!-- ════════════ PHASE 3 ════════════ -->
+  <rect class="band" x="50" y="568" width="580" height="220" rx="6"/>
+  <text class="phase-num" x="62" y="584">PHASE 3</text>
+  <text class="phase-title" x="112" y="584">DB + Auth</text>
+  <text class="phase-tag" x="200" y="584">· 后端基础 + 登录可用</text>
+  <!-- Row 1: AI (supabase clients+middleware+auth) | Human (Supabase Dashboard) -->
+  <rect class="box-ai" x="62" y="594" width="276" height="28" rx="6"/>
+  <text class="text-ai" x="74" y="612">[AI] lib/supabase/* + middleware + /auth/*</text>
 
-  <!-- 07 Human: Stripe Dashboard -->
-  <rect class="box-human" x="360" y="412" width="250" height="34" rx="6"/>
-  <text class="num-human"  x="370" y="427">07</text>
-  <text class="text-human" x="370" y="439">Stripe Dashboard: Product · Price ID · Key</text>
+  <rect class="box-human" x="342" y="594" width="276" height="28" rx="6"/>
+  <text class="text-human" x="354" y="612">[Human] Supabase Dashboard: Email off + OAuth</text>
 
-  <!-- arrow 7→8 (Human → AI, diagonal) -->
-  <path class="arrow" d="M 485 446 L 485 451 L 195 451 L 195 455"/>
-  <polygon class="arrow-head" points="195,461 191,454 199,454"/>
+  <!-- Row 2: Prisma AI | SQL collab -->
+  <rect class="box-ai" x="62" y="626" width="276" height="28" rx="6"/>
+  <text class="text-ai" x="74" y="644">[AI] Prisma schema + npx prisma db push</text>
 
-  <!-- 08 AI: Stripe + business routes -->
-  <rect class="box-ai" x="70" y="456" width="250" height="34" rx="6"/>
-  <text class="num-ai"  x="80" y="471">08</text>
-  <text class="text-ai" x="80" y="483">/api/stripe/{checkout,webhook} + 业务 API</text>
+  <rect class="box-collab" x="342" y="626" width="276" height="28" rx="6"/>
+  <text class="text-collab" x="354" y="644">[协作] 或 AI 写 SQL → Human 粘 SQL Editor</text>
 
-  <!-- arrow 8→9 (AI → Human, diagonal) -->
-  <path class="arrow" d="M 195 490 L 195 495 L 485 495 L 485 499"/>
-  <polygon class="arrow-head" points="485,505 481,498 489,498"/>
+  <!-- Row 3: git push AI | Human 浏览器实测 -->
+  <rect class="box-ai" x="62" y="658" width="276" height="28" rx="6"/>
+  <text class="text-ai" x="74" y="676">[AI] git push → Vercel 自动 redeploy</text>
 
-  <!-- 09 Human: Vercel env + Build Command -->
-  <rect class="box-human" x="360" y="500" width="250" height="34" rx="6"/>
-  <text class="num-human"  x="370" y="515">09</text>
-  <text class="text-human" x="370" y="527">Vercel: env vars 粘 · Build Command</text>
+  <rect class="box-human" x="342" y="658" width="276" height="28" rx="6"/>
+  <text class="text-human" x="354" y="676">[Human] 浏览器实测 Email + Google auth</text>
 
-  <!-- arrow 9→10 (Human → AI, diagonal) -->
-  <path class="arrow" d="M 485 534 L 485 539 L 195 539 L 195 543"/>
-  <polygon class="arrow-head" points="195,549 191,542 199,542"/>
+  <!-- Row 4: types gen collab (full width) -->
+  <rect class="box-collab" x="62" y="690" width="556" height="28" rx="6"/>
+  <text class="text-collab" x="74" y="708">[协作] Supabase-only 场景: [Human] `npx supabase login` → [AI] `npm run db:types`</text>
 
-  <!-- 10 AI: git push -->
-  <rect class="box-ai" x="70" y="544" width="250" height="34" rx="6"/>
-  <text class="num-ai"  x="80" y="559">10</text>
-  <text class="text-ai" x="80" y="571">git push → Vercel 首次 deploy</text>
+  <rect class="box-collab" x="62" y="722" width="556" height="28" rx="6"/>
+  <text class="text-collab" x="74" y="740">[协作] 首次 Google OAuth 设置: [Human] Google Cloud Console Client ID → [Human] Supabase Provider 粘 keys</text>
 
-  <!-- arrow 10→11 (AI → Human, diagonal) -->
-  <path class="arrow" d="M 195 578 L 195 583 L 485 583 L 485 587"/>
-  <polygon class="arrow-head" points="485,593 481,586 489,586"/>
+  <text class="phase-tag" x="62" y="770">提示：Supabase Schema 自定义时，Settings → Data API → Exposed schemas 要加，否则 supabase-js 404。</text>
 
-  <!-- 11 Human: Browser runtime test -->
-  <rect class="box-human" x="360" y="588" width="250" height="34" rx="6"/>
-  <text class="num-human"  x="370" y="603">11</text>
-  <text class="text-human" x="370" y="615">浏览器实测 Vercel URL（Ready ≠ runtime OK）</text>
+  <!-- arrow to Phase 4 -->
+  <path class="arrow" d="M 340 788 L 340 798"/>
+  <polygon class="arrow-head" points="340,804 336,797 344,797"/>
 
-  <!-- arrow 11→12 (Human → Human, vertical) -->
-  <path class="arrow" d="M 485 622 L 485 631"/>
-  <polygon class="arrow-head" points="485,637 481,630 489,630"/>
+  <!-- ════════════ PHASE 4 ════════════ -->
+  <rect class="band" x="50" y="808" width="580" height="120" rx="6"/>
+  <text class="phase-num" x="62" y="824">PHASE 4</text>
+  <text class="phase-title" x="112" y="824">Stripe</text>
+  <text class="phase-tag" x="165" y="824">· 仅付费项目；MVP 可跳过</text>
+  <!-- Row 1: AI (routes) | Human (Stripe Dashboard + keys) -->
+  <rect class="box-ai" x="62" y="834" width="276" height="28" rx="6"/>
+  <text class="text-ai" x="74" y="852">[AI] /api/stripe/{checkout,webhook}</text>
 
-  <!-- 12 Human: Stripe prod webhook -->
-  <rect class="box-human" x="360" y="632" width="250" height="34" rx="6"/>
-  <text class="num-human"  x="370" y="647">12</text>
-  <text class="text-human" x="370" y="659">Stripe 生产 Webhook → Vercel redeploy</text>
+  <rect class="box-human" x="342" y="834" width="276" height="28" rx="6"/>
+  <text class="text-human" x="354" y="852">[Human] Stripe: Product + keys → Vercel env</text>
 
-  <!-- arrow 12→13 (Human → AI, diagonal) -->
-  <path class="arrow" d="M 485 666 L 485 671 L 195 671 L 195 675"/>
-  <polygon class="arrow-head" points="195,681 191,674 199,674"/>
+  <!-- Row 2: Human test + Human prod webhook -->
+  <rect class="box-human" x="62" y="866" width="276" height="28" rx="6"/>
+  <text class="text-human" x="74" y="884">[Human] test mode 付款实测</text>
 
-  <!-- 13 AI: sprint workflow -->
-  <rect class="box-ai" x="70" y="676" width="250" height="34" rx="6"/>
-  <text class="num-ai"  x="80" y="691">13</text>
-  <text class="text-ai" x="80" y="703">sprint workflow 复制 + 改 project_id + push</text>
+  <rect class="box-human" x="342" y="866" width="276" height="28" rx="6"/>
+  <text class="text-human" x="354" y="884">[Human] 生产 Webhook → secret → redeploy</text>
 
-  <!-- arrow 13→14 (AI → Human, diagonal) -->
-  <path class="arrow" d="M 195 710 L 195 715 L 485 715 L 485 719"/>
-  <polygon class="arrow-head" points="485,725 481,718 489,718"/>
+  <!-- arrow to Phase 5 -->
+  <path class="arrow" d="M 340 928 L 340 938"/>
+  <polygon class="arrow-head" points="340,944 336,937 344,937"/>
 
-  <!-- 14 Human: PLAYBOOK_TOKEN -->
-  <rect class="box-human" x="360" y="720" width="250" height="34" rx="6"/>
-  <text class="num-human"  x="370" y="735">14</text>
-  <text class="text-human" x="370" y="747">GitHub Secrets: PLAYBOOK_TOKEN ✓ 完成</text>
+  <!-- ════════════ PHASE 5 ════════════ -->
+  <rect class="band" x="50" y="948" width="580" height="52" rx="6"/>
+  <text class="phase-num" x="62" y="964">PHASE 5-N</text>
+  <text class="phase-title" x="132" y="964">业务逻辑</text>
+  <text class="phase-tag" x="200" y="964">· 每 Phase 完 push → Vercel 自动 redeploy → Human 浏览器实测（循环）</text>
+  <rect class="box-collab" x="62" y="974" width="556" height="22" rx="6"/>
+  <text class="text-collab" x="74" y="989">[循环] [AI] 写本 Phase 代码 → [AI] git push → [Human] 线上走 user flow</text>
 
   <!-- Footnote -->
-  <text class="footnote" x="60" y="810">* 协作（紫）节点此图未出现——典型例子：AI 产出 SQL，Human 粘到 Supabase SQL Editor（Supabase-only §4.6）。</text>
-  <text class="footnote" x="60" y="828">* Owner 由 STANDARD §3-§11 每节开头的 blockquote 给出；改规范时同步更新此图。</text>
+  <text class="footnote" x="60" y="1016">注：Phase 0 的 `new-project.sh` 自动做的事 = repo 创建 + sprint workflows 复制 + project_id 替换。Human 只需加 PLAYBOOK_TOKEN。</text>
 </svg>
