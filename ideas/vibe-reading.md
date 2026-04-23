@@ -198,6 +198,6 @@ Vibe Reading 是一个**反主流**的读书工具。它故意阻止用户做三
 _Last updated: 2026-04-23_
 
 Week 1 _(current)_ · 2026-04-20 to 2026-04-26
-Status: ❌ Stalled
-Active days: 2 / 7
-Total commits: 12
+Status: ⚠️ Slow
+Active days: 3 / 7
+Total commits: 13
