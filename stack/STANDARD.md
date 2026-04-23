@@ -65,6 +65,8 @@ my-project/
 
 ### 3.1 Supabase 三件套（每个项目必须完整创建）
 
+> **AI 做**：三个文件直接生成（client.ts / server.ts / admin.ts）。
+
 **lib/supabase/client.ts** — 浏览器端
 ```typescript
 import { createBrowserClient } from '@supabase/ssr'
@@ -119,6 +121,8 @@ export const supabaseAdmin = createClient(
 
 ### 3.2 Login 页（Email + Google + GitHub）
 
+> **AI 做**：写登录页组件。**Human 做**：Google / GitHub 的 Client ID / Secret 从 Google Cloud Console / GitHub OAuth Apps 拿到之后，粘到 Supabase Dashboard（见 §3.6）——AI 不能代操作浏览器登录 Google / GitHub 控制台。
+
 ```typescript
 // app/auth/login/page.tsx — 支持三种登录方式
 'use client'
@@ -141,6 +145,8 @@ await supabase.auth.signInWithOAuth({
 
 ### 3.3 Register 页
 
+> **AI 做**：写注册页 + Profile upsert 逻辑。
+
 ```typescript
 // app/auth/register/page.tsx
 const { data, error } = await supabase.auth.signUp({ email, password })
@@ -156,6 +162,8 @@ await prisma.profile.upsert({
 ```
 
 ### 3.4 OAuth Callback
+
+> **AI 做**：写 callback route。
 
 ```typescript
 // app/auth/callback/route.ts — OAuth 登录后的跳转处理（必须有）
@@ -186,6 +194,8 @@ export async function GET(request: Request) {
 ```
 
 ### 3.5 Middleware — 路由保护
+
+> **AI 做**：写 `middleware.ts`；每个项目只需改 PROTECTED_ROUTES / AUTH_ROUTES 数组。
 
 ```typescript
 // middleware.ts
@@ -220,6 +230,8 @@ export const config = {
 
 ### 3.6 Supabase Dashboard 配置
 
+> **Human 做**（整节都是 Dashboard 点击 + 粘 keys，AI 做不了）。配完每个 provider **回到 Providers 列表目视确认** toggle 是 ON，不要只看 Save 成功就假设生效。
+
 - Authentication → Providers → **Email**: 关闭 "Confirm email"（开发阶段）
 - Authentication → Providers → **Google**: 填入 Client ID + Secret（从 Google Cloud Console 获取）
 - Authentication → Providers → **GitHub**: 填入 Client ID + Secret（从 GitHub OAuth Apps 获取）
@@ -230,6 +242,8 @@ export const config = {
 ## 4. Database 模块（Prisma）
 
 ### 4.1 安全模型
+
+> **AI 遵循**：写每个 API route 时第一行必须包含 session 验证模板（见下）。这是写代码的铁规，不是独立步骤。
 
 **所有表 RLS DISABLED。安全靠 API 层保证。**
 
@@ -242,6 +256,8 @@ if (!user) return new Response('Unauthorized', { status: 401 })
 > 这条规则没有例外。忘记写 = 安全漏洞。
 
 ### 4.2 Prisma 初始化（Prisma v7 必须用 adapter）
+
+> **AI 做**：写 `lib/db/client.ts` + 生成 `npm install` 命令。**Human 做**：在 terminal 里执行 `npm install`（AI 也可以跑，但最终确认依赖装好是你）。
 
 ```typescript
 // lib/db/client.ts
@@ -264,6 +280,8 @@ npm install prisma @prisma/client @prisma/adapter-pg pg @types/pg
 ```
 
 ### 4.3 schema.prisma 标准配置
+
+> **AI 做**：写 `prisma/schema.prisma`；业务 model（除了必备的 `Profile`）按项目 spec 扩展。改完 **AI 跑** `npx prisma db push` 同步 schema 到数据库。
 
 ```prisma
 generator client {
@@ -289,6 +307,8 @@ model Profile {
 
 ### 4.4 DATABASE_URL 规范
 
+> **Human 做**：在 Supabase Dashboard 里拿 Transaction Pooler URL，粘到本地 `.env.local` + Vercel env vars。AI 读不到你的 Dashboard。
+
 **必须用 Supabase Transaction Pooler URL（port 6543）**，不用 Direct Connection（port 5432）。
 Direct connection 在 serverless 环境会超时。
 
@@ -300,6 +320,8 @@ DATABASE_URL=postgresql://postgres.[ref]:[PASSWORD]@aws-0-[region].pooler.supaba
 
 ### 4.5 Build Command
 
+> **Human 做**：在 Vercel Dashboard → Settings → Build & Development Settings 改 Build Command。AI 改不了 Vercel project 设置。
+
 ```bash
 npx prisma generate && next build
 ```
@@ -307,6 +329,8 @@ npx prisma generate && next build
 > Vercel Build Settings 里要改这个，否则 Prisma client 不会生成。
 
 ### 4.6 Alternative: Supabase-only (No Prisma)
+
+> **AI 做**：改依赖（装/去 prisma 相关包）、改 `.env.local`、改 Build Command、写 `supabase-js` 调用代码、产出建表 SQL。**Human 做**：在 Supabase Dashboard → SQL Editor 里粘 SQL 执行（AI 打不开浏览器 Dashboard）。
 
 Use this approach when:
 - Sharing a Supabase project across multiple apps
@@ -337,6 +361,8 @@ Remove from Build Command:
 ## 5. Vercel 部署
 
 ### 5.1 环境变量清单
+
+> **Human 做**：Vercel Dashboard → Settings → Environment Variables 粘贴。用 "Paste .env" tab 可以整块粘，不用一个个填。AI 不能访问 Vercel 控制台。**改完 env 必须手动 Redeploy**——Vercel 不会因为 env 改动自动重部（Dashboard → Deployments → 最新 deploy → `⋯` → Redeploy）。
 
 每次新项目，在 Vercel Dashboard → Settings → Environment Variables 填入：
 
@@ -373,6 +399,8 @@ CRON_SECRET=   # 生成方式：openssl rand -base64 32
 
 ### 5.2 Cron Jobs（Hobby plan）
 
+> **AI 做**：写 `vercel.json` 和对应的 cron route 代码（含 `CRON_SECRET` 验证）。**Human 做**：生成 `CRON_SECRET`（`openssl rand -base64 32`）并加到 Vercel env vars。
+
 ```json
 // vercel.json — Hobby plan 只支持每日一次
 {
@@ -391,6 +419,8 @@ if (request.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`
 
 ### 5.3 部署流程
 
+> **AI 做**：`git add` / `git commit` / `git push`（AI 可以跑这三步，但授权先于每次 push，尤其是首次）。**Human 做**：推完必须**打开线上 URL 实测** `/` 和一个保护路由——`Deploy Ready` 只代表 build 过，不代表 runtime OK。middleware / API route 要到首个请求才会暴露 env vars 缺失或 Supabase 连不上（症状常见是 `500 MIDDLEWARE_INVOCATION_FAILED`）。
+
 ```bash
 git add .
 git commit -m "description"
@@ -400,6 +430,8 @@ git push   # Vercel 自动 deploy main 分支
 ---
 
 ## 6. Stripe 模块
+
+> **整节分工**：**AI 做** 所有代码——checkout route、webhook handler、credit/subscription 逻辑、Prisma schema 的 Credit / Subscription 字段。**Human 做** Stripe 控制台相关的**一切**：建 Product、拿 Price ID、拿 Secret Key、配 Webhook URL、在生产部署后注册 webhook endpoint 拿 `STRIPE_WEBHOOK_SECRET`。AI 不能登录 Stripe Dashboard。
 
 ### 模式 A：Credits（一次性购买）
 
@@ -544,6 +576,8 @@ stripe listen --forward-to localhost:3000/api/stripe/webhook
 
 ## 7. Email 模块（Optional）
 
+> **AI 做**：写 email templates（React Email）+ 发送函数 + `npm install` 命令。**Human 做**：去 Resend Dashboard 拿 `RESEND_API_KEY`（首次注册 Resend 账号）；上线前在 Resend Dashboard 验证自己的域名，把 `RESEND_FROM_EMAIL` 从 `onboarding@resend.dev` 改成真域名。AI 打不开 Resend 控制台。
+
 > 按需加入，不是每个项目必须有。加之前在 .env.local 和 Vercel 加上 RESEND_API_KEY。
 
 安装：
@@ -595,6 +629,8 @@ export async function sendEmail({
 
 ## 8. API Route 写法规范
 
+> **AI 遵循**：每个 API route 按这个顺序写。Human 不需要做什么，只需要在 code review 时对照这个规范。
+
 每个 API route 都遵循这个顺序：
 
 ```typescript
@@ -632,6 +668,8 @@ export async function POST(request: Request) {
 ---
 
 ## 10. Sprint Tracking
+
+> **分工**：**AI 做** Step 1（复制 workflow 文件）+ Step 2（编辑 notify-playbook.yml 的 `project_id` / `project_name`）+ Step 4 的 `git commit` / `git push`。**Human 做** Step 3（GitHub repo → Settings → Secrets 加 `PLAYBOOK_TOKEN`，这是 Human-only 的 GitHub UI 操作）+ Step 4 推完**去 GitHub Actions 页面看两个 workflow 是否都绿灯**。
 
 每个项目标配，用来追踪每周进度。自动生成 SPRINT.md，记录每周 commit 活跃度。
 
@@ -674,30 +712,33 @@ git pull  # 拉取 SPRINT.md
 
 ## 11. 新项目 Checklist
 
+> 每一行前面标 **[AI]** 或 **[Human]**。[AI] 是 Claude 可以自动做（写代码 / 装依赖 / 改文件 / 跑 npx / git 操作）；[Human] 是你必须亲自做（Dashboard 点击 / 浏览器授权 / 粘 secret / 控制台配置）。
+
 每次开新项目，按顺序操作：
 
 ```
-□ npx create-next-app@latest my-project --typescript --tailwind --app
-□ npx shadcn@latest init
-□ npm install prisma @prisma/client @prisma/adapter-pg pg @types/pg @supabase/supabase-js @supabase/ssr stripe
-□ 创建 Supabase 项目 → 复制 URL / anon key / service role key
-□ 复制 Transaction Pooler URL → DATABASE_URL
-□ 创建 lib/supabase/client.ts + server.ts + admin.ts（照 Section 3.1 原样复制）
-□ 创建 lib/db/client.ts（照 Section 4.2 原样复制）
-□ 创建 prisma/schema.prisma（照 Section 4.3，加上业务 model）
-□ npx prisma db push
-□ 创建 middleware.ts（照 Section 3.5）
-□ 创建 app/auth/login + register + callback（照 Section 3.2-3.4）
-□ Supabase Dashboard → 关闭 Email Confirmation
-□ Supabase Dashboard → 开启 Google + GitHub OAuth（如需要）
-□ 创建 Stripe 产品 → 复制 Price ID / Secret Key
-□ 创建 app/api/stripe/checkout + webhook（选模式 A 或 B，照 Section 6）
-□ 配置 Vercel → 填入所有环境变量（见 Section 5.1）
-□ 修改 Build Command → npx prisma generate && next build
-□ git push → 验证 Vercel 部署成功
-□ 配置 Stripe Webhook（生产 URL）→ 更新 STRIPE_WEBHOOK_SECRET
-□ 复制 sprint-report.yml + notify-playbook.yml → .github/workflows/
-□ 更新 notify-playbook.yml 中的 project_id / project_name（匹配 ideas/README.md）
-□ GitHub repo → Settings → Secrets → 添加 PLAYBOOK_TOKEN
-□ push → 确认两个 workflow 成功 → git pull
+[AI]     npx create-next-app@latest my-project --typescript --tailwind --app
+[AI]     npx shadcn@latest init
+[AI]     npm install prisma @prisma/client @prisma/adapter-pg pg @types/pg @supabase/supabase-js @supabase/ssr stripe
+[Human]  创建 Supabase 项目 → 复制 URL / anon key / service role key 到 .env.local
+[Human]  Supabase Dashboard → Connect → Transaction pooler 复制 URL → DATABASE_URL
+[AI]     创建 lib/supabase/client.ts + server.ts + admin.ts（照 Section 3.1）
+[AI]     创建 lib/db/client.ts（照 Section 4.2）
+[AI]     创建 prisma/schema.prisma（照 Section 4.3，加业务 model）
+[AI]     npx prisma db push
+[AI]     创建 middleware.ts（照 Section 3.5）
+[AI]     创建 app/auth/login + register + callback（照 Section 3.2-3.4）
+[Human]  Supabase Dashboard → Authentication → 关闭 Email Confirmation
+[Human]  Supabase Dashboard → 开启 Google + GitHub OAuth（如需要，粘 Client ID/Secret）
+[Human]  Stripe Dashboard → 创建 Product → 复制 Price ID + Secret Key
+[AI]     创建 app/api/stripe/checkout + webhook（模式 A 或 B，照 Section 6）
+[Human]  Vercel Dashboard → Settings → Environment Variables 粘入所有 env（可用 "Paste .env" tab）
+[Human]  Vercel Dashboard → Settings → 改 Build Command → `npx prisma generate && next build`
+[AI]     git push（触发 Vercel 首次部署）
+[Human]  打开 Vercel 部署 URL 实测 `/` + 一个保护路由（Deploy Ready ≠ runtime OK）
+[Human]  Stripe Dashboard → Webhooks → 用生产 URL 创建 endpoint → 复制 STRIPE_WEBHOOK_SECRET → 加到 Vercel env → Redeploy
+[AI]     复制 sprint-report.yml + notify-playbook.yml → .github/workflows/
+[AI]     更新 notify-playbook.yml 中的 project_id / project_name
+[Human]  GitHub repo → Settings → Secrets and variables → Actions → 添加 PLAYBOOK_TOKEN
+[AI]     git push → 确认两个 workflow 绿灯 → git pull
 ```
