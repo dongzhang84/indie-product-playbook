@@ -72,6 +72,13 @@
    - 常见坑（继承 STANDARD + 项目专属）
    - 环境变量完整清单
    - 新项目 Checklist
+   - **Human Work Budget**（文档末尾；按 STANDARD §10.5 模板）
+
+4. Ownership 标注（按 STANDARD §0 约定）
+   - 每个 Phase 开头加 "Ownership at a glance" 表，列出本 Phase
+     的 🤖/🙋/👥 步骤和时间估算
+   - 行文中 🤖（默认）不标；🙋 / 👥 必须显式标
+   - 文档末尾的 Human Work Budget 汇总所有 🙋 步骤 + 总人工时间
 ```
 
 **`<参考项目>` 选哪个：**

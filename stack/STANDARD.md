@@ -4,8 +4,48 @@
 > Claude 写 proposal 和实现计划时，标准模块部分严格按照此文档，不自由发挥。
 > 只有业务逻辑部分（数据 schema、AI 功能、第三方 API）才做定制。
 
-**Last Updated**: February 2026  
-**Based on**: AI Video Assistant + LaunchRadar (两个已验证的项目)
+**Last Updated**: April 2026 (AI/Human ownership refactor)
+**Based on**: AI Video Assistant · LaunchRadar · ProfitPilot · Vibe Reading
+
+---
+
+## 0. Workflow — AI vs Human 分工约定
+
+这套 stack 的每一步都能清楚归到 AI 或 Human。下面 3 个符号在全文档使用，不再重新定义。
+
+### 0.1 三个所有权符号
+
+| 符号 | 谁做 | 典型场景 |
+|------|------|---------|
+| 🤖 | Claude 做 | 写/改代码，跑 build / lint / curl / 探针脚本，diff 文件，生成 SQL / prompt |
+| 🙋 | 你做（human-in-the-loop）| Dashboard 点击，粘 API key，OAuth 授权浏览器回跳，端到端浏览器实测 |
+| 👥 | 协作 | Claude 产出制品（SQL / env 文本 / 命令）→ 你粘到某个界面执行 |
+
+**默认规则**：没标符号 = 🤖（代码 / 文件操作是默认）。**只在 🙋 / 👥 才显式打标**。
+
+### 0.2 为什么要分
+
+- **Claude 做不了的物理动作**：浏览器里点按钮、Dashboard 登录、粘贴 credentials、完成 OAuth 授权回跳、真的点击一个 Stripe 付款按钮
+- **你不该做的事**：写 boilerplate、手工跑 type gen、逐行检查 TypeScript 错误、重复粘 SQL 到多处
+- **不分清楚的代价**：Claude 假设"你已经把 X 配好了"推进代码，结果运行时炸；或者你在等 Claude 操作，Claude 在等你确认——死锁
+
+### 0.3 Phase-level Ownership Table（模板）
+
+每个 Phase 开头放一张 "Ownership at a glance" 表，让你 30 秒看完这个 Phase 的人工成本：
+
+```md
+### Ownership at a glance
+
+| Step | Owner | Time |
+|---|---|---|
+| <描述> | 🤖/🙋/👥 | ~X min |
+```
+
+**Time** 列是经验值，帮你排期；偏离太多就说明步骤要拆或简化。
+
+### 0.4 Human Work Budget
+
+每个 implementation-guide 的**文档末尾**应该有一张 "Human Work Budget" 汇总表，把所有 🙋 步骤按 Phase 列出来，给出总人工时间。这是"自动化不了的硬成本契约"。详见 §8 末尾的模板。
 
 ---
 
@@ -151,6 +191,21 @@ scaffold 默认加载 Geist Sans + Geist Mono。MVP 不需要额外引 serif / d
 ---
 
 ## 3. Auth 模块
+
+### Ownership at a glance
+
+| Step | Owner | Time |
+|------|-------|------|
+| 写 `lib/supabase/{client,server,admin}.ts` | 🤖 | 2 min |
+| 写 `middleware.ts` | 🤖 | 1 min |
+| 写 `/auth/{login,register,callback}` 页面 / route | 🤖 | 5 min |
+| 写 `components/LoginModal.tsx`（如项目需要 modal 登录）| 🤖 | 3 min |
+| Google Cloud Console 建 OAuth Client（首次首 project）| 🙋 | 10 min |
+| Google Cloud Console 同一 project 再建一个 Client（后续共享 GCP project 的项目）| 🙋 | 3 min |
+| Supabase Dashboard 开启 Email + Google provider + 粘 keys | 🙋 | 2 min |
+| 本地 `npm run dev` + 浏览器端到端测（Email 注册 → Email 登录 → Google OAuth → middleware redirect）| 🙋 | 5 min |
+
+> 共用一个 Supabase project（schema 隔离）时，**Auth provider 配置仍然要逐个在 Dashboard 上启用**。一个 project 能登录 Email 不代表 Google 可用。每个要用的 provider 都要单独确认 toggle on。
 
 ### 3.1 Supabase 三件套（每个项目必须完整创建）
 
@@ -307,18 +362,84 @@ export const config = {
 }
 ```
 
-### 3.6 Supabase Dashboard 配置
+### 3.6 Supabase Dashboard 配置（🙋 整节）
 
-- Authentication → Providers → **Email**: 关闭 "Confirm email"（开发阶段）
-- Authentication → Providers → **Google**: 填入 Client ID + Secret（从 Google Cloud Console 获取）
-- Authentication → Providers → **GitHub**: 填入 Client ID + Secret（从 GitHub OAuth Apps 获取）
-- Redirect URL 填：`https://your-project.vercel.app/auth/callback`
+这一节全是 Dashboard 操作——Claude 做不了。URL: `https://supabase.com/dashboard/project/<ref>/auth/providers`
+
+- 🙋 Authentication → Providers → **Email**: 关闭 "Confirm email"（开发阶段）
+- 🙋 Authentication → Providers → **Google**: 填入 Client ID + Secret（从 Google Cloud Console 获取，见 §3.8）
+- 🙋 Authentication → Providers → **GitHub**: 填入 Client ID + Secret（从 GitHub OAuth Apps 获取，仅项目需要 GitHub 登录时）
+- 🙋 Authentication → URL Configuration → Redirect URLs：加上 `http://localhost:3000/auth/callback` + 上线后 `https://your-project.vercel.app/auth/callback`
+
+**验证 🙋**：配完每个 provider 都回 Providers 列表看一眼——toggle 必须是 ON（绿色），Client ID 输入框必须非空。不要只看页面 Save 成功就假设生效。
+
+### 3.8 Google OAuth 建 Client 指南（如果项目用 Google 登录）
+
+#### 3.8.1 GCP Project 的两层结构（读懂才能不踩坑）
+
+| 层 | 范围 | 影响 |
+|----|------|------|
+| **OAuth Consent Screen** | GCP project 级（一个 project 一份）| 用户看到的授权弹窗文字 = "xxx wants to access your Google Account"。xxx 来自这里的 App name |
+| **OAuth Client** | 可多个（per app / per Supabase project）| 每个 Client 一套 Client ID + Secret，一组 Authorized redirect URIs |
+
+**关键推论**：
+- 同一 GCP project 里无论多少 Client，用户看到的 App name 都一样（Consent Screen 级）
+- 想对所有 indie 项目显示中性名（比如 `Dong's Indie Project`），改 Consent Screen App name 一次搞定
+- 想让不同项目的 OAuth 凭据可以单独吊销/轮换，**per Supabase project 建独立 Client**（推荐）
+
+#### 3.8.2 首次：设置 Consent Screen（🙋 一次性）
+
+首次用 GCP project 做 OAuth 时：
+
+- 🙋 Google Cloud Console → 选定一个 GCP project（推荐中性名如 `Dong's Indie Project`，给所有 indie 项目共用）
+- 🙋 左侧栏 → **APIs & Services → OAuth consent screen**
+- 🙋 User Type: **External**
+- 🙋 App name: 中性名（**用户会看到**，别填某个具体项目名）；support email 填你邮箱
+- 🙋 Scopes: 只加 `.../auth/userinfo.email` + `.../auth/userinfo.profile` + `openid`（其他按需）
+- 🙋 Test users: 加自己的邮箱（Testing 模式下只有 whitelist 能登录；100 人上限够个人用）
+- 🙋 Publishing status 保持 **Testing**（自用阶段不用提交 Google 审核）
+
+#### 3.8.3 每个 Supabase project 一个 Client（🙋 每次）
+
+每新接一个 Supabase project，在同一 GCP project 里建一个 Client：
+
+- 🙋 APIs & Services → **Credentials** → **+ Create credentials** → **OAuth client ID**
+- 🙋 Application type: **Web application**
+- 🙋 Name: 填项目名（比如 `vibe-reading` / `launchradar` / `<id>`）——仅内部看，不影响用户体验
+- 🙋 Authorized JavaScript origins: 留空（Supabase PKCE flow 不需要）
+- 🙋 Authorized redirect URIs: `https://<supabase-project-ref>.supabase.co/auth/v1/callback`（**不要**填 `<your-domain>/auth/callback`——那是 Supabase 回跳你 app 的地址，不是 Google 回跳 Supabase 的地址）
+- 🙋 Create → 复制 **Client ID** + **Client Secret**（Secret 只显示一次，复制好再关弹窗）
+
+#### 3.8.4 把 keys 填进 Supabase（🙋）
+
+- 🙋 `https://supabase.com/dashboard/project/<supabase-ref>/auth/providers` → Google → toggle ON → 粘 Client ID + Client Secret → **Save**
+- 🙋 验证：回到 Providers 列表，Google 行的 toggle 应该是绿色 ON
+
+#### 3.8.5 症状 → 原因 速查
+
+| 症状 | 原因 | 解 |
+|------|------|----|
+| `Unsupported provider: provider is not enabled` | Supabase Dashboard 里 Google toggle 是 OFF | §3.8.4 重做，Save 后再刷 |
+| OAuth 弹窗显示错误 app 名 | Consent Screen App name 不对 | §3.8.2 去改 |
+| `redirect_uri_mismatch` | GCP Client 里的 Authorized redirect URIs 没含那个 URI | 加上 `https://<ref>.supabase.co/auth/v1/callback` |
+| OAuth 成功但回来 session 丢失 | `/auth/callback` route 没处理 code / 没用 `exchangeCodeForSession` | 检查 callback route 实现（见 §3.4）|
 
 ### 3.7 Supabase Setup Checklist
 
 > 踩过的坑的合集。新项目照抄，别再重新踩。Vibe Reading 项目 2026-04-22 卡在这上花了一整个上午，主要因为 Supabase UI 会变位置、SQL Editor 有容易忽略的点、用肉眼确认不如用脚本探针。
 
-#### 3.7.1 新建 project vs 复用已有 project
+#### Ownership at a glance
+
+| Substep | Owner | Time |
+|---|---|---|
+| 3.7.1 新建 / 复用 project 决策 | 🙋 | 2 min |
+| 3.7.2 在 Supabase SQL Editor 跑建表 SQL | 👥 Claude 写 SQL，你粘贴执行 | 3 min |
+| 3.7.3 Exposed Schemas 列表加自定义 schema | 🙋 Dashboard | 1 min |
+| 3.7.4 Grants（写在 3.7.2 的 SQL 里）| 👥 同 3.7.2 | 0（并入）|
+| 3.7.5 supabase-js 探针验证 | 🤖 | 1 min |
+| 3.7.6 `npx supabase login` + types 生成 | 👥 你登录，Claude 跑 gen types | 2 min |
+
+#### 3.7.1 🙋 新建 project vs 复用已有 project
 
 - **新建** 适合：第一个项目、数据量大的项目、不希望跟其他项目共享 auth.users 的项目
 - **复用（schema 隔离）** 适合：后续副项目、个人 side-project、希望跨项目同一个登录身份
@@ -326,7 +447,9 @@ export const config = {
 - 复用时 `auth.users` 共享 = 跨项目 SSO（同一个 `user.id`）。这是特性不是 bug
 - Storage bucket 是 project-wide 非 schema-scoped，复用时用独立 bucket 名（如 `vr-pdfs`）或路径前缀
 
-#### 3.7.2 SQL Editor 使用要点
+#### 3.7.2 👥 SQL Editor 使用要点
+
+Claude 产出 SQL（`create schema` + `create table` + grants + policies 一块），你粘到 Supabase SQL Editor 跑。
 
 | 坑 | 事实 |
 |---|------|
@@ -336,7 +459,7 @@ export const config = {
 | `relation "X" already exists` 报错 | 说明 SQL 之前已经跑过一次成功了。要重置就在 SQL 顶部加 `drop schema if exists <name> cascade;` + 重新建 |
 | 建完去哪看表 | **Table Editor**，左上角有 **schema 下拉**，默认显示 `public`——要切到你的自定义 schema 才能看到你建的表 |
 
-#### 3.7.3 Exposed Schemas（最容易漏的一步）
+#### 3.7.3 🙋 Exposed Schemas（最容易漏的一步）
 
 **自定义 schema 必须手动加到 Data API 的 Exposed schemas 列表**，否则 supabase-js 报 `PGRST106: Invalid schema`。
 
@@ -348,7 +471,7 @@ export const config = {
 
 在 "Exposed schemas" 列表里加你的自定义 schema（`public, graphql_public` 之外），**点 Save**。保存按钮不灰 = 有未保存改动。
 
-#### 3.7.4 Grants
+#### 3.7.4 👥 Grants（并入 3.7.2 的 SQL）
 
 自定义 schema 必须显式 grant，不像 `public` 那样自动配置好。跑 schema 建表 SQL 时顺带跑：
 
@@ -367,7 +490,7 @@ grant select, insert, update, delete on all tables in schema <schema_name> to au
 
 **不给 `anon`** — pre-login 流程只走后端 API（service_role），不需要 anon 能查表。这比 RLS 多一层"根本连不上"的防御。
 
-#### 3.7.5 验证：supabase-js 探针（不要靠 Dashboard 肉眼）
+#### 3.7.5 🤖 验证：supabase-js 探针（不要靠 Dashboard 肉眼）
 
 Dashboard 的 UI 会骗你（schema 下拉打开里看到 `vr` ≠ 已暴露；"Save" 按钮不一定点了；某些改动不保存自动丢）。**Setup 完毕后必跑**这个脚本确认：
 
@@ -399,11 +522,17 @@ for (const t of tables) {
 
 跑法：把脚本放进项目根目录（not tmp，要能 resolve `@supabase/supabase-js`），`node scripts/probe.mjs`。
 
-#### 3.7.6 Types 生成
+#### 3.7.6 👥 Types 生成
+
+分工：`npx supabase login` 是 🙋（浏览器 OAuth + 在 terminal 里手动输入 verification code），Claude 没法做。`npm run db:types` 是 🤖（CLI 调用，Claude 跑）。
 
 ```bash
-npx supabase login   # 首次需要，走浏览器 OAuth
+# 🙋 你做（首次，或 token 过期时）:
+npx supabase login
+
+# 🤖 Claude 做:
 npx supabase gen types typescript --project-id <ref> --schema <schema_name> > types/db.ts
+# 实际做法：在 package.json 加 db:types script，Claude 跑 `npm run db:types`
 ```
 
 坑：
@@ -562,6 +691,18 @@ Remove from Build Command:
 
 ## 5. Vercel 部署
 
+### Ownership at a glance
+
+| Step | Owner | Time |
+|------|-------|------|
+| 首次 import repo 到 Vercel（选 repo + 分支 + framework 默认）| 🙋 | 2 min |
+| 写 `vercel.json`（cron / build 覆盖，如需要）| 🤖 | 1 min |
+| Vercel Settings → Environment Variables → "Paste .env" 批量粘贴 | 🙋 | 2 min |
+| 触发重 deploy（Dashboard → Redeploy 或推空 commit）| 🙋 Dashboard / 🤖 empty commit | 1 min |
+| Build 阶段监控（Ready = 绿灯）| 🙋 (watch) / 🤖 (via Vercel CLI) | 1-3 min |
+| **Runtime 验证**：浏览器访问 `/` + 一个保护路由 | 🙋 | 2 min |
+| 绑定自定义域名 + DNS 配置 | 🙋 | 10 min（首次）/ 2 min（domain 已买）|
+
 ### 5.1 环境变量清单
 
 每次新项目，在 Vercel Dashboard → Settings → Environment Variables 填入：
@@ -572,10 +713,10 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 
-# Database（Transaction Pooler URL）
+# Database（Transaction Pooler URL；Supabase-only 模式可略）
 DATABASE_URL=
 
-# Stripe（见 Section 6）
+# Stripe（见 Section 6；开源 / MVP 无付费项目可略）
 STRIPE_SECRET_KEY=
 STRIPE_WEBHOOK_SECRET=
 # Credits 模式额外需要：
@@ -596,6 +737,23 @@ OPENAI_API_KEY=
 # Cron Secret（如有 cron jobs）
 CRON_SECRET=   # 生成方式：openssl rand -base64 32
 ```
+
+### 5.1.1 🙋 批量粘贴 env vars（"Paste .env" tab）
+
+Vercel 的 Environment Variables 页面**支持整块粘贴 `.env` 格式**，不用一个一个填：
+
+1. Dashboard → <project> → Settings → Environment Variables
+2. 上方的输入界面有 tab 切换，选 **"Paste .env"**
+3. 把整个 `.env` 文本粘进去（**不要**包含 `GITHUB_TOKEN` 这类只用于本地的 key）
+4. Environments 勾选 **Production + Preview + Development**（三个都勾，除非有 env 差异）
+5. **Save**
+
+### 5.1.2 🙋 env 改动后必须手动触发 redeploy
+
+**Vercel 不会因为你改了 env vars 就自动重部**。新加或改了 env vars 之后必须：
+
+- Dashboard → Deployments → 最新 deploy → `⋯` → **Redeploy**（首选）
+- 或本地推一个空 commit：`git commit --allow-empty -m "redeploy after env" && git push`
 
 ### 5.2 Cron Jobs（Hobby plan）
 
@@ -622,6 +780,26 @@ git add .
 git commit -m "description"
 git push   # Vercel 自动 deploy main 分支
 ```
+
+### 5.4 🙋 Runtime 验证（每次首次部署 + env 改动后）
+
+**`Deploy Ready` 绿灯 ≠ 运行时 OK**。Build 通过只代表 TypeScript 编译过了，middleware / edge function / API routes 要到**首次请求**才会被 invoke——这时才会暴露 env vars 缺失、database 连不上、auth 配置错等问题。
+
+**每次部署完必测 3 条：**
+
+1. 🙋 `curl https://<your-domain>/` → 200，返回 landing HTML（或开浏览器看）
+2. 🙋 `curl -I https://<your-domain>/<protected-route>` → 307 到 `/auth/login?next=<protected-route>`
+3. 🙋 浏览器走一遍最核心 user flow（比如登录、创建、查询），看 console / network 有无 5xx
+
+**常见 runtime 错误速查：**
+
+| 错误 | 最可能原因 | 解 |
+|------|-----------|---|
+| `500: MIDDLEWARE_INVOCATION_FAILED` | Vercel 里 `NEXT_PUBLIC_SUPABASE_URL` / anon key 没配，middleware 里 `createServerClient(undefined, ...)` 崩 | 检查 Vercel env vars，按 §5.1.1 粘齐，§5.1.2 redeploy |
+| `500: FUNCTION_INVOCATION_FAILED` | API route 里某个 env var 是 undefined | 同上；定位到具体 route 看它用到哪些 env |
+| `FUNCTION_INVOCATION_TIMEOUT` | Hobby plan 函数超时（默认 10s，Pro 60s）| 查具体 route 是不是跑了耗时操作；拆分或异步化 |
+| Auth 回跳到 login 不断循环 | `SUPABASE_URL` 配了但 `*_ANON_KEY` 不对或缺失 | 对照 `.env.local` 再贴一次 |
+| 浏览器一打开就 redirect 到 localhost | `NEXT_PUBLIC_APP_URL` 留着 `http://localhost:3000` 没改 | 改成生产 URL，redeploy |
 
 ---
 
@@ -897,6 +1075,41 @@ git pull  # 拉取 SPRINT.md
 - ideas/shopify-xx.md 只有 Sprint Summary → 文件不存在时会新建空文件；需手动填入 proposal 内容后 Sprint Summary 才会追加更新
 
 ----
+
+## 10.5 Human Work Budget（模板）
+
+每个 implementation-guide 都在末尾放一张 "Human Work Budget" 表——把全部 🙋 步骤按 Phase 汇总，给出"本项目需要你真正花的时间"契约。
+
+**作用：**
+- 开新项目前心里有数：这个项目需要我亲自花多少小时
+- 能判断哪几项可以通过复用旧 infra 省掉（比如复用已有 Supabase project 省 §3.7 的建 project 时间）
+- 对后面 ship 更多 Track A 项目时的时间预算更诚实（每个项目的人工最小成本是客观的，不能靠 Claude 加速）
+
+**模板：**
+
+```md
+## Human Work Budget — Total ~<X> min (一次性 setup) + <Y> min/week (运维)
+
+| Phase | 🙋 Step | Time | 备注 |
+|---|---|---|---|
+| 0 | 复用已有 <stack> 的凭据 / 新建一份 | 1-5 min | |
+| 2 | Supabase：跑 SQL + Exposed schemas + login | 5-10 min | §3.7 |
+| 3 | Google OAuth：Consent Screen + Client | 3-10 min | §3.8；跨项目共用 Consent Screen 只首次 10 min |
+| 3 | Auth 端到端浏览器测 | 5 min | |
+| 5 | Stripe：首次建 product + 拿 keys | 15 min | 仅付费项目 |
+| N (部署) | Vercel import + env paste + redeploy + runtime 测 | 10 min | §5 |
+| 运维 | 监控 / 支持 / 分析 | 根据产品 | 不在 setup 预算里 |
+
+**Setup total**: ~X min 首次 / ~X min 复用已有 stack
+**每次 schema 改动**: ~5 min (run SQL + db:types)
+```
+
+**填写原则：**
+- 只记 🙋 步骤，不记 🤖 的（那些是 Claude 并行做的，不占你的时间）
+- 写区间（比如 `3-10 min`）而非死数字，真实世界有波动
+- 复用 vs 首次有区别的要分开列（Consent Screen、Stripe product、Vercel account 这些首次做一次之后都省掉）
+
+---
 
 ## 11. 新项目 Checklist
 
