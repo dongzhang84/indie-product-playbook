@@ -843,3 +843,26 @@ git pull  # 拉取 SPRINT.md
          (Vercel 自动 redeploy)
 [Human]  线上 URL 实测本 Phase 新增功能（浏览器走一遍 user flow）
 ```
+
+#### 🧠 Human-in-the-loop 批量原则（不要每 phase 都叫 Human 测）
+
+**默认不要做**：写完 Phase N → ping Human "去浏览器测一下" → Human 点进去发现**下一个按钮 404**（因为 Phase N+1 还没写）→ 困惑 + 浪费。
+
+**正确做法**：把连续几个 Phase 当成一个**可测的里程碑**打包做完，中间**不中断** Human，只在打包结束时一次性交付完整的 user flow 让 Human 实测。
+
+**如何判断 "可测的里程碑"**：一个 Phase 组合是"可测的"，当且仅当：
+- 完成后，典型 happy-path 的第一个动作到最后一个动作**全部有实现**
+- Human 沿路点击不会碰到 404 / "coming soon" 死端
+- 如果某个 Phase 的 UI 产出一个按钮，那个按钮的目的地**已经建好**
+
+**典型批量边界**（根据产品差异会变化，以 Vibe Reading 为例）：
+- `Phase 5 + 6`（Goal 输入 + 三色映射）= 第一个可测里程碑：上传 → 填 goal → 看 map
+- `Phase 7 + 8 + 9`（Claim + Brief + Restate）= 第二个可测里程碑：登录 → 看 brief → 复述
+- `Phase 11 + 12`（Library + Cron）= 收尾里程碑
+- `Phase 10`（Read mode）= 独立一块（spec defer）
+
+**例外**（必须中断 Human 的场景）：
+- Phase 需要 Human 在 Dashboard 做配置（Supabase bucket、OAuth credentials、Vercel env）——这种 blocker 型 Human work 挡不过去，必须立刻中断
+- 架构决策争议点（比如"这个 schema 设计对不对"）——宁愿早问也比埋头一路跑偏
+
+**不批量的代价**（这是真实踩过的）：Vibe Reading 2026-04-23，我按 phase-by-phase 节奏让 user 每一个 phase 都去浏览器测，结果 Phase 5 → goal → /map 404；Phase 6 → map → 点 Brief → 404；Phase 7 推完说"现在登录就通了"——user 累了。正确的节奏本该是"Phase 5+6+7+8+9 一起做完，一次性告诉 user：'现在可以从上传到复述全部跑一遍'"。

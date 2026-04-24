@@ -75,6 +75,11 @@
 4. 骨架：Header / (可选) Golden Rules / Phase 0-N /
    常见坑 / 环境变量清单
 
+5. 业务 Phase 部分（Phase 5-N）结尾加一段"里程碑分组建议"，
+   告诉执行者哪几个连续 Phase 应该打包做完再让 Human 实测，
+   避免每个 phase 都触发 404 死端（见 STANDARD §11 Phase 5-N
+   的 human-in-the-loop 批量原则）
+
 每个 Phase 里标清哪些是 Claude 写代码、哪些是 Human 在
 Dashboard 点击——参考 STANDARD 每节开头的 blockquote 归属注。
 ```
