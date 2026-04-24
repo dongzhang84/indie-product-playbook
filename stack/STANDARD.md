@@ -145,6 +145,18 @@ await supabase.auth.signInWithOAuth({
 })
 ```
 
+#### UX 铁律：登录 + 创建账号是**同一个入口**，文案必须写清楚
+
+只支持 Email/Password 的页面，sign-in 和 sign-up 是**两个不同动作**（`signInWithPassword` 失败不会自动创建账号）。但只要接了 OAuth（Google / GitHub），OAuth 第一次登录**等于注册**——用户不知道这个细节，只看到 UI 说 "Sign in" 会困惑："我没账号怎么办？点 Google 真的会帮我建吗？"
+
+**任何同时支持 OAuth + Email 的登录 UI 必须满足 3 条**：
+
+1. **Subtitle / 副标题**明说双用途：`Sign in, or create an account — same modal/page.`
+2. **OAuth 按钮下方一行小字**：`First time? Continue with Google creates your account automatically.`
+3. **给 Email 新用户明路**：底部必须有 `No account yet? [Sign up with email →](/auth/register?next=<path>)` 链接——Email path 不会 auto-create，必须显式跳到注册页。
+
+忘了写会收到"我试了但没反应"这类投诉。vibe-reading 2026-04-23 踩过——用户试了 Google 之后困惑到以为流程坏了。
+
 ### 3.3 Register 页
 
 > **AI 做**：写注册页 + Profile upsert 逻辑。
@@ -357,6 +369,48 @@ Remove from dependencies:
 
 Remove from Build Command:
 - `"npx prisma generate &&"` prefix (just use `next build`)
+
+### 4.7 文档解析（PDF / 其他）
+
+> **AI 做**：写解析代码 + 装依赖。Human 什么都不用做。
+
+**PDF 解析统一用 `unpdf`，不用 `pdf-parse`**。踩过的坑（vibe-reading 2026-04-23）：
+
+- `pdf-parse@2.x` 在 **Next.js 16 + Turbopack** 下**双重翻车**：
+  1. 先报 `Setting up fake worker failed: Cannot find module '.next/dev/server/chunks/pdf.worker.mjs'` —— Turbopack 无法解析 pdfjs-dist 用 `import.meta.url` 找 worker 的路径
+  2. 加 `serverExternalPackages: ['pdf-parse', 'pdfjs-dist']` 后变成 `DataCloneError: Cannot transfer object of unsupported type` —— pdfjs fake-worker 的 `postMessage` 在 Node 20+ 序列化 Buffer 会崩
+  3. 手动 `PDFParse.setWorker(file://...)` 后又是 `ERR_INVALID_ARG_TYPE: path must be string`
+- `unpdf` 专为 **serverless / edge Node** 设计，内置针对这种环境编译的 pdfjs build，**零配置跑通**。
+
+```bash
+npm install unpdf
+# 不要装 pdf-parse、也不要装 pdfjs-dist 单独
+```
+
+```typescript
+// lib/pdf/parser.ts
+import { extractText, getDocumentProxy, getMeta } from 'unpdf'
+
+export async function parsePdf(buffer: Buffer) {
+  const pdf = await getDocumentProxy(new Uint8Array(buffer))
+  try {
+    const [{ info }, { totalPages, text }] = await Promise.all([
+      getMeta(pdf),
+      extractText(pdf, { mergePages: true }),
+    ])
+    return {
+      title: info?.Title ?? 'Untitled',
+      author: info?.Author ?? null,
+      text: text as string,
+      pageCount: totalPages,
+    }
+  } finally {
+    await pdf.destroy()
+  }
+}
+```
+
+API route 里记得 `export const runtime = 'nodejs'`（PDF 在 Edge runtime 跑不起来）。
 
 ---
 
