@@ -6,6 +6,7 @@ Weekly build summaries — what shipped, what was learned, what's next.
 
 | Week | Dates | Highlights |
 |------|-------|------------|
+| [Week 6](week-06-2026-04-18.md) | 4/18 – 4/24 | snowboat-blog 全面爆发（10+篇）, Vibe Reading 新产品孵化, STANDARD 大重构 |
 | [Week 5](week-05-2026-04-11.md) | 4/11 – 4/17 | BeProfitly AI dashboard 重设计, snowboat-blog 大爆发, Shopify 审批坑 |
 | [Week 4](week-04-2026-04-04.md) | 4/4 – 4/10  | BeProfitly (ex-ProfitPilot), GrowPilot auth, 2026 strategy |
 | [Week 3](week-03-2026-03-28.md) | 3/28 – 4/3  | ProfitPilot redesign, GrowPilot, AceRocket B2B pivot |
