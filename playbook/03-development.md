@@ -275,6 +275,25 @@ UI保持简单，用Tailwind做基础样式。"
    Week 1不会有性能问题
 ```
 
+### 错误6：选择需要平台审批的分发渠道（血泪教训）
+
+```
+❌ Shopify App Store — 审批周期数周至数月，完全不可控
+❌ Chrome Extension Store — 同样有审批流程
+❌ Apple App Store / Google Play — 审批 + 上架费用
+
+这些渠道和 MVP 快速验证逻辑完全矛盾：
+你花几周做产品 → 提交审批 → 等几个月 → 审批期间无法验证需求
+
+✅ 正确做法：只用可以今天上线、今天有用户的渠道
+   - 直接部署到自己的域名（Vercel）
+   - Reddit / Twitter 直接发链接
+   - Product Hunt（无审批，自己提交）
+   - 直接给目标用户发邮件/DM
+
+永远不要在 MVP 阶段依赖需要审批的平台
+```
+
 ## 📦 Week 1结束的checklist
 
 ### 功能
