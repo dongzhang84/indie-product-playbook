@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 1770"
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 2400"
      font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif">
   <style>
     :root {
@@ -63,7 +63,7 @@
   <text class="lane-header" x="485" y="114" text-anchor="middle">HUMAN LANE</text>
 
   <!-- Lane divider full length -->
-  <line class="lane-divider" x1="340" y1="124" x2="340" y2="1738"/>
+  <line class="lane-divider" x1="340" y1="124" x2="340" y2="2358"/>
 
   <!-- ═══════ PHASE 0 label ═══════ -->
   <line class="phase-divider" x1="60" y1="138" x2="250" y2="138"/>
@@ -315,47 +315,155 @@
   <polygon class="arrow-head" points="324,1330 331,1326 331,1334"/>
   <text class="footnote" x="540" y="1324" text-anchor="middle">↻ 每个业务 phase 重复</text>
 
-  <!-- ═══════ POST-MVP label (one-time, sits below the business loop) ═══════ -->
-  <line class="phase-divider" x1="60" y1="1490" x2="170" y2="1490"/>
-  <rect class="phase-pill" x="172" y="1477" width="336" height="26" rx="13"/>
-  <text class="phase-label" x="340" y="1494" text-anchor="middle">POST-MVP · CUSTOM DOMAIN（一次性 §5.4）</text>
-  <line class="phase-divider" x1="510" y1="1490" x2="620" y2="1490"/>
+  <!-- ═══════ POST-MVP A · UAT (creator dogfooding) ═══════ -->
+  <line class="phase-divider" x1="60" y1="1490" x2="160" y2="1490"/>
+  <rect class="phase-pill" x="162" y="1477" width="356" height="26" rx="13"/>
+  <text class="phase-label" x="340" y="1494" text-anchor="middle">POST-MVP A · UAT (CREATOR DOGFOODING §12.A)</text>
+  <line class="phase-divider" x1="520" y1="1490" x2="620" y2="1490"/>
 
-  <!-- arrow Phase label → node 22 (H lane vertical) -->
+  <!-- arrow phase A → node 22 (H lane vertical) -->
   <path class="arrow" d="M 485 1503 L 485 1518"/>
   <polygon class="arrow-head" points="485,1524 481,1517 489,1517"/>
 
-  <!-- 22 Human: Vercel Add Domain + Namecheap DNS -->
+  <!-- 22 Human: 用 MVP 跑 spec 设想的真实场景 -->
   <rect class="box-human" x="360" y="1524" width="260" height="32" rx="6"/>
   <text class="num-human"  x="370" y="1540">22</text>
-  <text class="text-human" x="370" y="1552">Vercel Add Domain + Namecheap DNS</text>
+  <text class="text-human" x="370" y="1552">用 MVP 跑一次 spec 设想的真实场景</text>
 
-  <!-- arrow 22 → 23 (H → H vertical) -->
-  <path class="arrow" d="M 485 1556 L 485 1564"/>
-  <polygon class="arrow-head" points="485,1570 481,1563 489,1563"/>
+  <!-- arrow 22 → 23 (H → AI cross) -->
+  <path class="arrow" d="M 485 1556 L 485 1564 L 195 1564 L 195 1572"/>
+  <polygon class="arrow-head" points="195,1578 191,1571 199,1571"/>
 
-  <!-- 23 Human: env + Supabase Auth + Stripe webhook -->
-  <rect class="box-human" x="360" y="1570" width="260" height="32" rx="6"/>
-  <text class="num-human"  x="370" y="1586">23</text>
-  <text class="text-human" x="370" y="1598">Vercel env + Supabase Auth + Stripe webhook</text>
+  <!-- 23 AI: 整理 reflect → issue list → 必修迭代 -->
+  <rect class="box-ai" x="60" y="1578" width="260" height="32" rx="6"/>
+  <text class="num-ai"  x="70" y="1594">23</text>
+  <text class="text-ai" x="70" y="1606">整理 reflect → issue list → 必修迭代</text>
 
-  <!-- arrow 23 → 24 (H → AI cross) -->
-  <path class="arrow" d="M 485 1602 L 485 1610 L 195 1610 L 195 1618"/>
-  <polygon class="arrow-head" points="195,1624 191,1617 199,1617"/>
+  <!-- arrow 23 → 24 (AI → H cross) -->
+  <path class="arrow" d="M 195 1610 L 195 1618 L 485 1618 L 485 1626"/>
+  <polygon class="arrow-head" points="485,1632 481,1625 489,1625"/>
 
-  <!-- 24 AI: grep hardcoded URLs + git push -->
-  <rect class="box-ai" x="60" y="1624" width="260" height="32" rx="6"/>
-  <text class="num-ai"  x="70" y="1640">24</text>
-  <text class="text-ai" x="70" y="1652">grep 硬编码 *.vercel.app → git push</text>
+  <!-- 24 Human: 重测 → pass / fail decision -->
+  <rect class="box-human" x="360" y="1632" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="1648">24</text>
+  <text class="text-human" x="370" y="1660">重测 → pass / fail（自己愿不愿继续用？）</text>
 
-  <!-- arrow 24 → 25 (AI → H cross) -->
-  <path class="arrow" d="M 195 1656 L 195 1664 L 485 1664 L 485 1672"/>
-  <polygon class="arrow-head" points="485,1678 481,1671 489,1671"/>
+  <!-- arrow 24 → next phase B label -->
+  <path class="arrow" d="M 485 1664 L 485 1678"/>
 
-  <!-- 25 Human: browser smoke (bare + www) -->
-  <rect class="box-human" x="360" y="1678" width="260" height="32" rx="6"/>
-  <text class="num-human"  x="370" y="1694">25</text>
-  <text class="text-human" x="370" y="1706">浏览器实测 bare + www（OAuth + 路由保护）</text>
+  <!-- ═══════ POST-MVP B · CUSTOM DOMAIN ═══════ -->
+  <line class="phase-divider" x1="60" y1="1688" x2="170" y2="1688"/>
+  <rect class="phase-pill" x="172" y="1675" width="336" height="26" rx="13"/>
+  <text class="phase-label" x="340" y="1692" text-anchor="middle">POST-MVP B · CUSTOM DOMAIN (§12.B)</text>
+  <line class="phase-divider" x1="510" y1="1688" x2="620" y2="1688"/>
 
-  <text class="footnote" x="60" y="1750">* 协作紫色节点典型场景：Supabase-only 模式里 AI 写建表 SQL，Human 粘到 SQL Editor；或 AI 调 `npm run db:types` 前 Human 先 `npx supabase login`。</text>
+  <!-- arrow phase B → node 25 -->
+  <path class="arrow" d="M 485 1701 L 485 1716"/>
+  <polygon class="arrow-head" points="485,1722 481,1715 489,1715"/>
+
+  <!-- 25 Human: Vercel Add Domain + Namecheap DNS -->
+  <rect class="box-human" x="360" y="1722" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="1738">25</text>
+  <text class="text-human" x="370" y="1750">Vercel Add Domain + Namecheap DNS</text>
+
+  <!-- arrow 25 → 26 (H → H vertical) -->
+  <path class="arrow" d="M 485 1754 L 485 1762"/>
+  <polygon class="arrow-head" points="485,1768 481,1761 489,1761"/>
+
+  <!-- 26 Human: env + Supabase Auth + Stripe webhook -->
+  <rect class="box-human" x="360" y="1768" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="1784">26</text>
+  <text class="text-human" x="370" y="1796">Vercel env + Supabase Auth + (Stripe webhook)</text>
+
+  <!-- arrow 26 → 27 (H → AI cross) -->
+  <path class="arrow" d="M 485 1800 L 485 1808 L 195 1808 L 195 1816"/>
+  <polygon class="arrow-head" points="195,1822 191,1815 199,1815"/>
+
+  <!-- 27 AI: grep + push -->
+  <rect class="box-ai" x="60" y="1822" width="260" height="32" rx="6"/>
+  <text class="num-ai"  x="70" y="1838">27</text>
+  <text class="text-ai" x="70" y="1850">grep 硬编码 *.vercel.app → git push</text>
+
+  <!-- arrow 27 → 28 (AI → H cross) -->
+  <path class="arrow" d="M 195 1854 L 195 1862 L 485 1862 L 485 1870"/>
+  <polygon class="arrow-head" points="485,1876 481,1869 489,1869"/>
+
+  <!-- 28 Human: browser smoke (bare + www) -->
+  <rect class="box-human" x="360" y="1876" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="1892">28</text>
+  <text class="text-human" x="370" y="1904">浏览器实测 bare + www（OAuth + 路由保护）</text>
+
+  <!-- arrow 28 → next phase C label -->
+  <path class="arrow" d="M 485 1908 L 485 1922"/>
+
+  <!-- ═══════ POST-MVP C · SCALE-UP / HARDENING ═══════ -->
+  <line class="phase-divider" x1="60" y1="1932" x2="160" y2="1932"/>
+  <rect class="phase-pill" x="162" y="1919" width="356" height="26" rx="13"/>
+  <text class="phase-label" x="340" y="1936" text-anchor="middle">POST-MVP C · SCALE-UP / HARDENING (§12.C)</text>
+  <line class="phase-divider" x1="520" y1="1932" x2="620" y2="1932"/>
+
+  <!-- arrow phase C → node 29 -->
+  <path class="arrow" d="M 485 1945 L 485 1960"/>
+  <polygon class="arrow-head" points="485,1966 481,1959 489,1959"/>
+
+  <!-- 29 Human: OpenAI cost cap + Sentry/Posthog 注册 -->
+  <rect class="box-human" x="360" y="1966" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="1982">29</text>
+  <text class="text-human" x="370" y="1994">OpenAI cost cap + Sentry / Posthog 注册</text>
+
+  <!-- arrow 29 → 30 (H → Collab cross-center) -->
+  <path class="arrow" d="M 485 1998 L 485 2006 L 340 2006 L 340 2014"/>
+  <polygon class="arrow-head" points="340,2020 336,2013 344,2013"/>
+
+  <!-- 30 Collab: Upstash + AI 写 rate-limit + Sentry/Posthog SDK -->
+  <rect class="box-collab" x="210" y="2020" width="260" height="32" rx="6"/>
+  <text class="num-collab" x="220" y="2036">30</text>
+  <text class="text-collab" x="220" y="2048">Upstash + AI 写 rate-limit + Sentry/PH SDK</text>
+
+  <!-- arrow 30 → 31 (Collab → H cross-center) -->
+  <path class="arrow" d="M 340 2052 L 340 2060 L 485 2060 L 485 2068"/>
+  <polygon class="arrow-head" points="485,2074 481,2067 489,2067"/>
+
+  <!-- 31 Human: dashboard 实测 + 配 alert / funnel -->
+  <rect class="box-human" x="360" y="2074" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="2090">31</text>
+  <text class="text-human" x="370" y="2102">dashboards 实测 + 配 alert / funnel</text>
+
+  <!-- arrow 31 → next phase D label -->
+  <path class="arrow" d="M 485 2106 L 485 2120"/>
+
+  <!-- ═══════ POST-MVP D · STRIPE / MONETIZATION ═══════ -->
+  <line class="phase-divider" x1="60" y1="2130" x2="160" y2="2130"/>
+  <rect class="phase-pill" x="162" y="2117" width="356" height="26" rx="13"/>
+  <text class="phase-label" x="340" y="2134" text-anchor="middle">POST-MVP D · STRIPE / MONETIZATION (§12.D)</text>
+  <line class="phase-divider" x1="520" y1="2130" x2="620" y2="2130"/>
+
+  <!-- arrow phase D → node 32 -->
+  <path class="arrow" d="M 485 2143 L 485 2158"/>
+  <polygon class="arrow-head" points="485,2164 481,2157 489,2157"/>
+
+  <!-- 32 Human: grandfather 策略 + Stripe Dashboard 建 Product -->
+  <rect class="box-human" x="360" y="2164" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="2180">32</text>
+  <text class="text-human" x="370" y="2192">grandfather 策略 + Stripe 建 Product / keys</text>
+
+  <!-- arrow 32 → 33 (H → Collab cross-center) -->
+  <path class="arrow" d="M 485 2196 L 485 2204 L 340 2204 L 340 2212"/>
+  <polygon class="arrow-head" points="340,2218 336,2211 344,2211"/>
+
+  <!-- 33 Collab: AI /api/stripe + Human Webhook secret -->
+  <rect class="box-collab" x="210" y="2218" width="260" height="32" rx="6"/>
+  <text class="num-collab" x="220" y="2234">33</text>
+  <text class="text-collab" x="220" y="2246">AI /api/stripe/* + Human 配 webhook secret</text>
+
+  <!-- arrow 33 → 34 (Collab → H cross-center) -->
+  <path class="arrow" d="M 340 2250 L 340 2258 L 485 2258 L 485 2266"/>
+  <polygon class="arrow-head" points="485,2272 481,2265 489,2265"/>
+
+  <!-- 34 Human: test mode 付款 → live mode -->
+  <rect class="box-human" x="360" y="2272" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="2288">34</text>
+  <text class="text-human" x="370" y="2300">test mode 付款 → 切 live mode → 通知用户</text>
+
+  <text class="footnote" x="60" y="2380">* 协作紫色节点典型场景：Supabase-only 模式里 AI 写建表 SQL，Human 粘到 SQL Editor；Phase C 的 rate-limit 配置（Human 在 Upstash UI 建 Redis，AI 写 middleware 集成）；Phase D 的 Stripe 接入（AI 写 /api/stripe/*，Human 配 Webhook secret）。</text>
 </svg>
