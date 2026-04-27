@@ -487,6 +487,95 @@ git push   # Vercel 自动 deploy main 分支
 
 ---
 
+### 5.4 Custom Domain（一次性操作 · 在 MVP 跑通之后做）
+
+> **AI 做**：grep 代码里的硬编码 URL（metadata、email 模板、第三方 config 文件）、改 README 里的 live URL、commit + push、`curl` 测 redirect。
+> **Human 做**：所有 Dashboard / Registrar 的 GUI 操作（Vercel Domains、Namecheap DNS、Supabase Auth、Stripe Webhooks）—— AI 进不去；浏览器实测 OAuth 走通。
+> **关键约束**：env vars 改完后 Vercel **不会自动 redeploy**，必须 Human 在 Dashboard 点 Redeploy（或 AI 推一个空 commit 作为绕过）。
+
+**前置**：MVP 已上线（用 `*.vercel.app` 自动域名），产品名 / brand 基本定型不会再改，已在 Namecheap 等 registrar 买好域名。
+
+#### 第一步：Vercel 加 domain
+
+```
+[Human] Vercel Dashboard → 项目 → Settings → Domains → Add
+[Human] 输入 example.com（不带 https://）→ Vercel 提示 DNS 配置方案
+```
+
+DNS 两种方案：
+- **方案 A**：把整个域名 nameserver 改成 Vercel 的 —— 简单，但失去 Namecheap 上的邮箱 / 子域名灵活性
+- **方案 B（推荐）**：保留 Namecheap 管，只加 A + CNAME 记录指向 Vercel
+
+#### 第二步：Namecheap 加 DNS 记录
+
+```
+[Human] Namecheap → Domain List → 找到 example.com → Manage → Advanced DNS
+[Human] Add Record: Type=A      Host=@    Value=<Vercel 给的 IP，一般 76.76.21.21>
+[Human] Add Record: Type=CNAME  Host=www  Value=cname.vercel-dns.com
+[Human] TTL 默认 (Automatic)
+```
+
+DNS propagation 一般 5–30 min。期间 Vercel Dashboard → Domains 状态条会从 ❌ Invalid 变 ✅ Valid。DNS 生效后 Vercel 自动申请 Let's Encrypt 证书，HTTPS 5–10 分钟内可用。
+
+#### 第三步：选 www / apex 主域
+
+```
+[Human] Vercel Dashboard → Domains → 把 example.com 或 www.example.com
+        其中之一标记为 Primary（另一个会自动 307 redirect 到 Primary）
+```
+
+约定：**apex 当主，www 子域 307 到主**（`www.example.com → example.com`）。也可反过来，但要全项目一致。Vercel 自动设 redirect，不用手写。
+
+#### 第四步：改所有引用旧 URL 的地方
+
+```
+[Human] Vercel Dashboard → Settings → Environment Variables
+        NEXT_PUBLIC_APP_URL = https://example.com   ← 替换 *.vercel.app
+[Human] Vercel → Deployments → 最新 → ⋯ → Redeploy
+        （env 不会自动触发重部；或 [AI] 推空 commit 触发自动 redeploy）
+[Human] Supabase Dashboard → Auth → URL Configuration:
+        - Site URL  =  https://example.com
+        - Redirect URLs  → 加 https://example.com/auth/callback
+          （如保留 www 入口，再加 https://www.example.com/auth/callback）
+[Human] (仅付费项目) Stripe Dashboard → Webhooks → 删旧 endpoint → 用新域名建新的
+        → 复制新的 STRIPE_WEBHOOK_SECRET → Vercel env 更新 → Redeploy
+[AI]    grep 代码里硬编码的 *.vercel.app（理想情况应该全用 NEXT_PUBLIC_APP_URL，
+        实际项目难免漏：metadata.openGraph.url / 邮件模板 / og-image 路径 /
+        README live URL / 第三方 config 文件如 shopify.app.<name>.toml 等）
+[AI]    git push → Vercel 自动 redeploy
+```
+
+#### 不用动的
+
+```
+[Human] Google OAuth Cloud Console — redirect URI 永远是
+        https://<supabase-ref>.supabase.co/auth/v1/callback，跟 app 域名无关
+[Human] CRON_SECRET / SUPABASE_SERVICE_ROLE_KEY / OPENAI_API_KEY — 跟域名无关
+[AI]    本地 .env.local — 仍指 localhost
+```
+
+#### 第五步：实测
+
+```
+[AI]    curl -I https://www.example.com  → 期望 307 redirect 到 https://example.com
+[AI]    curl -I https://example.com       → 期望 200
+[Human] 浏览器测全套 user flow（bare 域 + www 子域**各走一遍**）：
+        - landing 渲染
+        - Google 登录走通（OAuth callback 不报 "redirect URI mismatch"）
+        - Email 登录走通
+        - middleware 保护路径（如 /library）能正确重定向到 /auth/login
+        - 受保护路径登录后能访问
+```
+
+#### 已踩过的坑（projects 历史归档）
+
+- **`www.<domain>` 子域 OAuth 转圈** — Supabase Site URL 设的是 bare 域，但用户从 www 子域进入，OAuth callback 回跳时 Supabase 用 Site URL 拼 redirect，跟实际域名不匹配 → 用户卡在 callback 页。修法：要么强制 www → bare redirect（首选），要么在 Supabase Redirect URLs 里把 www 版本也加上。
+- **HTTPS 一开始 404 / "Not secure"** — Vercel 自动申请 Let's Encrypt 证书需要 5–10 分钟，期间 https 路径会 503 / 404。耐心等。
+- **改 env 没 redeploy** — 旧 `NEXT_PUBLIC_APP_URL` 还在生产 build 里，metadata / email / OAuth redirect 还指 `*.vercel.app`，登录立刻报 "redirect URI mismatch"。修法：**每次改 env 都要 manual redeploy**（或推空 commit 触发自动）。
+- **第三方 config 文件漏改** — 比如 Shopify app 的 `shopify.app.<name>.toml` 把 webhook URL 和 callback URL 全写死。换域名时 grep 所有 `*.toml` / `*.config.*` / 邮件模板 / static HTML，找旧域名一并改。
+
+---
+
 ## 6. Stripe 模块
 
 > **整节分工**：**AI 做** 所有代码——checkout route、webhook handler、credit/subscription 逻辑、Prisma schema 的 Credit / Subscription 字段。**Human 做** Stripe 控制台相关的**一切**：建 Product、拿 Price ID、拿 Secret Key、配 Webhook URL、在生产部署后注册 webhook endpoint 拿 `STRIPE_WEBHOOK_SECRET`。AI 不能登录 Stripe Dashboard。
@@ -810,6 +899,8 @@ git pull  # 拉取 SPRINT.md
 [Human]  Settings → Build Command → 改 `npx prisma generate && next build`（如用 Prisma）
 [Human]  打开 Vercel URL 实测 landing 页渲染正常（Deploy Ready ≠ runtime OK）
 ```
+
+> **Custom domain 不在这一步做**。Phase 2 用 Vercel 自动给的 `*.vercel.app` 即可——产品名 / brand 还可能改。等 MVP 跑通、产品定型后再换 custom domain，详见 §5.4（一次性操作，含 Namecheap DNS + Supabase Auth + 第三方 config 全套迁移步骤）。
 
 ### Phase 3 — v0 Polish + Token Lockin
 
