@@ -777,7 +777,8 @@ git pull  # 拉取 SPRINT.md
 **核心原则**：
 - **landing 早做**：Phase 1 就把壳 + 首屏做出来，别埋到最后
 - **首次 deploy 早触发**：Phase 2 landing 能看就部到 Vercel，不等 Auth/Stripe 写完
-- **Stripe 独立**：Phase 4，仅付费项目需要；MVP 可跳过
+- **deploy 之后立刻 v0 抛光**：Phase 3 用 v0 重做 landing 的视觉 + 落地 token 系统，**赶在写业务代码之前**。后面所有屏 free 复用 token，免得最后一次性大改
+- **Stripe 独立**：Phase 5，仅付费项目需要；MVP 可跳过
 - **每 Phase 完都 push**：触发 Vercel 自动 redeploy，每 Phase 能在生产 URL 实测
 
 ### Phase 0 — Bootstrap（`new-project.sh` 已自动完成）
@@ -810,7 +811,47 @@ git pull  # 拉取 SPRINT.md
 [Human]  打开 Vercel URL 实测 landing 页渲染正常（Deploy Ready ≠ runtime OK）
 ```
 
-### Phase 3 — DB + Auth
+### Phase 3 — v0 Polish + Token Lockin
+
+**这一步赶在写业务代码之前**。Phase 1 出来的 landing 是 raw shadcn 模版，跟正式产品的视觉气质有距离。用 v0 重做一版 landing，**把 token 系统在这一步定型**：颜色（含 dark mode）、radius scale、字体层级、按钮 / 卡片基样式。后面 Phase 4-N 写每个新屏直接复用同一组 token，不用回头大改。
+
+vibe-reading 的反例：跳过这一步直接做完所有业务屏，再大改一次视觉，回头改了 5+ 个屏，重活。
+
+```
+[Human]  v0.dev → 给 prod URL（Phase 2 已经部上去了）+ 一段 design brief
+         brief 必须包含：
+           - locked constraints：单 accent / no framer-motion / 用 CSS token 而非 hardcoded color / sentence case
+           - desired vibe：选一个参照（Notion / Linear / Vercel docs / Stripe / etc）
+           - 必保留：上传 / 登录入口 / 现有交互
+[Human]  从 v0 拿 .tsx 全文，paste 给 Claude
+[AI]     转译集成（关键 4 步，每一步都不能省）：
+           1. hardcoded color (slate-500 / blue-500 等) → CSS token (text-muted-foreground / bg-primary 等)
+           2. 拆 page / Screen 分层（v0 输出是单文件 + mock data；page 留 server-side fetch，Screen 留 'use client'）
+           3. 接真实数据 / 交互（v0 用 mock）
+           4. 删冗余依赖（framer-motion / 多余 lucide icon / react-confetti 等 v0 自动引的）
+[AI]     落地到 globals.css：
+           - `:root` 完整 light tokens
+           - `.dark` 完整 dark tokens（即使现在不开 toggle，也先写好，后面加 toggle 是 5 分钟事）
+           - --radius / --font / 其他基础变量
+[AI]     加 dark mode toggle（可选，但建议同步做）：sun/moon 按钮在 nav；inline <head> 脚本防 FOUC
+[AI]     git push → Vercel 自动 redeploy
+[Human]  浏览器实测 light + dark 各过一遍，prod URL 看视觉是否到位
+```
+
+**Phase 3 的 lock-down 规则**（写进 design brief 也好，集成时强制也好）：
+
+- v0 输出 ≠ 直接 commit。**永远**经过转译 pass
+- 不引第二条 accent ramp（保持单 accent）
+- 不引动画库（只用 Tailwind 自带 hover transition）
+- v0 的 hero illustration / SVG 装饰元素默认删掉
+- 现有 auth 流 / upload 流的交互**不能动**（功能优先）
+
+**何时跳过 Phase 3**：
+- 内部工具 / 不公开的项目（直接用 shadcn 默认即可）
+- 已有强设计系统的项目（v0 会和现有 token 打架）
+- 极简 CLI / API 类项目（无前端需要抛光）
+
+### Phase 4 — DB + Auth
 
 ```
 [AI]     写 lib/supabase/{client,server,admin}.ts（照 §3.1）
@@ -824,7 +865,7 @@ git pull  # 拉取 SPRINT.md
 [Human]  浏览器实测 Email 注册 / 登录 / Google OAuth + middleware 保护路由重定向
 ```
 
-### Phase 4 — Stripe（仅付费项目；MVP 无付费可跳过）
+### Phase 5 — Stripe（仅付费项目；MVP 无付费可跳过）
 
 ```
 [Human]  Stripe Dashboard → 建 Product → 复制 Price ID + Secret Key → 加到 Vercel env vars
@@ -834,7 +875,7 @@ git pull  # 拉取 SPRINT.md
 [Human]  加 STRIPE_WEBHOOK_SECRET 到 Vercel env → Redeploy
 ```
 
-### Phase 5-N — 业务逻辑
+### Phase 6-N — 业务逻辑
 
 按 `docs/implementation-guide.md` 的 Phase 顺序逐个做。每 Phase 完：
 
@@ -855,14 +896,14 @@ git pull  # 拉取 SPRINT.md
 - Human 沿路点击不会碰到 404 / "coming soon" 死端
 - 如果某个 Phase 的 UI 产出一个按钮，那个按钮的目的地**已经建好**
 
-**典型批量边界**（根据产品差异会变化，以 Vibe Reading 为例）：
-- `Phase 5 + 6`（Goal 输入 + 三色映射）= 第一个可测里程碑：上传 → 填 goal → 看 map
-- `Phase 7 + 8 + 9`（Claim + Brief + Restate）= 第二个可测里程碑：登录 → 看 brief → 复述
-- `Phase 11 + 12`（Library + Cron）= 收尾里程碑
-- `Phase 10`（Read mode）= 独立一块（spec defer）
+**典型批量边界**（以 Vibe Reading 旧 v1 implementation-guide 的项目内 Phase 编号为例 —— 注意这些是项目自己的 Phase，不是 STANDARD §11 的 Phase）：
+- 项目 Phase 5 + 6（Goal 输入 + 三色映射）= 第一个可测里程碑：上传 → 填 goal → 看 map
+- 项目 Phase 7 + 8 + 9（Claim + Brief + Restate）= 第二个可测里程碑：登录 → 看 brief → 复述
+- 项目 Phase 11 + 12（Library + Cron）= 收尾里程碑
+- 项目 Phase 10（Read mode）= 独立一块（spec defer）
 
 **例外**（必须中断 Human 的场景）：
 - Phase 需要 Human 在 Dashboard 做配置（Supabase bucket、OAuth credentials、Vercel env）——这种 blocker 型 Human work 挡不过去，必须立刻中断
 - 架构决策争议点（比如"这个 schema 设计对不对"）——宁愿早问也比埋头一路跑偏
 
-**不批量的代价**（这是真实踩过的）：Vibe Reading 2026-04-23，我按 phase-by-phase 节奏让 user 每一个 phase 都去浏览器测，结果 Phase 5 → goal → /map 404；Phase 6 → map → 点 Brief → 404；Phase 7 推完说"现在登录就通了"——user 累了。正确的节奏本该是"Phase 5+6+7+8+9 一起做完，一次性告诉 user：'现在可以从上传到复述全部跑一遍'"。
+**不批量的代价**（这是真实踩过的）：Vibe Reading 2026-04-23，我按 phase-by-phase 节奏让 user 每一个 phase 都去浏览器测，结果项目 Phase 5 → goal → /map 404；Phase 6 → map → 点 Brief → 404；Phase 7 推完说"现在登录就通了"——user 累了。正确的节奏本该是"项目 Phase 5+6+7+8+9 一起做完，一次性告诉 user：'现在可以从上传到复述全部跑一遍'"。
