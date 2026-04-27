@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 1300"
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 1490"
      font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif">
   <style>
     :root {
@@ -46,7 +46,7 @@
 
   <!-- Title -->
   <text class="title" x="60" y="42">STANDARD.md · Ownership Flow</text>
-  <text class="subtitle" x="60" y="62">landing 早做 · 首次 deploy 早触发 · Stripe 独立 · 每 Phase 完都 push</text>
+  <text class="subtitle" x="60" y="62">landing 早做 · 首次 deploy 早触发 · v0 抛光紧跟 deploy · Stripe 独立 · 每 Phase 完都 push</text>
 
   <!-- Legend -->
   <g>
@@ -63,7 +63,7 @@
   <text class="lane-header" x="485" y="114" text-anchor="middle">HUMAN LANE</text>
 
   <!-- Lane divider full length -->
-  <line class="lane-divider" x1="340" y1="124" x2="340" y2="1268"/>
+  <line class="lane-divider" x1="340" y1="124" x2="340" y2="1458"/>
 
   <!-- ═══════ PHASE 0 label ═══════ -->
   <line class="phase-divider" x1="60" y1="138" x2="250" y2="138"/>
@@ -101,7 +101,7 @@
   <!-- 03 AI: landing -->
   <rect class="box-ai" x="60" y="300" width="260" height="32" rx="6"/>
   <text class="num-ai"  x="70" y="316">03</text>
-  <text class="text-ai" x="70" y="328">写 app/page.tsx landing 页（真设计）</text>
+  <text class="text-ai" x="70" y="328">写 app/page.tsx landing 壳（先 raw shadcn）</text>
 
   <!-- arrow 03 → 04 (AI → Human diagonal) -->
   <path class="arrow" d="M 195 332 L 195 340 L 485 340 L 485 348"/>
@@ -142,142 +142,178 @@
   <!-- arrow 06 → Phase 3 label -->
   <path class="arrow" d="M 485 520 L 485 534"/>
 
-  <!-- ═══════ PHASE 3 label ═══════ -->
-  <line class="phase-divider" x1="60" y1="544" x2="240" y2="544"/>
-  <rect class="phase-pill" x="242" y="531" width="196" height="26" rx="13"/>
-  <text class="phase-label" x="340" y="548" text-anchor="middle">PHASE 3 · DB + AUTH</text>
-  <line class="phase-divider" x1="440" y1="544" x2="620" y2="544"/>
+  <!-- ═══════ PHASE 3 label (NEW) ═══════ -->
+  <line class="phase-divider" x1="60" y1="544" x2="180" y2="544"/>
+  <rect class="phase-pill" x="182" y="531" width="316" height="26" rx="13"/>
+  <text class="phase-label" x="340" y="548" text-anchor="middle">PHASE 3 · v0 POLISH + TOKEN LOCKIN ✨</text>
+  <line class="phase-divider" x1="500" y1="544" x2="620" y2="544"/>
 
-  <!-- arrow Phase 3 label → node 07 (cross H→AI) -->
-  <path class="arrow" d="M 485 557 L 485 566 L 195 566 L 195 574"/>
-  <polygon class="arrow-head" points="195,580 191,573 199,573"/>
+  <!-- arrow Phase 3 label → node 07 (H lane vertical) -->
+  <path class="arrow" d="M 485 557 L 485 570"/>
+  <polygon class="arrow-head" points="485,576 481,569 489,569"/>
 
-  <!-- 07 AI: supabase + middleware + auth + schema -->
-  <rect class="box-ai" x="60" y="580" width="260" height="32" rx="6"/>
-  <text class="num-ai"  x="70" y="596">07</text>
-  <text class="text-ai" x="70" y="608">supabase clients + middleware + auth + schema</text>
+  <!-- 07 Human: v0 brief + paste .tsx -->
+  <rect class="box-human" x="360" y="576" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="592">07</text>
+  <text class="text-human" x="370" y="604">v0.dev brief + 拿 .tsx 给 AI</text>
 
-  <!-- arrow 07 → 08 (AI → Human diagonal) -->
-  <path class="arrow" d="M 195 612 L 195 620 L 485 620 L 485 628"/>
-  <polygon class="arrow-head" points="485,634 481,627 489,627"/>
+  <!-- arrow 07 → 08 (H → AI cross) -->
+  <path class="arrow" d="M 485 608 L 485 616 L 195 616 L 195 624"/>
+  <polygon class="arrow-head" points="195,630 191,623 199,623"/>
 
-  <!-- 08 Human: Supabase Dashboard -->
-  <rect class="box-human" x="360" y="634" width="260" height="32" rx="6"/>
-  <text class="num-human"  x="370" y="650">08</text>
-  <text class="text-human" x="370" y="662">Supabase Dashboard: Email off + OAuth</text>
+  <!-- 08 AI: 转译 + token 落地 + dark + push -->
+  <rect class="box-ai" x="60" y="630" width="260" height="32" rx="6"/>
+  <text class="num-ai"  x="70" y="646">08</text>
+  <text class="text-ai" x="70" y="658">转译 → globals.css token → push</text>
 
-  <!-- arrow 08 → 09 (H → H vertical) -->
-  <path class="arrow" d="M 485 666 L 485 674"/>
-  <polygon class="arrow-head" points="485,680 481,673 489,673"/>
+  <!-- arrow 08 → 09 (AI → Human cross) -->
+  <path class="arrow" d="M 195 662 L 195 670 L 485 670 L 485 678"/>
+  <polygon class="arrow-head" points="485,684 481,677 489,677"/>
 
-  <!-- 09 Human: Google OAuth Client + Supabase keys -->
-  <rect class="box-human" x="360" y="680" width="260" height="32" rx="6"/>
-  <text class="num-human"  x="370" y="696">09</text>
-  <text class="text-human" x="370" y="708">Google OAuth Client → Supabase 粘 keys</text>
+  <!-- 09 Human: 实测 light + dark prod -->
+  <rect class="box-human" x="360" y="684" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="700">09</text>
+  <text class="text-human" x="370" y="712">浏览器实测 light + dark prod URL</text>
 
-  <!-- arrow 09 → 10 (H → AI diagonal) -->
-  <path class="arrow" d="M 485 712 L 485 720 L 195 720 L 195 728"/>
-  <polygon class="arrow-head" points="195,734 191,727 199,727"/>
+  <!-- arrow 09 → Phase 4 label -->
+  <path class="arrow" d="M 485 716 L 485 730"/>
 
-  <!-- 10 AI: git push -->
-  <rect class="box-ai" x="60" y="734" width="260" height="32" rx="6"/>
-  <text class="num-ai"  x="70" y="750">10</text>
-  <text class="text-ai" x="70" y="762">git push → Vercel 自动 redeploy</text>
+  <!-- ═══════ PHASE 4 label (was 3) ═══════ -->
+  <line class="phase-divider" x1="60" y1="740" x2="240" y2="740"/>
+  <rect class="phase-pill" x="242" y="727" width="196" height="26" rx="13"/>
+  <text class="phase-label" x="340" y="744" text-anchor="middle">PHASE 4 · DB + AUTH</text>
+  <line class="phase-divider" x1="440" y1="740" x2="620" y2="740"/>
+
+  <!-- arrow Phase 4 label → node 10 (cross H→AI) -->
+  <path class="arrow" d="M 485 753 L 485 762 L 195 762 L 195 770"/>
+  <polygon class="arrow-head" points="195,776 191,769 199,769"/>
+
+  <!-- 10 AI: supabase + middleware + auth + schema -->
+  <rect class="box-ai" x="60" y="776" width="260" height="32" rx="6"/>
+  <text class="num-ai"  x="70" y="792">10</text>
+  <text class="text-ai" x="70" y="804">supabase clients + middleware + auth + schema</text>
 
   <!-- arrow 10 → 11 (AI → Human diagonal) -->
-  <path class="arrow" d="M 195 766 L 195 774 L 485 774 L 485 782"/>
-  <polygon class="arrow-head" points="485,788 481,781 489,781"/>
+  <path class="arrow" d="M 195 808 L 195 816 L 485 816 L 485 824"/>
+  <polygon class="arrow-head" points="485,830 481,823 489,823"/>
 
-  <!-- 11 Human: browser auth E2E -->
-  <rect class="box-human" x="360" y="788" width="260" height="32" rx="6"/>
-  <text class="num-human"  x="370" y="804">11</text>
-  <text class="text-human" x="370" y="816">浏览器实测 Email + Google + middleware</text>
+  <!-- 11 Human: Supabase Dashboard -->
+  <rect class="box-human" x="360" y="830" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="846">11</text>
+  <text class="text-human" x="370" y="858">Supabase Dashboard: Email off + OAuth</text>
 
-  <!-- arrow 11 → Phase 4 label -->
-  <path class="arrow" d="M 485 820 L 485 834"/>
+  <!-- arrow 11 → 12 (H → H vertical) -->
+  <path class="arrow" d="M 485 862 L 485 870"/>
+  <polygon class="arrow-head" points="485,876 481,869 489,869"/>
 
-  <!-- ═══════ PHASE 4 label ═══════ -->
-  <line class="phase-divider" x1="60" y1="844" x2="196" y2="844"/>
-  <rect class="phase-pill" x="198" y="831" width="284" height="26" rx="13"/>
-  <text class="phase-label" x="340" y="848" text-anchor="middle">PHASE 4 · STRIPE（可选）</text>
-  <line class="phase-divider" x1="484" y1="844" x2="620" y2="844"/>
+  <!-- 12 Human: Google OAuth Client + Supabase keys -->
+  <rect class="box-human" x="360" y="876" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="892">12</text>
+  <text class="text-human" x="370" y="904">Google OAuth Client → Supabase 粘 keys</text>
 
-  <!-- arrow from Phase 4 label to node 12 (cross H→AI) -->
-  <path class="arrow" d="M 485 857 L 485 866 L 195 866 L 195 874"/>
-  <polygon class="arrow-head" points="195,880 191,873 199,873"/>
+  <!-- arrow 12 → 13 (H → AI diagonal) -->
+  <path class="arrow" d="M 485 908 L 485 916 L 195 916 L 195 924"/>
+  <polygon class="arrow-head" points="195,930 191,923 199,923"/>
 
-  <!-- 12 AI: /api/stripe/{checkout,webhook} -->
-  <rect class="box-ai" x="60" y="880" width="260" height="32" rx="6"/>
-  <text class="num-ai"  x="70" y="896">12</text>
-  <text class="text-ai" x="70" y="908">/api/stripe/{checkout,webhook}</text>
+  <!-- 13 AI: git push -->
+  <rect class="box-ai" x="60" y="930" width="260" height="32" rx="6"/>
+  <text class="num-ai"  x="70" y="946">13</text>
+  <text class="text-ai" x="70" y="958">git push → Vercel 自动 redeploy</text>
 
-  <!-- arrow 12 → 13 (AI → Human diagonal) -->
-  <path class="arrow" d="M 195 912 L 195 920 L 485 920 L 485 928"/>
-  <polygon class="arrow-head" points="485,934 481,927 489,927"/>
+  <!-- arrow 13 → 14 (AI → Human diagonal) -->
+  <path class="arrow" d="M 195 962 L 195 970 L 485 970 L 485 978"/>
+  <polygon class="arrow-head" points="485,984 481,977 489,977"/>
 
-  <!-- 13 Human: Stripe Dashboard Product + keys → Vercel env -->
-  <rect class="box-human" x="360" y="934" width="260" height="32" rx="6"/>
-  <text class="num-human"  x="370" y="950">13</text>
-  <text class="text-human" x="370" y="962">Stripe Dashboard: Product + keys → Vercel</text>
+  <!-- 14 Human: browser auth E2E -->
+  <rect class="box-human" x="360" y="984" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="1000">14</text>
+  <text class="text-human" x="370" y="1012">浏览器实测 Email + Google + middleware</text>
 
-  <!-- arrow 13 → 14 (H → H vertical) -->
-  <path class="arrow" d="M 485 966 L 485 974"/>
-  <polygon class="arrow-head" points="485,980 481,973 489,973"/>
+  <!-- arrow 14 → Phase 5 label -->
+  <path class="arrow" d="M 485 1016 L 485 1030"/>
 
-  <!-- 14 Human: test mode 付款实测 -->
-  <rect class="box-human" x="360" y="980" width="260" height="32" rx="6"/>
-  <text class="num-human"  x="370" y="996">14</text>
-  <text class="text-human" x="370" y="1008">Stripe test mode 付款实测（test card 4242…）</text>
+  <!-- ═══════ PHASE 5 label (was 4) ═══════ -->
+  <line class="phase-divider" x1="60" y1="1040" x2="196" y2="1040"/>
+  <rect class="phase-pill" x="198" y="1027" width="284" height="26" rx="13"/>
+  <text class="phase-label" x="340" y="1044" text-anchor="middle">PHASE 5 · STRIPE（可选）</text>
+  <line class="phase-divider" x1="484" y1="1040" x2="620" y2="1040"/>
 
-  <!-- arrow 14 → 15 (H → H vertical) -->
-  <path class="arrow" d="M 485 1012 L 485 1020"/>
-  <polygon class="arrow-head" points="485,1026 481,1019 489,1019"/>
+  <!-- arrow from Phase 5 label to node 15 (cross H→AI) -->
+  <path class="arrow" d="M 485 1053 L 485 1062 L 195 1062 L 195 1070"/>
+  <polygon class="arrow-head" points="195,1076 191,1069 199,1069"/>
 
-  <!-- 15 Human: 生产 Webhook → secret → redeploy -->
-  <rect class="box-human" x="360" y="1026" width="260" height="32" rx="6"/>
-  <text class="num-human"  x="370" y="1042">15</text>
-  <text class="text-human" x="370" y="1054">生产 Webhook → secret → Vercel redeploy</text>
+  <!-- 15 AI: /api/stripe/{checkout,webhook} -->
+  <rect class="box-ai" x="60" y="1076" width="260" height="32" rx="6"/>
+  <text class="num-ai"  x="70" y="1092">15</text>
+  <text class="text-ai" x="70" y="1104">/api/stripe/{checkout,webhook}</text>
 
-  <!-- arrow 15 → Phase 5-N label -->
-  <path class="arrow" d="M 485 1058 L 485 1072"/>
+  <!-- arrow 15 → 16 (AI → Human diagonal) -->
+  <path class="arrow" d="M 195 1108 L 195 1116 L 485 1116 L 485 1124"/>
+  <polygon class="arrow-head" points="485,1130 481,1123 489,1123"/>
 
-  <!-- ═══════ PHASE 5-N label ═══════ -->
-  <line class="phase-divider" x1="60" y1="1082" x2="196" y2="1082"/>
-  <rect class="phase-pill" x="198" y="1069" width="284" height="26" rx="13"/>
-  <text class="phase-label" x="340" y="1086" text-anchor="middle">PHASE 5-N · 业务逻辑（循环）</text>
-  <line class="phase-divider" x1="484" y1="1082" x2="620" y2="1082"/>
+  <!-- 16 Human: Stripe Dashboard Product + keys → Vercel env -->
+  <rect class="box-human" x="360" y="1130" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="1146">16</text>
+  <text class="text-human" x="370" y="1158">Stripe Dashboard: Product + keys → Vercel</text>
 
-  <!-- arrow Phase 5-N label → node 16 (cross H→AI) -->
-  <path class="arrow" d="M 485 1095 L 485 1104 L 195 1104 L 195 1112"/>
-  <polygon class="arrow-head" points="195,1118 191,1111 199,1111"/>
+  <!-- arrow 16 → 17 (H → H vertical) -->
+  <path class="arrow" d="M 485 1162 L 485 1170"/>
+  <polygon class="arrow-head" points="485,1176 481,1169 489,1169"/>
 
-  <!-- 16 AI: 写本 phase 代码 -->
-  <rect class="box-ai" x="60" y="1118" width="260" height="32" rx="6"/>
-  <text class="num-ai"  x="70" y="1134">16</text>
-  <text class="text-ai" x="70" y="1146">写本 phase 代码（一个业务功能）</text>
+  <!-- 17 Human: test mode 付款实测 -->
+  <rect class="box-human" x="360" y="1176" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="1192">17</text>
+  <text class="text-human" x="370" y="1204">Stripe test mode 付款实测（test card 4242…）</text>
 
-  <!-- arrow 16 → 17 (AI → AI vertical) -->
-  <path class="arrow" d="M 195 1150 L 195 1158"/>
-  <polygon class="arrow-head" points="195,1164 191,1157 199,1157"/>
+  <!-- arrow 17 → 18 (H → H vertical) -->
+  <path class="arrow" d="M 485 1208 L 485 1216"/>
+  <polygon class="arrow-head" points="485,1222 481,1215 489,1215"/>
 
-  <!-- 17 AI: git push → Vercel redeploy -->
-  <rect class="box-ai" x="60" y="1164" width="260" height="32" rx="6"/>
-  <text class="num-ai"  x="70" y="1180">17</text>
-  <text class="text-ai" x="70" y="1192">git push → Vercel 自动 redeploy</text>
+  <!-- 18 Human: 生产 Webhook → secret → redeploy -->
+  <rect class="box-human" x="360" y="1222" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="1238">18</text>
+  <text class="text-human" x="370" y="1250">生产 Webhook → secret → Vercel redeploy</text>
 
-  <!-- arrow 17 → 18 (AI → Human diagonal) -->
-  <path class="arrow" d="M 195 1196 L 195 1204 L 485 1204 L 485 1212"/>
-  <polygon class="arrow-head" points="485,1218 481,1211 489,1211"/>
+  <!-- arrow 18 → Phase 6-N label -->
+  <path class="arrow" d="M 485 1254 L 485 1268"/>
 
-  <!-- 18 Human: 浏览器走本 phase user flow -->
-  <rect class="box-human" x="360" y="1218" width="260" height="32" rx="6"/>
-  <text class="num-human"  x="370" y="1234">18</text>
-  <text class="text-human" x="370" y="1246">浏览器走本 phase user flow</text>
+  <!-- ═══════ PHASE 6-N label (was 5-N) ═══════ -->
+  <line class="phase-divider" x1="60" y1="1278" x2="196" y2="1278"/>
+  <rect class="phase-pill" x="198" y="1265" width="284" height="26" rx="13"/>
+  <text class="phase-label" x="340" y="1282" text-anchor="middle">PHASE 6-N · 业务逻辑（循环）</text>
+  <line class="phase-divider" x1="484" y1="1278" x2="620" y2="1278"/>
 
-  <!-- Loop arrow: node 18 → back to node 16 (dashed, around right edge) -->
-  <path class="arrow" stroke-dasharray="4,3" d="M 620 1234 L 652 1234 L 652 1134 L 324 1134"/>
-  <polygon class="arrow-head" points="324,1134 331,1130 331,1138"/>
-  <text class="footnote" x="540" y="1128" text-anchor="middle">↻ 每个业务 phase 重复</text>
+  <!-- arrow Phase 6-N label → node 19 (cross H→AI) -->
+  <path class="arrow" d="M 485 1291 L 485 1300 L 195 1300 L 195 1308"/>
+  <polygon class="arrow-head" points="195,1314 191,1307 199,1307"/>
 
-  <text class="footnote" x="60" y="1290">* 协作紫色节点典型场景：Supabase-only 模式里 AI 写建表 SQL，Human 粘到 SQL Editor；或 AI 调 `npm run db:types` 前 Human 先 `npx supabase login`。</text>
+  <!-- 19 AI: 写本 phase 代码 -->
+  <rect class="box-ai" x="60" y="1314" width="260" height="32" rx="6"/>
+  <text class="num-ai"  x="70" y="1330">19</text>
+  <text class="text-ai" x="70" y="1342">写本 phase 代码（一个业务功能）</text>
+
+  <!-- arrow 19 → 20 (AI → AI vertical) -->
+  <path class="arrow" d="M 195 1346 L 195 1354"/>
+  <polygon class="arrow-head" points="195,1360 191,1353 199,1353"/>
+
+  <!-- 20 AI: git push → Vercel redeploy -->
+  <rect class="box-ai" x="60" y="1360" width="260" height="32" rx="6"/>
+  <text class="num-ai"  x="70" y="1376">20</text>
+  <text class="text-ai" x="70" y="1388">git push → Vercel 自动 redeploy</text>
+
+  <!-- arrow 20 → 21 (AI → Human diagonal) -->
+  <path class="arrow" d="M 195 1392 L 195 1400 L 485 1400 L 485 1408"/>
+  <polygon class="arrow-head" points="485,1414 481,1407 489,1407"/>
+
+  <!-- 21 Human: 浏览器走本 phase user flow -->
+  <rect class="box-human" x="360" y="1414" width="260" height="32" rx="6"/>
+  <text class="num-human"  x="370" y="1430">21</text>
+  <text class="text-human" x="370" y="1442">浏览器走本 phase user flow</text>
+
+  <!-- Loop arrow: node 21 → back to node 19 (dashed, around right edge) -->
+  <path class="arrow" stroke-dasharray="4,3" d="M 620 1430 L 652 1430 L 652 1330 L 324 1330"/>
+  <polygon class="arrow-head" points="324,1330 331,1326 331,1334"/>
+  <text class="footnote" x="540" y="1324" text-anchor="middle">↻ 每个业务 phase 重复</text>
+
+  <text class="footnote" x="60" y="1480">* 协作紫色节点典型场景：Supabase-only 模式里 AI 写建表 SQL，Human 粘到 SQL Editor；或 AI 调 `npm run db:types` 前 Human 先 `npx supabase login`。</text>
 </svg>
