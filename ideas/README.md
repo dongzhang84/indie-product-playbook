@@ -44,6 +44,7 @@
 | 2026-03-30   | GrowPilot                 | You build the product, we handle the growth — 每周自动生成40个buyer-intent关键词、10篇SEO博客草稿、X+LinkedIn社交帖子，面向SaaS founders和indie hackers，$29/月 | **🔥 In Progress** | [link](./growpilot.md) | 2026-04-07 |
 | 2026-04-13   | Doppelgang                  | Distill real customers into AI sparring partners — sales reps practice discovery, negotiation, and objection handling against AI customers with hidden goals and emotional state, then get multi-dimensional coaching feedback | **🔥 In Progress** | [link](./doppelgang.md) | 2026-04-14 |
 | 2026-04-21   | Vibe Reading                | A reading tool that refuses to summarize the book before you tell it why you're reading it — 5-screen forced workflow (goal → three-color map → read/brief → compress & check) that treats AI as an error-checker, not a summarizer | Proposal    | [link](./vibe-reading.md) | 2026-05-03 |
+| 2026-05-04   | PhysLit | — | Proposal | [link](./physlit.md) | 2026-05-04 |
 
 ## Legend
 - **Next Up**: 下一个要做的
