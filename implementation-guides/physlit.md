@@ -9,8 +9,8 @@
 > 这是一个研究项目的 implementation guide，不是产品的 launch 计划。
 > **没有 backend、没有 web app、没有 auth、没有 DB、没有 Stripe**。
 > 所有数据是 commit 进 repo 的 JSON 文件；所有展示是 GitHub Pages 静态站。
-> 不走 `stack/new-project.sh`（那个是 Next.js + Supabase 的，本项目 Python 栈完全不同），手动 bootstrap。
-> 业务逻辑和方法论在 [`ideas/PhysLit.md`](../ideas/PhysLit.md)。本文件只讲**怎么建**。
+> Bootstrap 走 `bash stack/new-project.sh physlit "PhysLit"`（建 repo 骨架 + workflow + GitHub Pages 准备），然后按 Phase 0 手动加 Python 栈（uv init + 目录结构）。
+> 业务逻辑和方法论在 [`ideas/physlit.md`](../ideas/physlit.md)。本文件只讲**怎么建**。
 
 ---
 
@@ -76,7 +76,7 @@ python_version = "3.11"
 ```
 physlit/
 ├── README.md
-├── METHODOLOGY.md            ← 拷自 ideas/PhysLit.md（保持同步）
+├── METHODOLOGY.md            ← 拷自 ideas/physlit.md（保持同步）
 ├── PRODUCT_PLAN.md           ← 同上
 ├── LICENSE                   ← MIT
 ├── pyproject.toml
@@ -438,7 +438,7 @@ def test_determinism():
 
 ### 3.1 为什么留接口但不启用
 
-v0.1 不用 AI 生成 phenomena（contamination 风险，`ideas/PhysLit.md §4.5` 没有 mitigation 完整方案）。但架构要预留——v0.5 的工作就是把这个 stub 实现。
+v0.1 不用 AI 生成 phenomena（contamination 风险，`ideas/physlit.md §4.5` 没有 mitigation 完整方案）。但架构要预留——v0.5 的工作就是把这个 stub 实现。
 
 ### 3.2 Stub 接口
 
@@ -459,7 +459,7 @@ class Tier2AIGenerator(GeneratorProtocol):
         raise NotImplementedError(
             "Tier 2 AI generation is deferred to v0.5. "
             "v0.1 uses Tier 1 (simulator) + Tier 3 (manual) only. "
-            "See ideas/PhysLit.md §4.5 for contamination concerns."
+            "See ideas/physlit.md §4.5 for contamination concerns."
         )
 ```
 
@@ -532,7 +532,7 @@ for spec_file in Path("frameworks").glob("*/spec.yaml"):
 
 ### 5.1 Prereg 文件
 
-`predictions/v0_1_prereg.md`：照 `ideas/PhysLit.md §3.3` 的 P1-P5 全文写进去 + 加 metadata header：
+`predictions/v0_1_prereg.md`：照 `ideas/physlit.md §3.3` 的 P1-P5 全文写进去 + 加 metadata header：
 
 ```markdown
 # Pre-Registered Predictions for PhysLit v0.1
@@ -547,7 +547,7 @@ for spec_file in Path("frameworks").glob("*/spec.yaml"):
 > in published results.
 
 ## P1 — Induction failure under training-data conflict
-[full text from ideas/PhysLit.md §3.3]
+[full text from ideas/physlit.md §3.3]
 
 ...
 ```
@@ -1213,7 +1213,7 @@ jobs:
 
 ### 12.3 Sprint tracking（拷自 playbook stack/）
 
-`sprint-report.yml` + `notify-playbook.yml` 直接复制，把 `project_id` 改成 `physlit`。Repo 的 commit 活跃度自动同步回 `indie-product-playbook/ideas/PhysLit.md` 的 Sprint Summary section。
+`sprint-report.yml` + `notify-playbook.yml` 直接复制，把 `project_id` 改成 `physlit`。Repo 的 commit 活跃度自动同步回 `indie-product-playbook/ideas/physlit.md` 的 Sprint Summary section。
 
 ---
 
@@ -1296,7 +1296,7 @@ OPENAI_JUDGE_KEY=
 
 ## 成功判定
 
-参照 `ideas/PhysLit.md §9`：
+参照 `ideas/physlit.md §9`：
 
 **v0.1 (Phase 0-9 完成 + Phase 10-12 公开 release 前必须完成)**：
 - repo 公开
