@@ -8,6 +8,7 @@
 
 | 项目 | 文件 | 技术栈 | 状态 |
 |------|------|--------|------|
+| PhysLit | [PhysLit.md](./PhysLit.md) | Python + uv + pydantic + Jinja2 + GitHub Pages (no backend, no auth, research artifact) | Proposal → to build |
 | Vibe Reading | [vibe-reading.md](./vibe-reading.md) | Next.js 14 + Supabase-only + OpenAI (no Stripe, open source) | Proposal → to build |
 | TeachLoop (AceRocket B2B) | [teachloop.md](./teachloop.md) | Next.js 16 + Firebase + OpenAI + Stripe | Phase 6 完成 |
 | GrowPilot | [growpilot.md](./growpilot.md) | Next.js 14 + Supabase + Prisma + Stripe | In Progress |
