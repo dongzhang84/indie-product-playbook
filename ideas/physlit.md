@@ -712,3 +712,12 @@ Once the arXiv preprint is published, a `CITATION.cff` file will be added to the
 *Last updated: 2026-05-04*
 *Document owner: [Author]*
 *Status: Pre-development*
+
+## Sprint Summary
+
+_Last updated: 2026-05-04_
+
+Week 1 _(current)_ · 2026-05-04 to 2026-05-10
+Status: ❌ Stalled
+Active days: 1 / 7
+Total commits: 1
