@@ -51,13 +51,23 @@ Vibe Reading 是一个**反主流**的读书工具。它故意阻止用户做三
 
 ## Solution
 
-一个 5 屏的强制工作流：
+一个 4 屏的工作流（Book Home 顶部嵌一段静态 Orientation 提示）：
 
-1. **Upload** — 上传 PDF，系统解析目录
-2. **Define Goal** — 用户必须先用 1–3 句话说明"为什么要读这本书"（不能跳过、不能让 AI 代写）
-3. **Three-Color Map** — AI 基于用户的 goal 把章节分成三色：值得读的 ✅、跳过的 ❌、这本书没回答的 ⚠️
-4. **Read or Brief** — 用户选一章进入精读模式（AI 静默，只在召唤时出现）或转述模式（AI 用严格 4 段式输出：1 句话 + 3 claims + 1 例子 + 作者没说什么）
-5. **Compress & Check** — 用户必须用自己的话复述章节核心，AI 挑错（哪里对、哪里漏、哪里理解偏了）
+1. **Upload** — 上传 PDF，**立刻要求登录**（确保每本书归属用户、可收藏、可问多次）。系统后台解析 PDF outline 提取 TOC，用 AI 基于 intro + conclusion 写本书 overview，再据此生成 3 个适合这本书的推荐问题
+2. **Book Home** — 进入这本书的主页：
+   - 顶部 **Orient yourself · before you ask**：4 个静态问题展示给读者（**纯认知提示，没有输入框、不存 DB、不喂 AI**）：
+     1. What is this book about?
+     2. Who wrote it, and what's their background?
+     3. Who is it written for?
+     4. What do you want to take away from it?
+   - 读者读完、**自己心里过一遍**，然后到下方的 Ask 区提问
+   - 然后展示 TOC + 问题输入框 + 3 AI 推荐问题（一键提交）+ 历史问过的问题列表（可重新打开任一）
+3. **Question Result** — 提交问题后，左侧列出与该问题相关的章节 + 简短理由（AI 生成）；每章有 [Brief] / [Read] 两个按钮。点击后**右侧分屏**显示对应内容：Brief 是 4 段式结构化摘要，Read 是 PDF 跳到该章。"← Back to book" 回 Book Home，可以问下一个问题
+4. **(预留) AI 互动复述** — 老 Restate 流程暂时隐藏入口，未来作为「和 AI 互动加速阅读」feature 重做
+
+**为什么是 4 屏不是 5 屏**：老设计假设用户能用 1 句话表达整本书的学习目标（goal）。实际使用中，用户的真实意图是**多个零散问题**（"这本书在讲什么"、"为什么重要"、"它跟 X 的对比是什么"、"第 6 章的论点具体是"）。一本书一个 goal 太粗；一本书 N 个问题更接近真实阅读场景。"goal" 退位为 "question"，一本书可以问多次，历史保留可回看。
+
+**为什么 Orientation 是静态展示而不是表单**：考过的对照是"4 个 textarea + DB 列 + Ask 区 gate"那种重型版本。结论是"AI 不替用户压缩"不等于"用户必须打字"——4 个问题本身就是钩子，**被问到的那一刻**已经触发读者大脑里的 orient 动作。捕获答案 → 数据库 → AI context 这条链路是过度工程：增加一次提交 friction，对下游问答精度的提升可忽略。把 ritual 留在认知层，比落地到 textarea 更贴近"compression must happen in your brain"的本意。
 
 ---
 
@@ -79,13 +89,15 @@ Vibe Reading 是一个**反主流**的读书工具。它故意阻止用户做三
 
 开发过程中任何 PM / 程序员都要遵守：
 
-**Rule 1** — AI 不能在用户表达需求之前输出任何关于书的内容。上传 PDF 后不能立刻"AI 已为您总结"，必须先经过 Goal 输入。
+**Rule 1** — AI 不能在用户表达需求之前输出任何**关于章节内容**的东西。上传 PDF 后可以展示 TOC、可以生成 book overview 和推荐问题（这些是书的元信息，不是内容压缩），但**必须先有用户提交的问题**才能触发任何章节级的映射或 brief。
 
-**Rule 2** — 三色匹配屏只做映射，不做内容。"Chapter 3 likely contains X" 可以，但不能在这屏开始总结 Chapter 3 本身。
+> **Orientation 是 Rule 1 的纯粹形态**：Book Home 顶部 4 个问题（主题 / 作者 / 目标读者 / take-away）**纯静态展示**，没有 textarea，AI 一句话不写。即便是元信息层面的"这本书是什么"也不替读者压缩 —— 让读者自己翻前言、看封底、调动已有钩子。被问到的那一刻就是 ritual 本身：读者读完、心里过一遍，再去下方 Ask 区提问。这一步把"compression must happen in your brain"从 spec 立场推到 UI 上的认知锚点。
 
-**Rule 3** — 转述模式的输出必须强制结构化：1 句话 + 3 claims + 1 例子 + 作者没说什么。不允许散文。
+**Rule 2** — 相关章节匹配屏只做映射，不做内容。"Chapter 3 likely contains X" 可以，但不能在这屏开始总结 Chapter 3 本身。
 
-**Rule 4** — 转述之后必须强制接挑错屏，不允许用户直接退出。读了 brief 不复述就走 = 等于没读。
+**Rule 3** — Brief 模式的输出必须强制结构化：1 句话 + 3 claims + 1 例子 + 作者没说什么。不允许散文。
+
+**Rule 4 (Deferred to v1.1)** — 老版本要求 Brief 后强制接复述屏，不允许跳过。产品转向问题驱动后，"复述章节"作为强制 gate 不再契合（用户问了一个问题期待的是答案 + 章节，不是又一个写作任务）。复述的代码 / 表 / API **全部保留**，作为未来「AI 互动加速阅读」feature 重做时复用的基础。当前 v1：Restate 入口在 UI 上不可见。
 
 ---
 
@@ -106,11 +118,12 @@ Vibe Reading 是一个**反主流**的读书工具。它故意阻止用户做三
 
 **第一版只做：**
 - ✅ PDF 上传 + 解析目录（中英文双语）
-- ✅ 5 屏核心工作流
-- ✅ Google 登录 + magic link
-- ✅ /library 页面（最简版）
+- ✅ 4 屏核心工作流（v2 question-driven）
+- ✅ Google + Email/Password 登录
+- ✅ /library 页面（含删书 affordance）
 - ✅ 英文 UI（只有一种语言）
 - ✅ 桌面 web
+- ✅ Light / Dark 主题切换
 
 **第一版不做（防止 scope creep）：**
 - ❌ 登录前 PDF 永久存储（session 24h 清理）
@@ -126,12 +139,14 @@ Vibe Reading 是一个**反主流**的读书工具。它故意阻止用户做三
 
 ## Login Strategy
 
-- Screen 1–3（上传 → 定 goal → 看三色映射）**不需要登录**
-- 点击"Read Chapter X" 或 "Brief me" 时触发登录 modal
-- 登录理由透明告知：「You've seen how this book maps to your goal. To go deeper, we need to know who you are.」
-- 只支持 Google + magic link，不做密码 / 手机 / 微信
+上传 PDF 后**立刻要求登录**，登录完成后才能进入 Book Home（看 TOC、问问题）。登录提示文案透明告知：「Your book is ready. Sign in so we can remember it for you — ask as many questions as you want.」
 
-**原则：** 登录不是惩罚，是进入价值核心的钥匙。Screen 1-3 不摆 Sign in 按钮，避免用户焦虑"登录是否能解锁什么"。
+**为什么登录提前了**：
+- 老版本 Screen 1-3 不要求登录，是怕用户在看到产品价值前流失。价值兑现点定在"三色映射出现"——所以登录放在 Map → Brief 的转场
+- 新版本价值兑现点**提前到 Book Home**（用户上传完立刻看到 TOC + AI 推荐问题，已经能感受到产品在做什么），所以登录可以前置
+- 同时简化了 pre-login session-book / claim 机制（代码保留，用户感知不到）
+
+支持 Google + Email/Password。**Sign in / Sign up 是同一入口**（modal 文案必须明示 "same modal"；参考 `stack/STANDARD.md` §3.2 的 UX 铁律）。不做 GitHub / 手机 / 微信。
 
 ---
 
@@ -150,11 +165,11 @@ Vibe Reading 是一个**反主流**的读书工具。它故意阻止用户做三
 - 标准：比 ChatPDF / NotebookLM 好用。如果自己都觉得"还是 NotebookLM 好用" → MVP 失败，回去改
 
 **Week 2-4: 5-10 个朋友试用**
-- 他们在 Goal 输入屏写得出需求吗？
-- 他们在复述屏真的会打字吗？
-- 还是一进来就想跳过去"一键摘要"？
+- 他们在 Book Home 输入框真的写得出问题吗？还是只点 AI 推荐？
+- 他们点 [Brief] 之后真的会去看 [Read] 原文吗？还是把 4 段式摘要当答案就走？
+- 还是一上传就盯着 dropzone 等"一键摘要"？
 
-**判断标准：** 如果大部分人卡在 Goal 输入或跳过复述 → 方法论太理想化，重新设计。
+**判断标准：** 如果大部分人卡在"想不出问题"、或者把 Brief 当终点不进 Read → 方法论太理想化，重新设计；尤其得反思"问题驱动"是否给非研究者的读者带来过高门槛。
 
 ---
 
@@ -183,26 +198,29 @@ Vibe Reading 是一个**反主流**的读书工具。它故意阻止用户做三
 
 ## Status
 
-**💡 Proposal** — 2026-04-21
+**✅ MVP shipped** — 2026-04-27
 
-产品规格已定稿，尚未动工。下一步：
+v2（4 屏 question-driven）端到端跑通：上传 → 登录 → Book Home → 提问 → Question Result（左 chapter list + 右 Brief / Read 分屏）。已用真书自测过（《程序员修炼之道》第 2 版、Kuhn《科学革命的结构》等）。
 
-1. 定产品名 + 域名（候选：`viberead.com` / `vibereading.com` / `vibereading.ai`）
-2. 搭脚手架（Next.js + Supabase + pdf-parse + Claude API）
-3. Week 1 自测目标：用它读完一本真想读的书
+UI 已过 v0 redesign + Notion-warm token 系统 + light/dark toggle + PDF 缩放 + 键盘快捷键 + 删书 affordance。Live 在 [vibe-reading.dev](https://vibe-reading.dev/)（custom domain 切于 2026-05-02，原 `vibe-reading-iota.vercel.app` 仍可访问）。
+
+**演进史**：
+- 2026-04-21 v1 spec（5 屏 goal-driven）写完
+- 2026-04-23 v1 实现 + 上线，发现真书测试翻车（goal 模型对评价性问题无路径回答；章节切分喂给下游 AI 变乱码）
+- 2026-04-24 redesign 为 v2（4 屏 question-driven），TOC + 推荐问题 + 历史 question 为核心 UX
+- 2026-04-25 ~ 04-27 v2 完整 MVP 上线 + UI overhaul + production polish
+- 2026-04-29 v2.1 Book Home 顶部加 **Orientation ritual**（最初版：4 个 textarea + take-away unlock + 注入 relevance AI）
+- 2026-04-30 Orientation 简化为**静态展示**：去掉 textarea / DB 列 / Ask 区 gate / relevance 注入。结论："AI 不替用户压缩"不等于"用户必须打字"——4 个问题本身就是钩子，被问到那一刻就触发了 orient。同日修三个真实使用 bug：(a) PDF 没 Title metadata 时回退到文件名，避免书名变 "Untitled"；(b) Part-Chapter 结构的书（如 _Beyond Vibe Coding_）原本只按 level-1 切，导致 Part I/II/III 被当成单一章节喂给 relevance AI，加 chapter-level picker + front-matter 过滤后修复；(c) 30MB 书在 Vercel Hobby 上传失败（`FUNCTION_PAYLOAD_TOO_LARGE` ~4.5MB 限制），upload 改成 3 阶段直传：客户端拿 signed URL 直接 PUT 到 Supabase Storage（绕过 Vercel function），server 端 finalize 从 Storage 拉文件后再解析 + AI。Question Result 页 "← Back to book" 升级为 "Ask another question →" CTA。
+- 2026-04-30 (晚) 三处 UX/i18n 收尾：(a) Upload **analyzing 阶段**加 elapsed-seconds counter + 跟服务端 pipeline 顺序对齐的轮换文案（"Reading the book outline → Mapping chapter boundaries → Drafting your starter questions"），消除 10–25 秒等待期的信息真空；(b) **AI 输出语言跟源语言走** —— 中文书 → 中文 brief / 中文推荐问题 / 中文 overview；relevance 的 reason 跟用户**提问语言**走（中文问 → 中文 reason，给了"可能包含 / 讨论了 / 涉及 / 介绍了"作为 few-shot）；(c) Question Result 左 pane 顶部加小的 "← Library" 灰色链接，给"换本书"一条快路（不动 Nav 隐藏规则，不影响 PDF 区域高度）。
+- 2026-04-30 (深夜) v2.2 / v2.3 **生产硬化第一波**：(a) 所有 AI 调用接口加**每用户每天的限额**（50 questions / 100 briefs / 200 asks / 5 uploads），靠 `vr.usage_counters` + 原子 `vr.bump_usage` RPC 实现，Brief 只在缓存 miss 才扣额；(b) 加**每用户存储上限**（100 MB / 15 books），针对 Supabase Free 1 GB 共享限制（跟 launchradar 共用一个 project），`/library` 页面顶部显示用量；(c) OpenAI dashboard 设月度硬上限作为兜底。三层叠加：rate-limit 拦 curl 风暴 → storage cap 防一人占整个 bucket → OpenAI cap 是最终保险（包括拦匿名上传那个已知 gap）。Sentry / Posthog **延后到请朋友测前**做（dogfood solo 阶段不需要）。
+- 2026-05-02 §12.B **Custom Domain 切换**：买 `vibe-reading.dev`（带连字符跟 repo / Vercel project / 文档命名一致；`vibereading.dev` 被划进 Google Registry premium 价不合理）。Vercel + Namecheap + Supabase Auth 三处全套配置；apex 当主、www 307 到 apex。代码 0 改动（`NEXT_PUBLIC_APP_URL` 没在代码里被引用），只更新 4 个文档里的 live URL 文案。两个非显然的坑落档到 impl-guide §2.5：(i) Vercel "Add Domain" 默认把 www 当 Production 主，需要手动到 Settings → Domains → Edit 翻过来；(ii) Vercel dashboard 的 deployment 略缩图缓存第一次截图，改设置 + redeploy 都不重抓，纯装饰 bug。
+- 2026-05-02 (晚) UAT 中真实使用发现的几处问题修复：(a) **PDF outline 解析增强**——前置过滤器扩展（`Title` 单独 / `Contents` / `Table of Contents` / `List of tables/figures/illustrations/maps/abbreviations/plates/charts` / `References` 单独 / 中文 `目录` `参考文献`），并且 Part divider **永远从 chapter rows 排除**（不再受 `sourceLevel` 约束，修了一本书 level-1 混了"Part II"和真章节时 Part divider 漏过的 bug）。(b) **Relevance reason 改成跟书的语言走**（之前是跟提问语言走）—— 英文书 + 中文问 → reason 用英文（描述的是英文章节内容，跟着章节语言才合理）。(c) **Book Home 顶部 Orientation 块按书的语言展示**——中文书显示中文版 4 个问题（"这本书写的是什么样的主题？/ 作者是谁，什么背景？/ 这本书是写给谁的？/ 你希望从这本书获得什么信息？"），英文书保持原英文版。检测靠 `lib/text/lang.ts` 的 CJK density 启发式跑在 `book.overview` 上。
+- 2026-05-02 (深夜) **Storage 孤儿 bug 修复**——历史上 UI 删书时 books row 删了但 PDF 文件没删（4 个孤儿 ~29 MB）。Root cause 在 `lib/auth/claim.ts`：`storage.move()` 成功后 `update books.storage_path` 的 error 没检查；如果 update 失败，DB 里 path 还是 `session/...` 但实际文件已搬到 `user/...`，后来 UI delete 用过期 path 调 `storage.remove()`，Supabase 对不存在的 path **静默返回 success**，文件成永久孤儿。两道防线：claim 检查 update error 并回滚 move；DELETE 在 path 是 `session/...` 时双路径尝试也试 `user/<owner>/...`。新增 `scripts/list-storage.mjs` + `scripts/cleanup-orphan-pdfs.mjs` 两个运维脚本，已 `--commit` 跑一次清掉现有 4 个孤儿。
+
+**下一步**：**§12.A UAT solo dogfood** —— 创始人自己用 Vibe Reading 读完一本真想读的书，看哪里卡住、哪里别扭、哪里发现新 bug。这是非编码工作。§12.B Custom Domain 已完成。下一个编码 milestone 是 §12.C：邀请朋友测前接 Sentry + Posthog。
 
 ---
 
 ## Sprint Summary
 
-_Last updated: 2026-05-03_
-
-Week 2 _(current)_ · 2026-04-27 to 2026-05-03
-Status: ✅ Good
-Active days: 6 / 7
-Total commits: 47
-
-Week 1 · 2026-04-20 to 2026-04-26
-Status: ✅ Good
-Active days: 6 / 7
-Total commits: 59
+_This section will be auto-updated by the sync-from-projects workflow once the repo is created._
