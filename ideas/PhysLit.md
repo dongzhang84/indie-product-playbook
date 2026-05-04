@@ -333,6 +333,76 @@ PhysLit occupies a position no existing benchmark fills: a diagnostic instrument
 
 ## 8. Research Milestones
 
+### 8.0 Overview Diagram
+
+```mermaid
+flowchart LR
+    subgraph P0["Pre-Phase<br/>(Week 1)"]
+        P0a[Methodology<br/>document]
+        P0b[Pre-registered<br/>predictions P1-P5]
+        P0a --> P0b
+    end
+
+    subgraph P1["Phase 1 — v0.1<br/>(Weeks 1-4)"]
+        P1a[1 phenomenon set<br/>Aristotelian Mechanics]
+        P1b[3 model runners<br/>Claude / GPT / Gemini]
+        P1c[Diagnostic reports<br/>+ replication kit]
+        P1a --> P1b --> P1c
+    end
+
+    G1{"Gate 1<br/>methodology complete?<br/>results reproducible?<br/>pre-reg verdicts published?"}
+
+    subgraph P2["Phase 2 — v0.5<br/>(Weeks 5-12)"]
+        P2a[5-7 phenomenon sets<br/>Cat A + Cat B]
+        P2b[Cross-set consistency<br/>analysis]
+        P2c[arXiv preprint posted]
+        P2a --> P2b --> P2c
+    end
+
+    G2{"Gate 2<br/>external replication attempted?<br/>first academic citation?"}
+
+    subgraph P3["Phase 3 — v1.0<br/>(Weeks 13-26)"]
+        P3a[15-20 phenomenon sets<br/>across all 3 categories]
+        P3b[Public capability matrix<br/>+ community contributions]
+        P3c[NeurIPS / ICLR<br/>submission]
+        P3a --> P3b --> P3c
+    end
+
+    G3{"Gate 3<br/>5+ citations?<br/>major lab adopts methodology?"}
+
+    Std[Established as<br/>standard diagnostic<br/>reference]
+    Review[Review week<br/>revise / reduce / terminate]
+
+    P0b --> P1a
+    P1c --> G1
+    G1 -->|pass| P2a
+    G1 -->|fail| Review
+    P2c --> G2
+    G2 -->|pass| P3a
+    G2 -->|fail| Review
+    P3c --> G3
+    G3 -->|pass| Std
+    G3 -->|fail| Review
+
+    classDef phase fill:#cfe2ff,stroke:#0d6efd,stroke-width:1px
+    classDef prephase fill:#fff3cd,stroke:#ffc107,stroke-width:1px
+    classDef gate fill:#e9ecef,stroke:#495057,stroke-width:2px
+    classDef review fill:#f8d7da,stroke:#dc3545,stroke-width:1px
+    classDef success fill:#d1e7dd,stroke:#198754,stroke-width:2px
+
+    class P0 prephase
+    class P1,P2,P3 phase
+    class G1,G2,G3 gate
+    class Review review
+    class Std success
+```
+
+**Reading guide**: yellow = pre-registration gate (must finish before any model is run); blue = the three release phases with deliverables; gray diamonds = gates that decide whether to advance, revise, or terminate; red = review week (failure path); green = success terminus.
+
+The asymmetry to note: the gates measure **research outputs** (preprint, replication, citations, methodology adoption), not product metrics (stars, MRR, signups). The failure path always lands at "Review week" — explicit revise / reduce / terminate decision, never a silent extension.
+
+---
+
 ### 8.1 Phase 1: v0.1 (Weeks 1–4)
 
 **Goal**: release an end-to-end working diagnostic on one phenomenon set, with full pre-registration and reproducibility kit.
