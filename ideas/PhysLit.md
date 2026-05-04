@@ -116,6 +116,80 @@ The full predictions and the analysis criteria for each are documented in `predi
 
 ## 4. Methodology
 
+### 4.0 Research Workflow
+
+The whole project is a single workflow that loops over (phenomenon set × model). The diagram below shows the **logical** order of work, not the calendar timeline. Each loop iteration produces an open-source release. ETAs for v0.1 / v0.5 / v1.0 are tracked separately in §8.
+
+```mermaid
+flowchart TD
+    %% Construction
+    A[/"Pick phenomenon category<br/>A: historically real<br/>B: counterfactual self-consistent<br/>C: arbitrary rules"/]
+    B[Design observations.md<br/>8-15 phenomena<br/>plain language, no theoretical loading]
+    C[Write reference artifacts<br/>ideal_induction · formulation_template<br/>prediction_tests · pass_fail_criteria<br/>meta_questions]
+
+    A --> B --> C
+
+    %% Pre-registration gate
+    D[/"Pre-register predictions P1-P5<br/>commit hash + timestamp<br/>BEFORE any model is run"/]
+    C --> D
+
+    %% Three-Layer Test
+    subgraph TLT["Three-Layer Test  —  per (model × phenomenon set), N=5 trials, fresh sessions"]
+        direction TB
+        T1["Stage 1: Induction<br/>observations → candidate laws<br/>(can the model extract regularities<br/>without using real-physics concepts?)"]
+        T2["Stage 2: Formulation<br/>candidate laws → operational laws<br/>(can the model formalize precisely<br/>without sneaking in contradictions?)"]
+        T3["Stage 3: Prediction<br/>operational laws → 5 novel scenarios<br/>(do predictions follow from stated laws,<br/>not from real-physics intuition?)"]
+        TC["Cross-stage consistency<br/>do stages 1 → 2 → 3 cohere?"]
+        TM["Meta-cognitive question<br/>can the model self-report which<br/>frameworks it stayed inside?"]
+        T1 --> T2 --> T3 --> TC --> TM
+    end
+
+    D --> TLT
+
+    %% Aggregation
+    E[Per-set verdict<br/>induction · formulation · prediction · cross-stage]
+    F[Cross-set consistency<br/>does the model self-monitor<br/>across multiple frameworks?]
+    G[Compare results to pre-registered predictions<br/>confirmed · partial · refuted<br/>published verbatim regardless of direction]
+
+    TLT --> E --> F --> G
+
+    %% Output
+    H[Capability matrix<br/>model × ability × pass/fail<br/>not a leaderboard]
+    I[Diagnostic verdict per model<br/>does this model possess<br/>physics literacy on these frameworks?]
+    J[Open release<br/>prompts · responses · pinned model versions<br/>+ replicate.sh]
+
+    G --> H --> I --> J
+
+    %% Loops
+    J -.->|next phenomenon set| A
+    J -.->|new model version| TLT
+    J -.->|community-contributed set| C
+
+    classDef construct fill:#fff3cd,stroke:#ffc107,color:#000
+    classDef gate fill:#ffe5d9,stroke:#fd7e14,stroke-width:2px,color:#000
+    classDef threelayer fill:#cfe2ff,stroke:#0d6efd,color:#000
+    classDef analysis fill:#e7d4f7,stroke:#6f42c1,color:#000
+    classDef output fill:#d1e7dd,stroke:#198754,stroke-width:2px,color:#000
+
+    class A,B,C construct
+    class D gate
+    class T1,T2,T3,TC,TM threelayer
+    class E,F,G analysis
+    class H,I,J output
+```
+
+**Reading guide**:
+
+- **Yellow** = phenomenon construction (build the framework world)
+- **Orange** = pre-registration gate (must finish before any model touches the data)
+- **Blue** = the three-layer judgment, which is the core research instrument
+- **Purple** = aggregation and comparison against pre-reg
+- **Green** = open release artifacts
+
+**Three loops feed the next iteration**: building a new phenomenon set, evaluating a new model version, or accepting a community-contributed set. Each loop closes with an open release, which is what makes the project cumulative.
+
+---
+
 ### 4.1 The Three-Layer Test
 
 Every phenomenon set is evaluated through three sequential stages.
@@ -332,76 +406,6 @@ PhysLit occupies a position no existing benchmark fills: a diagnostic instrument
 ---
 
 ## 8. Research Milestones
-
-### 8.0 Overview Diagram
-
-```mermaid
-flowchart LR
-    subgraph P0["Pre-Phase<br/>(Week 1)"]
-        P0a[Methodology<br/>document]
-        P0b[Pre-registered<br/>predictions P1-P5]
-        P0a --> P0b
-    end
-
-    subgraph P1["Phase 1 — v0.1<br/>(Weeks 1-4)"]
-        P1a[1 phenomenon set<br/>Aristotelian Mechanics]
-        P1b[3 model runners<br/>Claude / GPT / Gemini]
-        P1c[Diagnostic reports<br/>+ replication kit]
-        P1a --> P1b --> P1c
-    end
-
-    G1{"Gate 1<br/>methodology complete?<br/>results reproducible?<br/>pre-reg verdicts published?"}
-
-    subgraph P2["Phase 2 — v0.5<br/>(Weeks 5-12)"]
-        P2a[5-7 phenomenon sets<br/>Cat A + Cat B]
-        P2b[Cross-set consistency<br/>analysis]
-        P2c[arXiv preprint posted]
-        P2a --> P2b --> P2c
-    end
-
-    G2{"Gate 2<br/>external replication attempted?<br/>first academic citation?"}
-
-    subgraph P3["Phase 3 — v1.0<br/>(Weeks 13-26)"]
-        P3a[15-20 phenomenon sets<br/>across all 3 categories]
-        P3b[Public capability matrix<br/>+ community contributions]
-        P3c[NeurIPS / ICLR<br/>submission]
-        P3a --> P3b --> P3c
-    end
-
-    G3{"Gate 3<br/>5+ citations?<br/>major lab adopts methodology?"}
-
-    Std[Established as<br/>standard diagnostic<br/>reference]
-    Review[Review week<br/>revise / reduce / terminate]
-
-    P0b --> P1a
-    P1c --> G1
-    G1 -->|pass| P2a
-    G1 -->|fail| Review
-    P2c --> G2
-    G2 -->|pass| P3a
-    G2 -->|fail| Review
-    P3c --> G3
-    G3 -->|pass| Std
-    G3 -->|fail| Review
-
-    classDef phase fill:#cfe2ff,stroke:#0d6efd,stroke-width:1px
-    classDef prephase fill:#fff3cd,stroke:#ffc107,stroke-width:1px
-    classDef gate fill:#e9ecef,stroke:#495057,stroke-width:2px
-    classDef review fill:#f8d7da,stroke:#dc3545,stroke-width:1px
-    classDef success fill:#d1e7dd,stroke:#198754,stroke-width:2px
-
-    class P0 prephase
-    class P1,P2,P3 phase
-    class G1,G2,G3 gate
-    class Review review
-    class Std success
-```
-
-**Reading guide**: yellow = pre-registration gate (must finish before any model is run); blue = the three release phases with deliverables; gray diamonds = gates that decide whether to advance, revise, or terminate; red = review week (failure path); green = success terminus.
-
-The asymmetry to note: the gates measure **research outputs** (preprint, replication, citations, methodology adoption), not product metrics (stars, MRR, signups). The failure path always lands at "Review week" — explicit revise / reduce / terminate decision, never a silent extension.
-
----
 
 ### 8.1 Phase 1: v0.1 (Weeks 1–4)
 
