@@ -192,84 +192,9 @@ flowchart TD
 
 ### 4.1 The Three-Layer Test
 
-Every phenomenon set is evaluated through three sequential stages, plus cross-stage and meta-cognitive checks. The diagram below zooms into one (model × phenomenon set) iteration; the prose after it details what each stage tests for and what counts as failure.
+Every phenomenon set is evaluated through three sequential stages, plus cross-stage and meta-cognitive checks. The diagram below shows what each stage tests for, what counts as passing, and what typical failure looks like; the prose after it details each stage.
 
-```mermaid
-flowchart TB
-    %% Stage 1
-    subgraph S1["Stage 1 — Induction"]
-        direction TB
-        S1in[/"observations.md<br/>(8-15 phenomena)<br/>+ instruction: no modern physics"/]
-        S1do["MODEL TASK<br/>propose self-consistent laws<br/>that explain ALL phenomena"]
-        S1ck{"JUDGE<br/>laws cover every phenomenon?<br/>no concepts not in observations?<br/>resisted real-physics reflex?"}
-        S1in --> S1do --> S1ck
-    end
-
-    %% Stage 2
-    subgraph S2["Stage 2 — Formulation"]
-        direction TB
-        S2in[/"candidate laws (from Stage 1)<br/>+ formulation_template.md"/]
-        S2do["MODEL TASK<br/>formalize operationally<br/>math · scope · conservation · boundaries"]
-        S2ck{"JUDGE<br/>precise enough for prediction?<br/>internally consistent?<br/>no contradictions smuggled in?"}
-        S2in --> S2do --> S2ck
-    end
-
-    %% Stage 3
-    subgraph S3["Stage 3 — Prediction"]
-        direction TB
-        S3in[/"operational laws (from Stage 2)<br/>+ 5 novel scenarios"/]
-        S3do["MODEL TASK<br/>predict each scenario<br/>using ONLY the formulated laws"]
-        S3ck{"JUDGE<br/>derivable from stated laws?<br/>consistent across scenarios?<br/>no real-physics leakage?"}
-        S3in --> S3do --> S3ck
-    end
-
-    %% Stage transitions
-    S1ck -->|candidate laws persist| S2in
-    S2ck -->|operational laws persist| S3in
-
-    %% Cross-stage and meta
-    XS[/"Cross-Stage Consistency<br/>do laws from Stage 1 → predictions in Stage 3 cohere?<br/>example failure: induced 'v ∝ F' but predicted inertia"/]
-    Meta[/"Meta-Cognitive Question<br/>'did you stay in this framework or slip back to standard physics?'<br/>tests whether the model can audit its own reasoning"/]
-
-    S3ck --> XS --> Meta
-
-    %% Verdict
-    Verdict[("Per-Set Verdict<br/>5 binary judgments per (model × set)<br/>induction · formulation · prediction · cross-stage · meta")]
-    Meta --> Verdict
-
-    %% Trial loop annotation
-    Loop["Each stage runs N=5 trials<br/>fresh API session per trial<br/>stage passes if 4 of 5 trials pass"]
-    Loop -.->|applies to| S1
-    Loop -.->|applies to| S2
-    Loop -.->|applies to| S3
-
-    classDef input fill:#fff3cd,stroke:#ffc107,color:#000
-    classDef task fill:#cfe2ff,stroke:#0d6efd,color:#000
-    classDef judge fill:#e7d4f7,stroke:#6f42c1,color:#000
-    classDef cross fill:#ffe5d9,stroke:#fd7e14,stroke-width:2px,color:#000
-    classDef verdict fill:#fce4ec,stroke:#d63384,stroke-width:2px,color:#000
-    classDef meta fill:#f8f9fa,stroke:#6c757d,color:#000,stroke-dasharray: 5 5
-
-    class S1in,S2in,S3in input
-    class S1do,S2do,S3do task
-    class S1ck,S2ck,S3ck judge
-    class XS,Meta cross
-    class Verdict verdict
-    class Loop meta
-```
-
-**Reading the diagram**:
-
-- 🟡 yellow = the input artifact for that stage (file or prior-stage output)
-- 🔵 blue = what the model is asked to do
-- 🟣 purple = the judge's criteria (binary pass/fail)
-- 🟠 orange = cross-stage and meta-cognitive checks (these are the deepest signals)
-- 🌸 pink = final per-set verdict (5 binary judgments)
-- ⚪ dashed gray = the N=5 trial loop applies to each stage independently
-
-The hierarchy of signal strength: **cross-stage consistency > individual stage pass > prediction-only pass**. A model that passes all three stages but fails cross-stage is generating locally plausible text without a unified internal world model — exactly what the diagnostic is designed to catch.
-
----
+![Three-Layer Test](./diagram/three-layer-test/diagram.svg)
 
 **Stage 1: Induction Test**
 

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 600" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif">
+<style>
+:root { --fg: #111827; --fg-muted: #6b7280; --fg-soft: #9ca3af; --bg: #ffffff; --layer-bg: #f9fafb; --layer-stroke: #e5e7eb; --divider: #e5e7eb; --accent: #fb7185; --accent-bg: #fff1f2; --accent-stroke: #fca5b1; }
+@media (prefers-color-scheme: dark) { :root { --fg: #f3f4f6; --fg-muted: #9ca3af; --fg-soft: #6b7280; --bg: #0b0f17; --layer-bg: #1f2937; --layer-stroke: #374151; --divider: #374151; --accent: #fda4af; --accent-bg: #3f1d24; --accent-stroke: #9f1239; } }
+.bg { fill: var(--bg); }
+.layer { fill: var(--layer-bg); stroke: var(--layer-stroke); stroke-width: 1.2; }
+.title { font-size: 18px; font-weight: 600; fill: var(--fg); }
+.subtitle { font-size: 12px; font-weight: 400; fill: var(--fg-muted); }
+.t { font-size: 14px; font-weight: 400; fill: var(--fg); }
+.th { font-size: 14px; font-weight: 600; fill: var(--fg); }
+.ts { font-size: 12px; font-weight: 400; fill: var(--fg-muted); }
+.eyebrow { font-size: 12px; font-weight: 500; fill: var(--fg-soft); letter-spacing: 0.08em; }
+.eyebrow-accent { fill: var(--accent); }
+.caption { font-size: 12px; font-weight: 400; fill: var(--fg-muted); }
+.caption-strong { font-size: 14px; font-weight: 500; fill: var(--fg); }
+.divider { stroke: var(--divider); stroke-width: 1; }
+</style>
+
+<rect class="bg" width="680" height="600" />
+
+<text class="title" x="60" y="42">Three-Layer Test · per (model × phenomenon set)</text>
+<text class="subtitle" x="60" y="64">N=5 trials per stage in fresh API sessions. Stage passes if 4 of 5 trials pass.</text>
+
+<g>
+  <rect class="layer" x="60" y="96" width="580" height="125" rx="10" />
+  <text class="eyebrow" x="82" y="118">STAGE 1 · INDUCTION</text>
+  <text class="eyebrow eyebrow-accent" x="618" y="118" text-anchor="end">→ slips to F=ma</text>
+  <text class="th" x="82" y="150">Induce laws</text>
+  <text class="ts" x="82" y="170">from observations</text>
+  <line class="divider" x1="220" y1="110" x2="220" y2="207" />
+  <text class="t" x="238" y="150">Input · observations only, no theoretical loading</text>
+  <text class="t" x="238" y="172">Task · propose self-consistent laws covering all phenomena</text>
+  <text class="t" x="238" y="194">Pass · every phenomenon covered · no smuggled concepts</text>
+</g>
+
+<g>
+  <rect class="layer" x="60" y="237" width="580" height="125" rx="10" />
+  <text class="eyebrow" x="82" y="259">STAGE 2 · FORMULATION</text>
+  <text class="eyebrow eyebrow-accent" x="618" y="259" text-anchor="end">→ premise drift</text>
+  <text class="th" x="82" y="291">Formalize laws</text>
+  <text class="ts" x="82" y="311">candidate → operational</text>
+  <line class="divider" x1="220" y1="251" x2="220" y2="348" />
+  <text class="t" x="238" y="291">Input · candidate laws (Stage 1) + formulation template</text>
+  <text class="t" x="238" y="313">Task · formalize math · scope · conservation · boundaries</text>
+  <text class="t" x="238" y="335">Pass · precise predictions possible · self-consistent</text>
+</g>
+
+<g>
+  <rect class="layer" x="60" y="378" width="580" height="125" rx="10" />
+  <text class="eyebrow" x="82" y="400">STAGE 3 · PREDICTION</text>
+  <text class="eyebrow eyebrow-accent" x="618" y="400" text-anchor="end">→ leaks intuition</text>
+  <text class="th" x="82" y="432">Apply laws</text>
+  <text class="ts" x="82" y="452">to 5 novel scenarios</text>
+  <line class="divider" x1="220" y1="392" x2="220" y2="489" />
+  <text class="t" x="238" y="432">Input · operational laws (Stage 2) + 5 novel scenarios</text>
+  <text class="t" x="238" y="454">Task · predict each scenario using ONLY the stated laws</text>
+  <text class="t" x="238" y="476">Pass · derivable · cross-scenario consistent · no leakage</text>
+</g>
+
+<text class="caption-strong" x="60" y="535">The deepest signal is cross-stage consistency.</text>
+<text class="caption" x="60" y="557">A model may pass each stage independently yet fail Stage 1 → Stage 3 coherence — meaning no unified world model.</text>
+<text class="caption" x="60" y="579">Plus a meta-cognitive question: can the model self-audit which frameworks it actually stayed inside?</text>
+
+</svg>
