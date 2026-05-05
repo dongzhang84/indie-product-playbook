@@ -67,7 +67,7 @@ bash stack/new-project.sh vibe-writing "Vibe Writing"
 - `## One-liner` — **脚本会从这里抽取 one-liner，必须有**
 - 其它 section 自由（Problem / Solution / Target Users / Differentiation / MVP Boundaries / Success Criteria 等）
 
-> **命名**：`<project-id>` 必须是 kebab-case（小写字母、数字、连字符；字母开头）。比如 `vibe-reading`、`teachloop`、`x-growth-radar`。
+> **命名**：`<project-id>` 是字母开头的标识符，允许大小写字母、数字、连字符、下划线。比如 `vibe-reading`、`teachloop`、`AIfy`、`PhysLit`。**不强制小写**——保留语义大小写（如 `AI` 缩写）比统一形式更重要。但同一个 project_id 必须和 `ideas/${id}.md` 文件名严格一致（含大小写）。
 
 ### Step 2 — 技术步骤 v1（你 + Claude 对话）
 
@@ -170,7 +170,7 @@ bash stack/new-project.sh vibe-writing "Vibe Writing"
 
 | 情况 | 错误信息 |
 |------|---------|
-| `<project-id>` 不是 kebab-case | `Invalid project-id` |
+| `<project-id>` 含空格 / 特殊字符 / 不是字母开头 | `Invalid project-id` |
 | 不在 playbook 根目录跑 / `ideas/` 找不到 | `ideas/ not found (is this the playbook repo?)` |
 | `ideas/<id>.md` 不存在 | `Missing product spec: ...` |
 | `implementation-guides/<id>.md` 不存在 | `Missing implementation guide: ...` |
@@ -227,7 +227,7 @@ A: 脚本 `set -euo pipefail`，第一个错误立即 abort。重跑之前：
 A: 目前是一条龙。想分两步可以临时注释掉脚本末尾的 GitHub API + push 段落——但建议不要这样做，容易忘。
 
 **Q: Project name 能带空格吗？**
-A: 能（就是传给脚本的第二个参数，用引号包起来）。但 project-id（第一个参数）不能带空格，必须 kebab-case。
+A: 能（就是传给脚本的第二个参数，用引号包起来）。但 project-id（第一个参数）不能带空格或特殊字符——只允许字母（大小写均可）、数字、连字符、下划线。
 
 **Q: PLAYBOOK_TOKEN 和嵌在 URL 里的 `ghp_` 是同一个 token 吗？**
 A: 目前是的——都是你的 PAT。未来想区分权限时可以分开（PLAYBOOK_TOKEN 只给 public_repo + dispatch 的 fine-grained token），但现阶段用同一个省事。

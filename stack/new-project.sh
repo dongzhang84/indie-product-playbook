@@ -31,8 +31,8 @@ info() { echo "${C_DIM}  $*${C_RESET}"; }
 PROJECT_ID="$1"
 PROJECT_NAME="$2"
 
-[[ "$PROJECT_ID" =~ ^[a-z][a-z0-9-]*$ ]] || \
-  err "Invalid project-id '$PROJECT_ID' (use kebab-case: lowercase letters/digits/hyphens, start with a letter)"
+[[ "$PROJECT_ID" =~ ^[A-Za-z][A-Za-z0-9_-]*$ ]] || \
+  err "Invalid project-id '$PROJECT_ID' (must start with a letter; allowed: letters, digits, hyphens, underscores; no spaces or special chars)"
 
 # ─── Prerequisites ───────────────────────────────────────────────────────────
 [[ -d "$PLAYBOOK_DIR/ideas" ]] || err "ideas/ not found (is this the playbook repo?)"
