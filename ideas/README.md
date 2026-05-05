@@ -45,6 +45,7 @@
 | 2026-04-13   | Doppelgang                  | Distill real customers into AI sparring partners — sales reps practice discovery, negotiation, and objection handling against AI customers with hidden goals and emotional state, then get multi-dimensional coaching feedback | **🔥 In Progress** | [link](./doppelgang.md) | 2026-04-14 |
 | 2026-04-21   | Vibe Reading                | A reading tool that refuses to summarize the book before you tell it why you're reading it — 5-screen forced workflow (goal → three-color map → read/brief → compress & check) that treats AI as an error-checker, not a summarizer | Proposal    | [link](./vibe-reading.md) | 2026-05-05 |
 | 2026-05-04   | PhysLit | An open-source diagnostic for physics literacy in LLMs — replaces percentage benchmarks with binary cognitive judgments across induction, formulation, and prediction across 15 framework worlds | Proposal | [link](./physlit.md) | 2026-05-04 |
+| 2026-05-05   | AIfy | — | Proposal | [link](./AIfy.md) | 2026-05-05 |
 
 ## Legend
 - **Next Up**: 下一个要做的
