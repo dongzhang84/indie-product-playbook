@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 740" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif">
+<style>
+:root { --fg: #111827; --fg-muted: #6b7280; --fg-soft: #9ca3af; --bg: #ffffff; --layer-bg: #f9fafb; --layer-stroke: #e5e7eb; --divider: #e5e7eb; --accent: #fb7185; --accent-bg: #fff1f2; --accent-stroke: #fca5b1; }
+@media (prefers-color-scheme: dark) { :root { --fg: #f3f4f6; --fg-muted: #9ca3af; --fg-soft: #6b7280; --bg: #0b0f17; --layer-bg: #1f2937; --layer-stroke: #374151; --divider: #374151; --accent: #fda4af; --accent-bg: #3f1d24; --accent-stroke: #9f1239; } }
+.bg { fill: var(--bg); }
+.layer { fill: var(--layer-bg); stroke: var(--layer-stroke); stroke-width: 1.2; }
+.layer-key { fill: var(--accent-bg); stroke: var(--accent-stroke); stroke-width: 1.4; }
+.title { font-size: 18px; font-weight: 600; fill: var(--fg); }
+.subtitle { font-size: 12px; font-weight: 400; fill: var(--fg-muted); }
+.t { font-size: 14px; font-weight: 400; fill: var(--fg); }
+.th { font-size: 14px; font-weight: 600; fill: var(--fg); }
+.ts { font-size: 12px; font-weight: 400; fill: var(--fg-muted); }
+.eyebrow { font-size: 12px; font-weight: 500; fill: var(--fg-soft); letter-spacing: 0.08em; }
+.eyebrow-accent { fill: var(--accent); }
+.caption { font-size: 12px; font-weight: 400; fill: var(--fg-muted); }
+.caption-strong { font-size: 14px; font-weight: 500; fill: var(--fg); }
+.arr { stroke: var(--fg-soft); stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+.arr-accent { stroke: var(--accent-stroke); stroke-width: 1.5; fill: none; marker-end: url(#arrow-accent); }
+.arrow-head { fill: var(--fg-soft); }
+.arrow-head-accent { fill: var(--accent-stroke); }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" class="arrow-head"/>
+  </marker>
+  <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" class="arrow-head-accent"/>
+  </marker>
+</defs>
+
+<rect class="bg" x="0" y="0" width="680" height="740"/>
+
+<text class="title" x="60" y="42">AIfy — Product Flow</text>
+<text class="subtitle" x="60" y="64">帮你看清自己的工作流，区分哪些可以 AI 化、哪些必须人来做</text>
+
+<rect class="layer" x="120" y="100" width="480" height="70" rx="8"/>
+<text class="th" x="360" y="128" text-anchor="middle">1. 描述你的工作</text>
+<text class="ts" x="360" y="148" text-anchor="middle">3-5 句话讲讲你平时怎么工作 · 不分步、不追问</text>
+
+<line class="arr" x1="360" y1="170" x2="360" y2="210"/>
+<text class="caption" x="360" y="195" text-anchor="middle">AI 读完描述，提取流程</text>
+
+<rect class="layer" x="120" y="210" width="480" height="100" rx="8"/>
+<text class="th" x="360" y="238" text-anchor="middle">2. AI 生成流程图</text>
+<text class="ts" x="360" y="258" text-anchor="middle">每个节点是工作中的一步 · 箭头表示流转</text>
+<text class="t" x="360" y="288" text-anchor="middle">你可以最多改 2 次（自然语言 / 拖动节点）</text>
+
+<line class="arr-accent" x1="360" y1="310" x2="360" y2="350"/>
+<text class="caption" x="368" y="332" text-anchor="start">就这样，继续分析</text>
+
+<rect class="layer-key" x="120" y="350" width="480" height="180" rx="8"/>
+<text class="th" x="142" y="378">3. 三档诊断报告</text>
+<text class="ts" x="142" y="398">每个节点打上 AI 化等级 + 推荐工具 + 一句话怎么用</text>
+<text class="eyebrow eyebrow-accent" x="578" y="378" text-anchor="end">→ 看清楚谁该做什么</text>
+<text class="t" x="142" y="430">🟢 AI 替你做 — 你只需要 review 结果</text>
+<text class="t" x="142" y="458">🟡 AI 帮你做 — 你定方向、AI 跑细节（human in the loop）</text>
+<text class="t" x="142" y="486">⚪ 你必须自己做 — 这部分是判断 / 关系 / 品味，不该外包</text>
+<text class="ts" x="142" y="514">点开任一节点可看更详细的方案展开</text>
+
+<line class="arr" x1="360" y1="530" x2="360" y2="570"/>
+<text class="caption" x="360" y="555" text-anchor="middle">看完报告，两个出口</text>
+
+<rect class="layer" x="120" y="570" width="480" height="90" rx="8"/>
+<text class="th" x="360" y="598" text-anchor="middle">4. 分享 / 和创始人聊聊</text>
+<text class="ts" x="360" y="618" text-anchor="middle">公开页面（设计精美、自带传播力）</text>
+<text class="ts" x="360" y="638" text-anchor="middle">或预约 30 分钟人工咨询（情况复杂时的出口）</text>
+
+<text class="caption-strong" x="60" y="697">AI 提效不是"全部交给 AI"，而是"分清楚哪些不该交"。</text>
+<text class="caption" x="60" y="719">AIfy 的产品价值是这个区分本身——一份让人愿意分享出去的清单。</text>
+</svg>
