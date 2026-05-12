@@ -2978,32 +2978,42 @@ Reading time: ~100 minutes
 
 _Last updated: 2026-05-12_
 
-Week 6 _(current)_ · 2026-03-23 to 2026-03-29
+Week 13 _(current)_ · 2026-05-11 to 2026-05-17
+Status: ❌ Stalled
+Active days: 1 / 7
+Total commits: 1
+
+Week 12 · 2026-05-04 to 2026-05-10
+Status: ❌ Stalled
+Active days: 0 / 7
+Total commits: 0
+
+Week 11 · 2026-04-27 to 2026-05-03
+Status: ❌ Stalled
+Active days: 0 / 7
+Total commits: 0
+
+Week 10 · 2026-04-20 to 2026-04-26
+Status: ❌ Stalled
+Active days: 0 / 7
+Total commits: 0
+
+Week 9 · 2026-04-13 to 2026-04-19
+Status: ❌ Stalled
+Active days: 0 / 7
+Total commits: 0
+
+Week 8 · 2026-04-06 to 2026-04-12
+Status: ❌ Stalled
+Active days: 0 / 7
+Total commits: 0
+
+Week 7 · 2026-03-30 to 2026-04-05
+Status: ❌ Stalled
+Active days: 0 / 7
+Total commits: 0
+
+Week 6 · 2026-03-23 to 2026-03-29
 Status: ⚠️ Slow
 Active days: 3 / 7
 Total commits: 24
-
-Week 5 · 2026-03-16 to 2026-03-22
-Status: ❌ Stalled
-Active days: 1 / 7
-Total commits: 2
-
-Week 4 · 2026-03-09 to 2026-03-15
-Status: ❌ Stalled
-Active days: 0 / 7
-Total commits: 0
-
-Week 3 · 2026-03-02 to 2026-03-08
-Status: ❌ Stalled
-Active days: 0 / 7
-Total commits: 0
-
-Week 2 · 2026-02-23 to 2026-03-01
-Status: ⚠️ Slow
-Active days: 3 / 7
-Total commits: 31
-
-Week 1 · 2026-02-16 to 2026-02-22
-Status: ⚠️ Slow
-Active days: 3 / 7
-Total commits: 7
