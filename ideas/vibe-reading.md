@@ -223,12 +223,12 @@ UI 已过 v0 redesign + Notion-warm token 系统 + light/dark toggle + PDF 缩�
 
 ## Sprint Summary
 
-_Last updated: 2026-05-14_
+_Last updated: 2026-05-15_
 
 Week 4 _(current)_ · 2026-05-11 to 2026-05-17
-Status: ❌ Stalled
-Active days: 2 / 7
-Total commits: 9
+Status: ⚠️ Slow
+Active days: 3 / 7
+Total commits: 10
 
 Week 3 · 2026-05-04 to 2026-05-10
 Status: ⚠️ Slow
