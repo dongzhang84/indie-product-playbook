@@ -718,9 +718,9 @@ Once the arXiv preprint is published, a `CITATION.cff` file will be added to the
 _Last updated: 2026-05-28_
 
 Week 4 _(current)_ · 2026-05-25 to 2026-05-31
-Status: ❌ Stalled
-Active days: 2 / 7
-Total commits: 3
+Status: ⚠️ Slow
+Active days: 3 / 7
+Total commits: 4
 
 Week 3 · 2026-05-18 to 2026-05-24
 Status: ✅ Good
