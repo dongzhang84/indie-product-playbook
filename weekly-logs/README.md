@@ -6,6 +6,7 @@ Weekly build summaries — what shipped, what was learned, what's next.
 
 | Week | Dates | Highlights |
 |------|-------|------------|
+| [Week 11](week-11-2026-05-23.md) | 5/23 – 5/29 | 五篇连发（#37–41），移民系统103K新纪录，PhysLit论文初稿，物理视角内容生态成形 |
 | [Week 10](week-10-2026-05-16.md) | 5/16 – 5/22 | PhysLit v0.2+v0.3双实验闭环，毕业典礼嘘声+美国移民系统发布，Karpathy分析帖 |
 | [Week 9](week-09-2026-05-09.md) | 5/9 – 5/15  | 美国医疗91K浏览新高，PhysLit v0.1结果+v0.2预注册，Vibe Reading EPUB上线 |
 | [Week 8](week-08-2026-05-02.md) | 5/2 – 5/8   | Vibe Reading 33 新用户上线，PhysLit 预注册锁定，福特经济学长文，AIfy 构想落地 |
