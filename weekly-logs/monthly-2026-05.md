@@ -68,14 +68,26 @@ BeProfitly / GrowPilot / TeachLoop / LaunchRadar / Socrates Finds You 在 5 周�
 
 **百日百篇接近半程**（Week 12，#46）：按每天一篇的节奏，5周做了22篇文章 + 50+条原创Twitter帖。系列主题已经成形，下半程的挑战是话题宽度是否还能撑住流量。
 
-## 6月的优先级（草拟）
+## 6月的三件事
 
-- **Vibe Reading**：必须做一次"继续迭代 / 维持运营 / 暂停"的明确决策。连续 4 周 0 commit 不能再拖
-- **暂停产品**：5 个产品的关闭/归档决策必须落地，停止占用心智带宽
-- **PhysLit 论文**：§2 起草 + 中英双版本 LaTeX 输出 + 决定是否投递学术社区
-- **snowboat-blog**：华人vs犹太人系列、AI 工程全景（下）、世界模型文章；继续观察美国系列流量是否触顶
-- **AIfy**：上月做了 MVP scaffold 后停滞，要么进入用户验证阶段，要么写入"暂停产品"清单
+百日百篇期间唯一的focus就是这三件，其他产品全部推迟到Week 27（~2026-08-15）后统一决策。
+
+**① 百日百篇 — 持续输出**
+
+~46/100 已发，预计完结 Week 27 ≈ 2026-08-15。后半程把权重从美国系列follow-up挪到新主线（华人vs犹太人、物理AI、世界模型），警惕话题边际递减（移民103K → 法律15K → 税收16K）。
+
+**② PhysLit 论文 — 写完，发 arXiv**
+
+最终交付物是英文论文，目标投 arXiv。中文初稿（`paper_draft.zh.md`）是辅助起草。§1 Week 12 精修完成，§2 待起草。三个实验闭环（v0.1 Newton Leak / v0.2 F=mv / v0.3 能量衰减）已经做完，方法论副产物（LLM judge 36.67% 分歧率）本身就是核心贡献。
+
+**③ Vibe Reading — 回过头去做**
+
+MVP 已上线、33 个真实用户、EPUB 全格式完成，但连续 4 周 0 commit。原本"三周内发布产品"的 deadline 已失效，活儿还得做。下一步：系统化梳理用户反馈 → 决定下一个功能点 → 排可执行 sprint 节奏。不再设硬 deadline，但要有可见的周节奏，不能再像5月那样连续0 commit。
+
+**暂停的6个产品**
+
+BeProfitly / GrowPilot / TeachLoop / LaunchRadar / Socrates Finds You + AIfy 全部推迟到百日百篇结束（~2026-08-15）后统一评估关闭/归档/重启，不占当前心智。
 
 ## 一句话总结
 
-5月是**内容驱动的一个月**：snowboat-blog + Twitter + PhysLit 形成了完整的内容生态，三条主线（美国系列 / 物理AI / 数学科学哲学）都得到了流量验证。代价是产品线（Vibe Reading 上线后停滞 + 暂停产品决策一直拖）几乎没有推进。6月的关键是把"产品决策"真正做出来。
+5月是**百日百篇计划下的内容密集期**：snowboat-blog + Twitter + PhysLit 形成了完整的内容生态，三条主线（美国系列 / 物理AI / 数学科学哲学）都得到流量验证。Vibe Reading 上线后4周0 commit是这个内容窗口里的策略性选择，不是失控。6月的三件事很明确：百日百篇继续推、PhysLit 英文论文写完发 arXiv、Vibe Reading 不再设硬 deadline 但要有周节奏。
