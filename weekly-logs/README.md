@@ -2,6 +2,12 @@
 
 Weekly build summaries — what shipped, what was learned, what's next.
 
+## Monthly Recaps
+
+| Month | Span | Headline |
+|---|---|---|
+| [2026-05](monthly-2026-05.md) | Week 8 – Week 12 | 内容生态成形：22篇文章、4条爆款Twitter（138K/103K/91K/54K）；Vibe Reading上线后4周停滞是最大未决问题 |
+
 ## Index
 
 | Week | Dates | Highlights |
