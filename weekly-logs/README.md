@@ -12,6 +12,8 @@ Weekly build summaries — what shipped, what was learned, what's next.
 
 | Week | Dates | Highlights |
 |------|-------|------------|
+| [Week 14](week-14-2026-06-13.md) | 6/13 – 6/19 | 五篇连发（#52–56），SpaceX 14.8K + AI哲学基础 12.6K 双超预期、具身智能落空，noether-decay 独立建库，PhysLit TMLR 投稿启动，ThalesLab 首次建库（诺特定理可视化） |
+| [Week 13](week-13-2026-06-06.md) | 6/6 – 6/12  | 五篇连发（#47–51），控制论爆 25K，PhysLit 英文纸从零写出完整 8 节结构，华人老钱 72K 数据确认 |
 | [Week 12](week-12-2026-05-30.md) | 5/30 – 6/5  | 五篇连发（#42–46），华人vs犹太人主线开启，PhysLit论文§1深度打磨，AI增量市场帖 |
 | [Week 11](week-11-2026-05-23.md) | 5/23 – 5/29 | 五篇连发（#37–41），移民系统103K新纪录，PhysLit论文初稿，物理视角内容生态成形 |
 | [Week 10](week-10-2026-05-16.md) | 5/16 – 5/22 | PhysLit v0.2+v0.3双实验闭环，毕业典礼嘘声+美国移民系统发布，Karpathy分析帖 |
