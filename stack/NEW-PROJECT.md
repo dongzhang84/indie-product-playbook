@@ -234,10 +234,42 @@ A: 目前是的——都是你的 PAT。未来想区分权限时可以分开（P
 
 ---
 
+## Retrofitting an existing repo
+
+`new-project.sh` 只能"从零新建"——它会建文件夹、建 GitHub repo、拷产品文档、`git init`。如果 repo **已经存在**（本地有内容、GitHub 上也建好了），它会在第一步就因为"文件夹已存在 / repo 已存在"而 abort。
+
+这种情况用 **`stack/wire-existing.sh`**。它专门给已存在的 repo 补"同步管道 + 登记"，刻意跳过建文件夹、建 repo、拷产品文档、`git init` 这些步骤。
+
+```bash
+bash stack/wire-existing.sh <project-id> "<Project Name>" "<one-liner>" [repo-path]
+```
+
+- `<project-id>` — 必须和 `ideas/<id>.md` 文件名严格一致（含大小写）。
+- `<one-liner>` — 写进 All Ideas 表的一句话简介（new-project.sh 是从 `ideas/<id>.md` 抽的，retrofit 没有那份文档，所以直接当参数传）。
+- `[repo-path]` — 可选，默认 `../<project-id>`。**当本地文件夹名和 project-id 不一致时必须传**（例如 GitHub 上叫 `thaleslab`、本地文件夹叫 `ThalesLab`）。
+
+脚本做的四件事：
+
+| # | 动作 | 落在哪 |
+|---|------|--------|
+| 1 | 写入三个同步文件：`.github/workflows/sprint-report.yml`、`.github/workflows/notify-playbook.yml`（替换好 `project_id`/`project_name`）、`scripts/extract-sprint-summary.py` | 目标 repo |
+| 2 | **只** `git add` 这三个文件 → commit → 用 repo 自己的 origin push（不碰你其它未提交的改动，也不会误加 `.env.local`） | 目标 repo |
+| 3 | 在 `ideas/README.md` 的 All Ideas 表追加一行（幂等，已存在则跳过）+ 若缺则建 `ideas/<id>.md` stub | playbook |
+| 4 | commit playbook 改动（**不 push**，留给你和别的改动一起 push）+ 打印加 `PLAYBOOK_TOKEN` secret 的 URL | playbook / 屏幕 |
+
+脚本**不**做的事：不建文件夹、不建 GitHub repo、不拷产品文档、不 `git init`、不改目标 repo 的 README 或任何已有内容、不设 secret、不 push playbook。
+
+加完 `PLAYBOOK_TOKEN` secret 之后，对这个 repo 的任意 push 都会触发 `sprint-report` + `notify-playbook`，playbook 的 `Last Active` 和 `Sprint Summary` 自动更新——和 new-project.sh 建出来的项目走完全相同的同步回路。
+
+> 提醒：push 同步文件那一下本身就是一次 push，会触发 `notify-playbook`。如果此时还没加 secret，这第一次 notify 会失败（无害），加完之后下一次 push 就正常。
+
+---
+
 ## 相关文件
 
-- `stack/new-project.sh` — 主脚本
+- `stack/new-project.sh` — 从零新建的主脚本
+- `stack/wire-existing.sh` — 把**已存在**的 repo 接入同步系统（retrofit）
 - `stack/templates/` — 新 repo 的种子模板
-- `stack/sprint-report.yml` + `stack/notify-playbook.yml` — workflow 源（脚本从这里拷）
+- `stack/sprint-report.yml` + `stack/notify-playbook.yml` — workflow 源（两个脚本都从这里拷）
 - `stack/extract-sprint-summary.py` — sprint summary 抽取脚本源
 - `stack/STANDARD.md` — 代码层面的标准栈（独立关注点，本脚本不涉及）

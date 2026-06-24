@@ -37,6 +37,16 @@
 
 完整流程说明：[`stack/NEW-PROJECT.md`](stack/NEW-PROJECT.md)
 
+### 🔌 接入一个已存在的 repo（retrofit）
+
+`new-project.sh` 只能"从零新建"。如果 repo 已经存在（自己手建的、或别处迁来的，比如研究向的 `physics-model-library`、`noether-decay`、`thaleslab`），用 **`stack/wire-existing.sh`** 把它接进同步系统：
+
+```bash
+bash stack/wire-existing.sh <project-id> "<项目名>" "<一句话简介>" [repo-path]
+```
+
+它不建文件夹、不建 GitHub repo、不拷产品文档，只做四件事：把三个同步文件（`sprint-report.yml` / `notify-playbook.yml` / `extract-sprint-summary.py`）写进目标 repo 并 push、在 `ideas/README.md` 的 All Ideas 表登记一行、补一个 `ideas/<id>.md` stub、打印加 `PLAYBOOK_TOKEN` secret 的 URL。详见 [`stack/NEW-PROJECT.md` → Retrofitting an existing repo](stack/NEW-PROJECT.md#retrofitting-an-existing-repo)。
+
 ### 📊 AI / Human 所有权流程图
 
 下图是从 `new-project.sh` 到业务循环的完整 5-Phase 流程。**蓝 = AI 做 / 橙 = Human 做 / 紫 = 协作**。箭头显示执行顺序，最底部的虚线回环表示每个业务 phase 的循环。
