@@ -717,7 +717,12 @@ Once the arXiv preprint is published, a `CITATION.cff` file will be added to the
 
 _Last updated: 2026-06-30_
 
-Week 8 _(current)_ · 2026-06-22 to 2026-06-28
+Week 9 _(current)_ · 2026-06-29 to 2026-07-05
+Status: ❌ Stalled
+Active days: 1 / 7
+Total commits: 1
+
+Week 8 · 2026-06-22 to 2026-06-28
 Status: ✅ Good
 Active days: 6 / 7
 Total commits: 43
@@ -751,8 +756,3 @@ Week 2 · 2026-05-11 to 2026-05-17
 Status: ✅ Good
 Active days: 5 / 7
 Total commits: 45
-
-Week 1 · 2026-05-04 to 2026-05-10
-Status: ✅ Good
-Active days: 7 / 7
-Total commits: 25
