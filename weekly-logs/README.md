@@ -12,6 +12,8 @@ Weekly build summaries — what shipped, what was learned, what's next.
 
 | Week | Dates | Highlights |
 |------|-------|------------|
+| [Week 16](week-16-2026-06-27.md) | 6/27 – 7/3 | 五篇连发（#62–66），风投简史/Agent全解/小传上 10–11K；PhysLit arXiv 投稿上线（7/2）+ outreach 6 封，Physics Model Library Route C 三轮实验完成（BBS 学习模型 vs Transformer） |
+| [Week 15](week-15-2026-06-20.md) | 6/20 – 6/26 | 五篇连发（#57–61），大V名单 42K 单篇爆；Physics Model Library 新建库（soliton + BBS demo），Noether Decay arXiv LaTeX 骨架，PhysLit Stage 4 数据补全 |
 | [Week 14](week-14-2026-06-13.md) | 6/13 – 6/19 | 五篇连发（#52–56），SpaceX 14.8K + AI哲学基础 12.6K 双超预期、具身智能落空，noether-decay 独立建库，PhysLit TMLR 投稿启动，ThalesLab 首次建库（诺特定理可视化） |
 | [Week 13](week-13-2026-06-06.md) | 6/6 – 6/12  | 五篇连发（#47–51），控制论爆 25K，PhysLit 英文纸从零写出完整 8 节结构，华人老钱 72K 数据确认 |
 | [Week 12](week-12-2026-05-30.md) | 5/30 – 6/5  | 五篇连发（#42–46），华人vs犹太人主线开启，PhysLit论文§1深度打磨，AI增量市场帖 |
