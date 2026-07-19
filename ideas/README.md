@@ -46,7 +46,7 @@
 | 2026-04-21   | Vibe Reading                | A reading tool that refuses to summarize the book before you tell it why you're reading it — 5-screen forced workflow (goal → three-color map → read/brief → compress & check) that treats AI as an error-checker, not a summarizer | Proposal    | [link](./vibe-reading.md) | 2026-05-15 |
 | 2026-05-04   | PhysLit | An open-source diagnostic for physics literacy in LLMs — replaces percentage benchmarks with binary cognitive judgments across induction, formulation, and prediction across 15 framework worlds | Proposal | [link](./physlit.md) | 2026-06-30 |
 | 2026-05-05   | AIfy | 帮个人审视自己的工作流，判断哪些环节可以交给 AI——你画工作流，我们用三档（🟢 AI 替你做 / 🟡 AI 帮你做 / ⚪ 你必须自己做）给每一步打分 | Proposal | [link](./AIfy.md) | 2026-05-05 |
-| 2026-06-24   | Physics Model Library | Physics as a systematically mineable model library for AI — manifesto, catalog, and runnable integrable-system demos | In Progress | [link](./physics-model-library.md) | 2026-07-08 |
+| 2026-06-24   | Physics Model Library | Physics as a systematically mineable model library for AI — manifesto, catalog, and runnable integrable-system demos | In Progress | [link](./physics-model-library.md) | 2026-07-19 |
 
 ## Legend
 - **Next Up**: 下一个要做的
