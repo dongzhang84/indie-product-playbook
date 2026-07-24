@@ -13,6 +13,7 @@ Weekly build summaries — what shipped, what was learned, what's next.
 
 | Week | Dates | Highlights |
 |------|-------|------------|
+| [Week 17](week-17-2026-07-04.md) | 7/4 – 7/10 | **PhysLit 投出 TMLR（7/8）**+ outreach 第二批发齐、Tegmark 引荐 Martin Rees 接线；Physics Model Library 47 实质 commit（Tier 1 benchmark 验证通过、Toda 负结果、exactness reframe）并开写论文；六篇 #67–72 稳产无爆款；ML 面试复习开线 |
 | [Week 16](week-16-2026-06-27.md) | 6/27 – 7/3 | 五篇连发（#62–66），风投简史/Agent全解/小传上 10–11K；PhysLit arXiv 投稿上线（7/2）+ outreach 6 封，Physics Model Library Route C 三轮实验完成（BBS 学习模型 vs Transformer） |
 | [Week 15](week-15-2026-06-20.md) | 6/20 – 6/26 | 五篇连发（#57–61），大V名单 42K 单篇爆；Physics Model Library 新建库（soliton + BBS demo），Noether Decay arXiv LaTeX 骨架，PhysLit Stage 4 数据补全 |
 | [Week 14](week-14-2026-06-13.md) | 6/13 – 6/19 | 五篇连发（#52–56），SpaceX 14.8K + AI哲学基础 12.6K 双超预期、具身智能落空，noether-decay 独立建库，PhysLit TMLR 投稿启动，ThalesLab 首次建库（诺特定理可视化） |
