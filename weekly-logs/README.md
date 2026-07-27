@@ -13,6 +13,7 @@ Weekly build summaries — what shipped, what was learned, what's next.
 
 | Week | Dates&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Highlights |
 |---|---|---|
+| [Week&nbsp;19](week-19-2026-07-18.md) | 7/18&nbsp;&#8209;&nbsp;7/24 | **三条对外通道同时打开**：独立研究资助线从零开线（7/22 建地图 → 7/24 投出 grantmaking.ai + 约齐 Anthropic Fellows 推荐人）、教育线 4 投 + **首次面谈（UW PCE 7/24）**、**Block Assessment 两场面完**（马尔可夫链原题命中）；内容线总量 **61.2k 创新高**，《美国数学教育和研究的现状》**27k**，但押注的雅可比只有 **2.6k**——同一条数学新闻换个载体差十倍；建 3×3 仪表盘并**重定义三三制九宫格**（新立产品③ Science-Agent Evaluator）；科研线全周仅 7/18 一次 commit |
 | [Week&nbsp;18](week-18-2026-07-11.md) | 7/11&nbsp;&#8209;&nbsp;7/17 | 内容线吃满全周（73 commit / 五篇 #73–77 / 总量 54k），**希尔伯特第六问题 23k 爆款**（菲尔兹奖新闻钩子力压热词概念辨析）；两篇万字长文当周成稿，科研线整周 0 commit；"边际递减"下修预测被数据证伪；**求职 9 投 + 两场面试（Block HR 面过）**，**教育线时隔两月开线**（教学岗调研 + 三投） |
 | [Week&nbsp;17](week-17-2026-07-04.md) | 7/4&nbsp;&#8209;&nbsp;7/10 | **PhysLit 投出 TMLR（7/8）**+ outreach 第二批发齐、Tegmark 引荐 Martin Rees 接线；Physics Model Library 47 实质 commit（Tier 1 benchmark 验证通过、Toda 负结果、exactness reframe）并开写论文；六篇 #67–72 稳产无爆款；**求职 13 投 + 首场 HM 面** |
 | [Week&nbsp;16](week-16-2026-06-27.md) | 6/27&nbsp;&#8209;&nbsp;7/3 | 五篇连发（#62–66），风投简史/Agent全解/小传上 10–11K；PhysLit arXiv 投稿上线（7/2）+ outreach 6 封，Physics Model Library Route C 三轮实验完成（BBS 学习模型 vs Transformer） |
