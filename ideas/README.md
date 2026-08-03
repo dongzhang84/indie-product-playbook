@@ -48,6 +48,7 @@
 | 2026-05-05   | AIfy | 帮个人审视自己的工作流，判断哪些环节可以交给 AI——你画工作流，我们用三档（🟢 AI 替你做 / 🟡 AI 帮你做 / ⚪ 你必须自己做）给每一步打分 | Proposal | [link](./AIfy.md) | 2026-05-05 |
 | 2026-06-24   | Physics Model Library | Physics as a systematically mineable model library for AI — manifesto, catalog, and runnable integrable-system demos | In Progress | [link](./physics-model-library.md) | 2026-07-19 |
 | 2026-08-03   | AceRocket Snap & Practice | 学生上传一张作业照片或一道错题，LangGraph 编排 Extractor / Solver / Diagnostician / Generator 四个 agent，抽题→sympy 代码验证解答→RAG 诊断薄弱知识点→生成针对性练习集 | Proposal | [link](./AceRocket_Agent_Project.md) | 2026-08-03 |
+| 2026-08-03   | AceRocket Grounded Tutor | 基于 1500 题库和课程讲解的 RAG 答疑，hybrid 检索（BM25+稠密向量 RRF 融合）加 cross-encoder 重排，回答强制 grounding 并带引用，没依据就拒答 | Proposal | [link](./AceRocket_RAG_Project.md) | 2026-08-03 |
 
 ## Legend
 - **Next Up**: 下一个要做的
