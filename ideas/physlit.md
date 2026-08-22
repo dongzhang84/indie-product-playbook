@@ -715,12 +715,12 @@ Once the arXiv preprint is published, a `CITATION.cff` file will be added to the
 
 ## Sprint Summary
 
-_Last updated: 2026-06-30_
+_Last updated: 2026-08-22_
 
 Week 9 _(current)_ · 2026-06-29 to 2026-07-05
 Status: ❌ Stalled
 Active days: 2 / 7
-Total commits: 3
+Total commits: 4
 
 Week 8 · 2026-06-22 to 2026-06-28
 Status: ✅ Good
