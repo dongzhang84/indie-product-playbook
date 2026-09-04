@@ -19,22 +19,8 @@
 | 4 | 9/1/26 | Jamee Elder | Tufts / Harvard BHI | ❌ 秒拒 |
 | 3 | 8/24/26 | Galina Weinstein | Harvard BHI | 无回音 |
 
-编号对应 [README](./README.md) 的总表。联系方式和主页都在那边，这里不重复。
+编号对应 [README](./README.md) 的总表，联系方式和主页在那边。
 
-## 两批人的差别
+## 投稿目标
 
-**第一批（8/24–9/2，三人全灭）**：Weinstein、Elder、Doboszewski 全部挂在 **Harvard Black Hole Initiative** 名下，
-Elder 和 Doboszewski 还是长期合作者（合著过 EHT 与黑洞观测的论文）。等于同一个小圈子问了三次。
-
-**第二批（9/4，三人等待中）**：换成物理学史与科学哲学方向，分散在奥胡斯、Western、阿姆斯特丹，
-彼此没有明显的合作关系。
-
-**这是一次有意的策略调整**：从黑洞哲学圈换到物理学史圈。如果第二批也全灭，第三批往哪找，
-取决于怎么解释前两批的失败——是"问错了圈子"，还是"陌生人求背书这件事本身不成立"。
-
-## 待决
-
-- 第二批若全灭，是找第三批，还是换路子
-- **备选路径**：PhysLit 已经挂在 arXiv（arXiv:2607.00276），说明 arXiv 那边的通道是通的。
-  `physics.hist-ph` 这个分类存在。这篇是不是非 PhilSci-Archive 不可，还没想清楚
-- 设一条停止线：问到第几个还不成就走备选
+ICML 2027 Position Track，约 2027 年 1 月截稿。明年一月核实确切日期。
