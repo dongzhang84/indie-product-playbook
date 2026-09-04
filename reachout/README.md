@@ -6,12 +6,8 @@
 
 ## Task
 
-每一行联系都归属某个 task。task 本身一个文件，详情点进去看。
-
-| Task | 为什么要联系人 | 已联系 | 进展 |
-|---|---|---|---|
-| [AI Rediscovery Relativity](./ai-rediscovery-relativity.md) | 拿到 PhilSci-Archive endorsement，论文才挂得上去 | 6（#3–8） | 1 秒拒 · 2 无回音 · 3 等待中 |
-| Parallel Physical Worlds | 让人读到这篇论文并往下转介 | 2（#1–2） | 2 人都回了；Tegmark 转介 Martin Rees，Rees 未回应 |
+- **[AI Rediscovery Relativity](./ai-rediscovery-relativity.md)** — 求 PhilSci-Archive endorsement（#3–8）
+- **Parallel Physical Worlds** — 介绍论文（#1–2）
 
 ## 联系记录
 
