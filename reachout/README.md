@@ -4,7 +4,7 @@
 
 **已联系：8 / 100** · 新的加在最上面，编号递增
 
-## Task
+## Tasks
 
 - **[AI Rediscovery Relativity](./ai-rediscovery-relativity.md)** — 求 PhilSci-Archive endorsement（#3–8）
 - **Parallel Physical Worlds** — 介绍论文（#1–2）
