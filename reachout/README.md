@@ -2,10 +2,11 @@
 
 对外联系记录。目标 100 人，一人一行，联系过就填，不管有没有回音。
 
-**已联系：6 / 100** · 新的加在最上面，编号递增
+**已联系：7 / 100** · 新的加在最上面，编号递增
 
 | # | 时间 | 姓名 | 联系方式 | 个人信息 | 为什么联系 | 回应 |
 |---|---|---|---|---|---|---|
+| 7 | 9/4/26 | **Chris Smeenk** | csmeenk2@uwo.ca | [home page](https://cjsmeenk.github.io/) · Professor of Philosophy, Western University; Associate Director, Rotman Institute of Philosophy | 请他 endorse PhilSci-Archive 投稿 | 等待中 |
 | 6 | 9/4/26 | **Samuel Schindler** | samuel.schindler@css.au.dk | [home page](https://samuelschindler.org/) · Philosophy of Science, Aarhus University | 请他 endorse PhilSci-Archive 投稿 | 等待中 |
 | 5 | 9/2/26 | **Juliusz Doboszewski** | jdoboszewski@gmail.com | [home page](https://sites.google.com/site/juliuszdoboszewski/home) · Philosophy of Physics, Jagiellonian University / Harvard BHI | 请他 endorse PhilSci-Archive 投稿 | 无回音 |
 | 4 | 9/1/26 | **Jamee Elder** | jamee.elder@tufts.edu | [home page](https://www.jameeelder.com/) · Assistant Professor of Philosophy, Tufts University; affiliate, Harvard BHI | 请她 endorse PhilSci-Archive 投稿 | ❌ 秒拒 |
