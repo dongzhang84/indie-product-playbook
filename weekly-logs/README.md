@@ -14,6 +14,7 @@ Weekly build summaries — what shipped, what was learned, what's next.
 
 | Week | Dates&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Highlights |
 |---|---|---|
+| [Week&nbsp;24](week-24-2026-08-22.md) | 8/22&nbsp;&#8209;&nbsp;8/28 | 两篇论文双双受挫：PhysLit 遭 TMLR desk reject、相对论论文投 PhilSci-Archive 次日被退回（作者资格），两件事都公开发在 X 上；资助线交出 Lightcone Commons 申请，physcert 新增物理验证市场调研，求职 8 投、GE HealthCare 终拒 |
 | [Week&nbsp;23](week-23-2026-08-15.md) | 8/15&nbsp;&#8209;&nbsp;8/21 | 百日百篇 8/19 收官（#98–100），相对论论文完稿锁定 PhilSci-Archive，物理裁判层提案写成十章文档，求职 12 投 + 七条面试线，新建 physcert 核查资助渠道、纠正多处错误认知 |
 | [Week&nbsp;22](week-22-2026-08-08.md) | 8/8&nbsp;&#8209;&nbsp;8/14 | 科研线两格同时爆发（相对论论文定稿、Classical Particles 三天写出笔记初稿），百日百篇 #93–97 全周 100k 创新高，求职 13 投 + Block 四场终面跑完，撞见 LTFF 已永久关闭 |
 | [Week&nbsp;21](week-21-2026-08-01.md) | 8/1&nbsp;&#8209;&nbsp;8/7 | **科研线换人换对了、产品线整体停摆**：8/3《Can AI Rediscover Relativity?》进科研 ②、停滞 42 天的 Noether 退出前三，换进来的格子当周就是科研线唯一在动的地方（四天从零写到 ICML LaTeX 草稿，即 visibility 计划第三步落地）；产品线三个位置全空却整周没换人。平行线双高：百日百篇 138 commit 连发 #88–92 创全期新高，求职 13 投 + **一周 5 场面试**（Qualtrics 跳过 HR 直接 HM 面、Sardine 投出两天即面、Cresta 把"用 AI 编程"单列一轮）。邮箱核实翻出 Week 20 的误记：**给 Zahavy 的邮件 7/30 已发且当天收到本人回信** |
