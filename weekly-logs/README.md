@@ -6,6 +6,7 @@ Weekly build summaries — what shipped, what was learned, what's next.
 
 | Month | Span&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Headline |
 |---|---|---|
+| [2026-08](monthly-2026-08.md) | Week&nbsp;21&nbsp;&#8209;&nbsp;Week&nbsp;24 | 两篇科研论文同月完稿又在 8/23–8/24 同一天先后被拒（PhilSci-Archive 作者资格退回、TMLR desk reject）；百日百篇 8/19 精确收官（#100）+ README 主题化重构；独立研究资助从连续 5 周零动作到 `physcert` 核查体系 + 8/23 首次真实提交（Lightcone Commons）；找工作 46 投、面试线扩到 7 条，GE HealthCare 终拒、Block 悬而未决 |
 | [2026-07](monthly-2026-07.md) | Week&nbsp;17&nbsp;&#8209;&nbsp;Week&nbsp;20 | 工作面从两条线扩到六条：**找工作 43 投**（Block 进终面）、**教育 9 投**（十三天投完、UW PCE 首次面谈）、**资助 2 投**（Fellows + grantmaking.ai）三条线同月从零开出；内容 21 篇 11 篇过万（数学教育 28K），数学物理科普成新主线；7/22–23 建成 3×3 仪表盘、九格首次命名。代价：6月定的"火力集中投出 Paper 2"落空（冲到 7/18 后静默两周），产品线三格整月 0 commit；月末 DeepMind 的 Zahavy 撞题 |
 | [2026-06](monthly-2026-06.md) | Week&nbsp;13&nbsp;&#8209;&nbsp;Week&nbsp;16 | 三三制落地：百日百篇20篇（#47–66，大V名单42K）+ 科研三线启动（PhysLit arXiv上线、Physics Model Library跑完实验、Noether Decay建库）；ThalesLab/Noether月末静默 |
 | [2026-05](monthly-2026-05.md) | Week&nbsp;8&nbsp;&#8209;&nbsp;Week&nbsp;12 | 内容生态成形：22篇文章、4条爆款Twitter（138K/103K/91K/54K）；Vibe Reading上线后4周停滞是最大未决问题 |
