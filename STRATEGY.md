@@ -59,11 +59,15 @@ Two parallel product tracks, same as Guo Yu's model:
 
 ## 4. Current state of products
 
-### Active
-- **Vibe Reading** (web app, in development)
+### Archived / Paused
+- **Vibe Reading** (web app) — **正式暂停归档（2026-07-30）**。静默 77 天，远超 14 天归档线。决策见 strategy-2026.md。
   - MVP spec already written (separate document)
-  - For my own use first, potentially public later
   - Philosophy: AI doesn't summarize books—it checks my understanding
+- **AIfy** — **正式暂停归档（2026-07-30）**。静默 80 天。决策见 strategy-2026.md。
+
+### Active
+- **snowboat-blog**（教育线 P0，100 天 100 篇）
+- **physlit**（产品线 P1，物理模型论文 + 实证框架）
 
 - **Vibe Writing** (Claude Skill, self-use only)
   - Not planning to ship as a public web app
